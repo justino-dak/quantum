@@ -526,7 +526,8 @@ a[href^=tel] {
 }
 
 .btn-primary {
-  background: #ffb600;
+  /* background: #ffb600; */
+  background: #862342;
 }
 
 .btn-dark {
@@ -667,7 +668,8 @@ ul.top-info li p.info-text {
 
 .header-one,
 .header-one .site-navigation {
-  background: #23282d;
+  /* background: #23282d; */
+  background: #1C4342;
 }
 
 .header-one .navbar-collapse {
@@ -730,7 +732,9 @@ ul.navbar-nav > li.active > a {
 /*-- Logo --*/
 .logo img {
   width: auto;
-  height: 35px;
+  /* height: 35px; */
+  height: 50px;
+
 }
 
 .header-two .logo img {
