@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>newsletterUser_details</key>
+
+    <properties>
+        <property name="email" type="email" mandatory='true' colspan="6"  >
+            <meta>
+                <title>Adresse e-mail</title>
+            </meta>
+        </property>
+       
+   </properties>
+</form>

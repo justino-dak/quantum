@@ -2,7 +2,9 @@
 # See the official DoctrineExtensions documentation for more details: https://github.com/doctrine-extensions/DoctrineExtensions/tree/main/doc
 stof_doctrine_extensions:
     default_locale: '%default_locale%'
-
+    orm:
+        default:
+            sluggable: true
 when@prod: &prod
     stof_doctrine_extensions:
         # fix issue with gedmo/extensions 1.8.0 and stof/doctrine-extensions-bundle: 3.12.0

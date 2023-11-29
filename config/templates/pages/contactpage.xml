@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>contactpage</key>
+
+    <view>pages/contact</view>
+    <!-- <controller>App\Controller\Website\ContactPageController::indexAction</controller> -->
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title >Contact</title>
+        <!-- <title lang="en">Contact</title> -->
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title >Titre</title>
+                <!-- <title lang="en">Title</title> -->
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title >Resource de localisation</title>
+                <!-- <title lang="en">Resource locator</title> -->
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+       
+        <section name="address-contact">
+            <meta>
+                <title >Adresse et contacts</title>
+                <!-- <title lang="en">Address and contacts</title> -->
+            </meta>
+            <properties>
+                <property name="address" type="text_line">
+                    <meta>
+                        <title >Adresse</title>
+                        <!-- <title lang="en">Address</title> -->
+                    </meta>
+                </property>
+                <property name="map" type="text_line">
+                    <meta>
+                        <title >Lien de localisation sur Google Map</title>
+                        <!-- <title lang="en">Location link on Google Map</title> -->
+                    </meta>
+                </property>                
+                <block name="emailBlock" default-type="email">
+                    <meta>
+                        <title >Email</title>
+                        <!-- <title lang="en">Email</title> -->
+                    </meta>
+                    <types>
+                        <type name="email">
+                            <properties>
+                                <property name="email" type="email" colspan="8" >
+                                    <meta>
+                                        <!-- <title lang="en">Email Address</title> -->
+                                        <title >Adresse Email</title>
+                                    </meta>
+                                </property>
+                            </properties>
+
+                        </type>
+                    </types>
+                </block>
+                <block name="telBlock" default-type="tel">
+                    <meta>
+                        <title >Téléphone</title>
+                        <!-- <title lang="en">Telephone</title> -->
+                    </meta>
+                    <types>
+                        <type name="tel">
+                            <properties>
+                                <property name="tel" type="phone" >
+                                    <meta>
+                                        <!-- <title lang="en">Numéro de Téléphone</title> -->
+                                        <title >Phone Number</title>
+                                    </meta>
+                                </property>
+                            </properties>
+
+                        </type>
+                    </types>
+                </block>            
+            </properties>
+        </section>
+
+    </properties>
+
+</template>

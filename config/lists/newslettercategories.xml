@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>newslettercategories</key>
+
+    <properties>
+        <property name="id" visibility="no" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>App\Entity\Newsletter\Categorie</entity-name>
+        </property>
+
+        <property name="name" visibility="always" searchability="yes" translation="Nom">
+            <field-name>name</field-name>
+            <entity-name>App\Entity\Newsletter\Categorie</entity-name>
+        </property>
+
+    </properties>
+</list>

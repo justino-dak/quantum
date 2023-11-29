@@ -1,7 +1,51 @@
 sulu_media:
     format_manager:
         default_imagine_options:
-            # a value between 95 and 75 is recommended
-            # see also: https://docs.sulu.io/en/2.5/book/image-formats.html
-            jpeg_quality: 90
-            webp_quality: 90
+            jpeg_quality: 80
+            webp_quality: 80
+            png_compression_level: 6
+        response_headers:
+            Expires: '+1 month'
+            Pragma: public
+            Cache-Control: public
+
+    format_cache:
+        path: '%kernel.project_dir%/public/uploads/media'
+        save_image: true
+        segments: 10
+        
+    routing:
+        media_proxy_path:     '/uploads/media/{slug}'
+        media_download_path:  '/media/{id}/download/{slug}'
+        media_download_path_admin: '/admin/media/{id}/download/{slug}'
+
+    system_collections:
+        # system collection
+        articles:
+            meta_title:
+                fr: 'Articles'
+                en: 'Articles'
+
+            # optional you can also configure sub collections
+            collections:
+                thumbnails:
+                    meta_title:
+                        fr: 'Thumbnails'
+                        en: 'Thumbnails'
+                media:
+                    meta_title:
+                        fr: 'Media'
+                        en: 'Media'
+        teams:
+            meta_title:
+                fr: 'Equipe'
+                en: 'Team'
+            collections:
+                thumbnails:
+                    meta_title:
+                        fr: 'Thumbnails'
+                        en: 'Thumbnails'
+                media:
+                    meta_title:
+                        fr: 'Media'
+                        en: 'Media'

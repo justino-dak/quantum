@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    default_locale: en
+    default_locale: fr
 
 services:
     # default configuration for services in *this* file
@@ -26,5 +26,58 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add controllers as services that are specific to a certain sulu context
+    # a sulu context is a different mode in the kernel allowing to have a different set of services
+    # because controllers might rely on services only existing in one of both contexts
+   
+    App\Controller\Admin\:
+        resource: '../src/Controller/Admin'
+        tags: ['controller.service_arguments', {name: 'sulu.context', context: 'admin'}]
+
+    App\Controller\Website\:
+        resource: '../src/Controller/Website'
+        tags: ['controller.service_arguments', {name: 'sulu.context', context: 'website'}]
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    # App\EventSubscriber\DoctrineEventSubscriber:
+    #     tags:
+    #         - { name: 'doctrine.event_subscriber'}
+
+
+    App\Repository\Newsletters\NewslettersRepository:       
+        public: true
+
+
+    Symfony\Component\HttpFoundation\Request:
+        public: true
+
+    App\Content\Select\:
+        resource: '../src/Content/Select/'
+        public: true
+        
+    App\Entity\Article:
+        public: true        
+
+    App\Content\Single\SingleArticleSelectionContentType:
+        tags: [{name: 'sulu.content.type', alias: 'single_article_selection'}]
+
+    App\Content\Single\SingleNewsletterCategorieSelectionContentType:
+        tags: [{name: 'sulu.content.type', alias: 'single_newsletter_categorie_selection'}]
+
+
+    App\Content\Multiple\ArticleSelectionContentType:
+        tags: [{name: 'sulu.content.type', alias: 'article_selection'}]
+
+    App\Content\Multiple\NewsletterCategorieSelectionContentType:
+        tags: [{name: 'sulu.content.type', alias: 'newsletter_categorie_selection'}]
