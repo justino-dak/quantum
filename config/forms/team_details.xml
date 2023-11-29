@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>team_details</key>
+
+    <properties>
+        <section name="thumbnail" colspan="4">
+            <properties>
+                <property name="thumbnail" type="single_media_upload"  mandatory='true' >
+                    <params>
+                        <param name="upload_text">
+                            <meta>
+                                <title>Thumbnail</title>
+                                <info_text>app.upload_image_info_text</info_text>
+                            </meta>
+                        </param>
+                        <param name="types" value="image"/>
+                        <!-- <param name="skin" value="round"/> -->
+                        <param name="image_size" value="sulu-400x400-inset" />
+                        <param name="empty_icon" value="su-image"/>
+                        <param
+                            name="collection_id"
+                            type="expression"
+                            value="service('sulu_media.system_collections.manager').getSystemCollection('teams.thumbnails')"
+                        />
+                    </params>
+                </property>
+
+            </properties>
+        </section>
+
+        <section name="details" colspan="8">
+            <properties>
+                <property name="nom" type="text_line"  mandatory='true'>
+                    <meta>
+                        <title >Nom</title>
+                    </meta>
+                </property>
+                <property name="prenoms" type="text_line"  mandatory='true'>
+                    <meta>
+                        <title >Prénoms</title>
+                    </meta>
+                </property>
+               
+                <property name="description" type="text_area" >
+                    <meta>
+                        <title>Description </title>
+                    </meta>
+                </property>
+                <property name="poste" type="text_line"  >
+                    <meta>
+                        <title >Poste</title>
+                    </meta>
+                </property>
+
+                <property name="whatsapp" type="text_line"  >
+                    <meta>
+                        <title >Whatsapp</title>
+                    </meta>
+                </property>
+                <property name="facebook" type="text_line"  >
+                    <meta>
+                        <title >Facebook</title>
+                    </meta>
+                </property>
+                <property name="youtube" type="text_line"  >
+                    <meta>
+                        <title >Youtube</title>
+                    </meta>
+                </property>
+                <property name="instagram" type="text_line"  >
+                    <meta>
+                        <title >Instagram</title>
+                    </meta>
+                </property>
+                <property name="linkedin" type="text_line"  >
+                    <meta>
+                        <title >Linkedin</title>
+                    </meta>
+                </property>
+                <property name="twitter" type="text_line"  >
+                    <meta>
+                        <title >Twitter</title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+    
+
+
+   </properties>
+</form>

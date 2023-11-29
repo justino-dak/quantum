@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>article_details</key>
+
+    <properties>
+        <section name="thumbnail" colspan="4">
+            <properties>
+                <property name="thumbnail" type="single_media_upload"  mandatory='true' >
+                    <params>
+                        <param name="upload_text">
+                            <meta>
+                                <title>Thumbnail</title>
+                                <info_text>app.upload_image_info_text</info_text>
+                            </meta>
+                        </param>
+                        <param name="types" value="image"/>
+                        <!-- <param name="skin" value="round"/> -->
+                        <param name="image_size" value="sulu-400x400-inset" />
+                        <param name="empty_icon" value="su-image"/>
+                        <param
+                            name="collection_id"
+                            type="expression"
+                            value="service('sulu_media.system_collections.manager').getSystemCollection('articles.thumbnails')"
+                        />
+                    </params>
+                </property>
+                <property name="medias" type="media_selection"   >
+                    <meta>
+                        <title>Médias</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="details" colspan="8">
+            <properties>
+                <property name="titre" type="text_line"  mandatory='true'>
+                    <meta>
+                        <title >Titre</title>
+                    </meta>
+                </property>
+
+               
+                <property name="description" type="text_area" >
+                    <meta>
+                        <title>Description </title>
+                    </meta>
+                </property>
+                <property name="tags" type="tag_selection" >
+                    <meta>
+                        <title>Étiquete </title>
+                    </meta>
+                </property>
+                <property name="contenu" type="text_editor" mandatory='true' >
+                    <meta>
+                        <title>Contenu </title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+    
+
+
+   </properties>
+</form>

@@ -6,3 +6,102 @@ sulu_admin:
     lists:
         directories:
             - "%kernel.project_dir%/config/lists"
+
+    # Registering Sulu Resources in this section
+    resources:
+        articles:
+            routes:
+                list: app.get_articles
+                detail: app.get_article
+
+        teams:
+            routes:
+                list: app.get_teams
+                detail: app.get_team
+
+
+        newsletters:
+                routes:
+                    list: app.get_newsletters
+                    detail: app.get_newsletter
+
+        newsletterusers:
+                routes:
+                    list: app.get_newsletterusers
+                    detail: app.get_newsletteruser
+
+        newslettercategories:
+                routes:
+                    list: app.get_newslettercategories
+                    detail: app.get_newslettercategorie
+                
+
+    # Registering Selection Field Types in this section
+    field_type_options:
+    
+        selection:
+        # Multiple selections
+            article_selection:
+                default_type: list_overlay
+                resource_key: articles
+                types:
+                    list_overlay:
+                        adapter: table
+                        list_key: articles
+                        display_properties:
+                            - titre
+                            - thumbnail
+                        icon: fa-list
+                        label: 'Choisir'
+                        overlay_title: 'ARTICLES'
+
+
+            newsletter_categorie_selection:
+                default_type: list_overlay
+                resource_key: newslettercategories
+                types:
+                    list_overlay:
+                        adapter: table
+                        list_key: newslettercategories
+                        display_properties:
+                            - name
+                        icon: fa-chevron-down
+                        label: 'Choisir'
+                        overlay_title: 'Newsletter : Catégorie'
+
+        # Single selections
+        single_selection:
+
+            single_article_selection:
+                default_type: list_overlay
+                resource_key: articles
+                types:
+                    list_overlay:
+                        adapter: table
+                        list_key: articles
+                        display_properties:
+                            - titre
+                        # empty_text: 'app.article.not.selected'
+                        empty_text: 'app.select'
+                        icon: fa-chevron-down
+                        overlay_title: ARTICLE
+                        detail_options: {  }
+
+
+            single_newsletter_categorie_selection:
+                default_type: list_overlay
+                resource_key: newslettercategories
+                # view:
+                #     name: 'membre_edit_form'
+                #     result_to_view:
+                #         id: 'id'                
+                types:
+                    list_overlay:
+                        adapter: table
+                        list_key: newslettercategories
+                        display_properties:
+                            - name
+                        empty_text: 'Choisir'
+                        icon: fa-chevron-down
+                        overlay_title: NEWSLETTER / CATEGORIES
+                        detail_options: {  }

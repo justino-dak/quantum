@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>newsletterusers</key>
+    <joins name="category">
+        <join>
+            <entity-name>App\Entity\Newsletter\Categorie</entity-name>
+            <field-name>App\Entity\Newsletter\User.categorie</field-name>
+        </join>
+    </joins>
+    <properties>
+        <property name="id" visibility="no" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>App\Entity\Newsletter\User</entity-name>
+        </property>
+
+        <property name="email" visibility="always" searchability="yes" translation="Adresse e-mail">
+            <field-name>email</field-name>
+            <entity-name>App\Entity\Newsletter\User</entity-name>
+        </property>
+        <property name="categorie" visibility="always" searchability="yes" translation="Catégorie">
+            <field-name>name</field-name>
+            <entity-name>App\Entity\Newsletter\Categorie</entity-name>
+             <joins ref="category"/>
+        </property>        
+        <property name="is_valid" visibility="always" type="bool"  translation="Activé">
+            <field-name>is_valid</field-name>
+            <entity-name>App\Entity\Newsletter\User</entity-name>
+        </property>
+        <property name="validation_token" visibility="no"  translation="Token">
+            <field-name>validation_token</field-name>
+            <entity-name>App\Entity\Newsletter\User</entity-name>
+        </property>
+        
+    </properties>
+</list>
