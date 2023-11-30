@@ -1,0 +1,77 @@
+
+ 
+ {% apply inline_css (
+    source('@bootstrap/bootstrap/css/bootstrap.min.css'),
+    source('@bootstrap/icofont/icofont.min.css'),
+    source('@bootstrap/boxicons/css/boxicons.min.css'),
+    source('@bootstrap/venobox/venobox.css'),
+    source('@bootstrap/owl.carousel/assets/owl.carousel.min.css'),
+    source('@styles/style.css'),
+   ) %}
+
+<html lang="fr">
+        <body>
+            <main id="main">
+            <section id="blog" class="blog">
+                <div class="container">
+
+                    <div >
+                        <p> 
+                            {{newsletter.content | raw}}
+                        </p>
+                        
+                    </div> 
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 mx-auto d-flex justify-content-center">
+                            <article class="entry">
+                
+                            <div class="entry-img">
+                                {% if article.thumbnail %}
+                                {% set articleImage = sulu_resolve_media(article.thumbnail,'fr') %}
+                                    <img src="{{absolute_url(articleImage.formats['1920x700'])}}" alt="img" class="img-fluid">
+                                </a>
+                                {% endif %}
+                            </div>
+                
+                            <h2 class="entry-title">
+                                <a href="{{absolute_url(path('web_article',{'slug':article.slug}))}}" title="Lire plus">
+                                    {{article.titre}}
+                                </a>
+                            </h2>
+                
+                            <div class="entry-meta">
+                                <ul>
+                                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href=""></a>{{article.createdBy.contact.firstName | upper}} {{article.createdBy.contact.lastName | title}}</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href=""><time datetime="2020-01-01">{{article.createdAt | date('d-M-Y H:m')}}</time></a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="entry-content">
+                                <p>
+                                    {{article.contenu | striptags |  truncate(150, true)| raw }}
+                                </p>
+                                <div class="read-more">
+                                <a href="{{absolute_url(path('web_article',{'slug':article.slug}))}}" title="Lire plus">Lire plus</a>
+                                </div>
+                            </div>
+                
+                            </article>
+                        </div>
+                
+                    </div>  
+                </div>
+            </section>
+
+            {# <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur <a href="{{app.request.getSchemeAndHttpHost() }}">{{app.request.getSchemeAndHttpHost() }}</a> </p>     #}
+            <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur <a href="www.universaquatic.com">www.universaquatic.com</a> </p>    
+            <p> Pour se désabonner, cliquer sur 
+                <a href="{{absolute_url(path('web_newsletter_unsubcribe',{id:user.id, newsletter:newsletter.id, token:user.validationToken}))}}">
+                se désinscrire
+                </a> et vous ne recevrez plus ce type de message.
+            </p>
+        </main>
+    </body>
+</html> 
+{% endapply %} 
+
