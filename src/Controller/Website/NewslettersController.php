@@ -2,27 +2,27 @@
 
 namespace App\Controller\Website;
 
-use App\Entity\Newsletters\Users;
+use App\Entity\Newsletter\User;
 use App\Service\MessengerService;
-use App\Entity\Newsletters\Categories;
+use App\Entity\Newsletter\Categories;
 use App\Message\SendNewsletterMessage;
 use App\Service\SendNewsletterService;
-use App\Entity\Newsletters\Newsletters;
+use App\Entity\Newsletter\Newsletter;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\Newsletters\UsersRepository;
+use App\Repository\Newsletter\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\Newsletters\CategoriesRepository;
+use App\Repository\Newsletter\CategorieRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
-use App\Repository\Newsletters\NewslettersRepository;
+use App\Repository\Newsletter\NewsletterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NewslettersController extends AbstractController
 {
     /**
-     * @var UsersRepository
+     * @var UserRepository
      */
     private  $usersRepository;
 
@@ -42,9 +42,9 @@ class NewslettersController extends AbstractController
     private  $sendNewsletterService;
 
     public function __construct(
-        UsersRepository $usersRepository,
-        CategoriesRepository $categoriesRepository,
-        NewslettersRepository $newslettersRepository,
+        UserRepository $usersRepository,
+        CategorieRepository $categoriesRepository,
+        NewsletterRepository $newslettersRepository,
         SendNewsletterService $sendNewsletterService
         )
     {
