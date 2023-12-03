@@ -2,9 +2,9 @@
 namespace App\Service;
 
 use DateTime;
-use App\Entity\Newsletters\Users;
-use App\Repository\Newsletters\UsersRepository;
+use App\Entity\Newsletter\User;
 use Doctrine\Common\Collections\Collection;
+use App\Repository\Newsletter\UserRepository;
 use Symfony\Component\Mailer\MailerInterface;
 
 
@@ -16,39 +16,39 @@ class NewsletterUserManagerService
     private $mailer;
 
     /** 
-     * @var UsersRepository  
+     * @var UserRepository  
      */
-    private $usersRepository;
+    private $userRepository;
 
     public function __construct(
         MailerInterface $mailer,
-        UsersRepository $usersRepository
+        UserRepository $userRepository
         )
     {
         $this->mailer = $mailer;
-        $this->usersRepository = $usersRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * Verifie si l'utilisateur a confirmé son email sinon supprimer
-     * @param Users | null $article
+     * @param User | null $user
      */
-    public function deleteUnchekedUser(Users $user):void
+    public function deleteUnchekedUser(User $user):void
     {
         if ($user) {
             
-            $this->usersRepository->remove($user->getId());
+            $this->userRepository->remove($user->getId());
 
         }
 
     }
 
     /**
-     *  @return  Collection|Users[] 
+     *  @return  Collection|User[] 
      */
     public function getUnchekedUsers()
     {
-        $users=$this->usersRepository->findExpired();
+        $users=$this->userRepository->findExpired();
 
         return $users;
 

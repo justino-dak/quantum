@@ -5,10 +5,12 @@ namespace App\Controller\Website;
 use App\Entity\Article;
 use App\Data\SearchData;
 use App\Form\SearchForm;
+use Symfony\Component\Mime\Email;
 use App\Repository\TeamRepository;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,6 +59,51 @@ class FrontEndController extends AbstractController
     }
 
     /**
+     * @Route("/bon_a_savoir", name="web_bon_a_savoir")
+     */
+    public function bonAsavoir(Request $request): Response
+    {
+        
+        $aboutus = $this->articleRepository->findByTag('aboutus');
+        $teams=$this->teamRepository->findAll();
+
+        return $this->render('website/bon_a_savoir.html.twig', [
+            'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
+            'teams'=>$teams
+        ]);
+    }
+
+    /**
+     * @Route("/spécialités", name="web_specialites")
+     */
+    public function specialiteIndex(Request $request): Response
+    {
+        
+        // $aboutus = $this->articleRepository->findByTag('aboutus');
+        // $teams=$this->teamRepository->findAll();
+
+        return $this->render('website/specialite/index.html.twig', [
+            // 'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
+            // 'teams'=>$teams
+        ]);
+    }
+
+    /**
+     * @Route("/services_rendus", name="web_services_rendus")
+     */
+    public function servicesRenduIndus(Request $request): Response
+    {
+        
+        // $aboutus = $this->articleRepository->findByTag('aboutus');
+        // $teams=$this->teamRepository->findAll();
+
+        return $this->render('website/service/index.html.twig', [
+            // 'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
+            // 'teams'=>$teams
+        ]);
+    }    
+
+    /**
      * @Route("/blog/article/{slug}", name="web_article")
      */
     public function detail(Request $request, Article $article,$slug): Response
@@ -100,7 +147,7 @@ class FrontEndController extends AbstractController
     /**
      * @Route("/contact/message", name="web_contact")
      */
-    public function sendMessageAction(Request $request,\Swift_Mailer $mailer )
+    public function sendMessageAction(Request $request,MailerInterface $mailer )
     {
         $referer=$request->headers->get('referer');
         if($request->getMethod()=="POST") {
@@ -111,13 +158,13 @@ class FrontEndController extends AbstractController
 
 
 
-            $message = (new \Swift_Message())
-            ->setSubject($data['subject'])
-            ->setFrom('no-reply@universaquatic.com')
-            ->setTo('contact@universaquatic.com')
-            ->setBody($message_body);
+            $email = (new Email())
+            ->subject($data['subject'])
+            ->from('no-reply@universaquatic.com')
+            ->to('contact@universaquatic.com')
+            ->text($message_body);
             
-            if($mailer->send($message)){
+            if($mailer->send($email)){
                 // dump($message);die();
                 $this->addFlash('success', 'Votre message a été envoyé avec succès. Nous allons vous répondre dans un instant.');
             }else{

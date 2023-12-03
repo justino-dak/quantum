@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
    /**
-     * @Route("/teams", name="web_teams")
+     * @Route("/equipe", name="web_teams")
      */
     public function index(): Response
     {
@@ -19,7 +19,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/teams/{id}", name="web_team")
+     * @Route("/equipe/{id}", name="web_team")
      */
     public function detail(): Response
     {

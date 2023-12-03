@@ -18,7 +18,7 @@
 
   <!-- Favicon
 ================================================== -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/ico" href="/favicon.ico">
 
   <!-- CSS
 ================================================== -->
@@ -150,27 +150,27 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Qui sommes-nous <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="about.html">Quantum</a></li>
-                                    <li><a href="team.html">Equipe de travail</a></li>
-                                    <li><a href="projects.html">Services rendus</a></li>
+                                    <li><a href="{{path('web_aboutus')}}">Quantum</a></li>
+                                    <li><a href="{{path('web_teams')}}">Equipe de travail</a></li>
+                                    <li><a href="{{path('web_services_rendus')}}">Services rendus</a></li>
                                 </ul>
                             </li>
 
                             <li class="nav-item">
-                                <a href="services.html" class="nav-link" >Spécialité </a>
+                                <a href="{{path('web_specialites')}}" class="nav-link" >Spécialité </a>
                             </li>
                     
                             <li class="nav-item ">
-                                <a href="projects.html" class="nav-link " >Services rendus</a>
+                                <a href="{{path('web_services_rendus')}}" class="nav-link " >Services rendus</a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="faq.html" class="nav-link" >Bon a savoir </a>
+                                <a href="{{path('web_bon_a_savoir')}}" class="nav-link" >Bon a savoir </a>
                             </li>
                     
                     
                             <li class="nav-item">
-                                <a href="news-left-sidebar.html" class="nav-link" >Bolg</a>
+                                <a href="{{path('web_articles')}}" class="nav-link" >Bolg</a>
                             </li>
 
                                 {% for item in sulu_navigation_root_tree('main') %}

@@ -18,8 +18,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Controller\Website\BulletinController;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 // use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use App\Repository\Newsletter\NewsletterRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
-use App\Repository\Newsletters\NewslettersRepository;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -49,9 +49,9 @@ class DoctrineEventSubscriber implements EventSubscriber
     /** @var SendNewsletterService*/
     private $sendNewsletter;
 
-    /** @var NewslettersRepository */
+    /** @var NewsletterRepository */
 
-    private $newslettersRepository;
+    private $newsletterRepository;
 
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
@@ -59,7 +59,7 @@ class DoctrineEventSubscriber implements EventSubscriber
         MessageBusInterface $messageBus,
         MessengerService $messengerService,
         SendNewsletterService $sendNewsletter,
-        NewslettersRepository $newslettersRepository
+        NewsletterRepository $newsletterRepository
         )
     {
         $this->urlGenerator = $urlGenerator;
@@ -67,7 +67,7 @@ class DoctrineEventSubscriber implements EventSubscriber
         $this->messageBus = $messageBus;
         $this->messengerService = $messengerService;
         $this->sendNewsletter = $sendNewsletter;
-        $this->newslettersRepository = $newslettersRepository;
+        $this->newsletterRepository = $newsletterRepository;
     }
 
     public  function getSubscribedEvents()
