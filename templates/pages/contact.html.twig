@@ -48,7 +48,7 @@
             </span>
             <div class="ts-service-box-content">
                 <h4>Adresse</h4>
-                <p>Rue XXXX XXX Lome , Togo</p>
+                <p>{{content.address}}</p>
             </div>
             </div>
         </div><!-- Col 1 end -->
@@ -60,7 +60,9 @@
             </span>
             <div class="ts-service-box-content">
                 <h4>Email</h4>
-                <p>contact@quantnum.com</p>
+                {% for item in content.emailBlock %}
+                  <p>{{item.email}}</p>
+                {% endfor %}                
             </div>
             </div>
         </div><!-- Col 2 end -->
@@ -72,24 +74,44 @@
             </span>
             <div class="ts-service-box-content">
                 <h4>Téléphone</h4>
-                <p>(+228) 90 XX XX XX XX</p>
+                {% for item in content.telBlock %}
+                  <p>{{item.tel}}</p>
+                {% endfor %}                 
+                
             </div>
             </div>
         </div><!-- Col 3 end -->
 
         </div><!-- 1st row end -->
 
+
+        {% if content.map is not null %}
         <div class="gap-60"></div>
+          <div class="google-map"> 
+            <iframe style="border:0; width: 100%; height: 270px;" src="{{content.map}}" frameborder="0" allowfullscreen></iframe>
+            {# <div id="map" class="map" data-latitude="6.136370660454237" data-longitude="1.2485837055226476"  data-marker-name="Constra"></div> #}
+          </div>
+        {% endif %}
 
-            <div class="google-map">
-            <div id="map" class="map" data-latitude="6.136370660454237" data-longitude="1.2485837055226476"  data-marker-name="Constra"></div>
-        </div>
-
-        <div class="gap-40"></div>
+        {# <div class="gap-40"></div> #}
 
         <div class="row">
         <div class="col-md-12">
             <h3 class="column-title">Nous aimerions vous entendre</h3>
+
+                {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>                                
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>                                
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
             <form id="contact-form" action="{{path('web_contact')}}" method="post" role="form">
             <div class="error-container"></div>
             <div class="row">

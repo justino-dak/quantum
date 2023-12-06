@@ -28,7 +28,10 @@ final class SendNewsletterMessageHandler implements MessageHandlerInterface
         // do something with your message
         $user= $this->em->find(User::class,$message->getUserId());
         $newsletter=$this->em->find(Newsletter::class,$message->getNewsId());
-        $article= $this->em->find(Article::class,$message->getArticleId());
+        $article=null;
+        if ($message->getArticleId()) {
+            $article= $this->em->find(Article::class,$message->getArticleId());
+        }
 
         $this->newsService->send($user,$newsletter,$article);
     }

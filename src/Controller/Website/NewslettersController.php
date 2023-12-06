@@ -161,7 +161,7 @@ class NewslettersController extends AbstractController
     }
 
     /**
-     * @Route("/newsletter/unsubcribe/{id}/{newsletter}/{token}" , name="web_newsletter_unsubcribe")
+     * @Route("/newsletter/unsubscribe/{id}/{newsletter}/{token}" , name="web_newsletter_unsubscribe")
      */
     public function unsubcrib($id, $newsletter, $token)
     {

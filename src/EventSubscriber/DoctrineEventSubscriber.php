@@ -2,22 +2,15 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Membre;
 use App\Entity\Article;
-use App\Entity\Bulletin;
 use Doctrine\ORM\Events;
-use App\Utils\Notifications;
 use App\Service\MessengerService;
-use App\Repository\MembreRepository;
 use Doctrine\Common\EventSubscriber;
+use App\Entity\Newsletter\Newsletter;
 use App\Message\SendNewsletterMessage;
-use App\Repository\BulletinRepository;
 use App\Service\SendNewsletterService;
-use App\Entity\Newsletters\Newsletters;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Controller\Website\BulletinController;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-// use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use App\Repository\Newsletter\NewsletterRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -113,8 +106,8 @@ class DoctrineEventSubscriber implements EventSubscriber
                 if ($entity instanceof Article) {
 
                         // $newsletter=$this->newslettersRepository->findOneByCategories ('Newsletter');
-                        $newsletter=($this->em->getRepository(Newsletters::class))->findOneBy(['name'=>'Newsletter']);
-                        $users=$newsletter->getCategories()->getUsers();
+                        $newsletter=($this->em->getRepository(Newsletter::class))->findOneBy(['name'=>'Newsletter']);
+                        $users=$newsletter->getCategorie()->getUsers();
     
                         // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
                         if (count($users)> 0) {

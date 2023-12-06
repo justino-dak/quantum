@@ -16,9 +16,9 @@ final class SendNewsletterMessage
     /**
      * @param int $userId "Id de l\'utilisateur"
      * @param int $newsId "Id de la newsletter"
-     * @param int $articleId "Id de la nouvelle article publiée"
+     * @param int | null $articleId "Id de la nouvelle article publiée"
      */
-    public function __construct(int $userId, int $newsId, int $articleId)
+    public function __construct(int $userId, int $newsId, int $articleId=null)
     {
         $this->userId = $userId;
         $this->newsId = $newsId;

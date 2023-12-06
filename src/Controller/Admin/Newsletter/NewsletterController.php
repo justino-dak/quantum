@@ -5,7 +5,10 @@ use DateTime;
 use Exception;
 use FOS\RestBundle\View\View;
 use App\Admin\NavigationAdmin;
+use App\Service\MessengerService;
 use App\Entity\Newsletter\Newsletter;
+use App\Message\SendNewsletterMessage;
+use App\Service\SendNewsletterService;
 use Sulu\Component\Rest\RestHelperInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +20,8 @@ use App\Repository\Newsletter\CategorieRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use App\Repository\Newsletter\NewsletterRepository;
+use App\Repository\Newsletter\UserRepository;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -65,6 +70,13 @@ class NewsletterController extends AbstractRestController implements ClassResour
      */
     private $categoriesRepository;
 
+    /** @var MessageBusInterface */
+    private $messageBus;
+
+    /** @var UserRepository */
+    private $userRepository;
+
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         FieldDescriptorFactoryInterface $fieldDescriptorFactory,
@@ -72,7 +84,10 @@ class NewsletterController extends AbstractRestController implements ClassResour
         RestHelperInterface $restHelper,
         NewsletterRepository $repository ,
         CategorieRepository $categoriesRepository,
-        Security $security
+        Security $security,
+        MessageBusInterface $messageBus,
+        UserRepository $userRepository
+
     )
     {
         $this->viewHandler = $viewHandler;
@@ -82,6 +97,9 @@ class NewsletterController extends AbstractRestController implements ClassResour
         $this->repository = $repository;
         $this->categoriesRepository = $categoriesRepository;
         $this->security=$security;
+        $this->messageBus = $messageBus;
+        $this->userRepository = $userRepository;
+
     }
 
     public function cgetAction(): Response
@@ -172,14 +190,27 @@ class NewsletterController extends AbstractRestController implements ClassResour
     }
 
     /**
-     * @Rest\Put("/newsletters/{id}/notify")
+     * @Rest\Patch("/newsletters/{id}/notify")
     */
-    public function acknowledgeAction(int $id, Request $request): Response
+    public function notifyAction(int $id, Request $request): Response
     {
         $entity = $this->load($id);
         if (!$entity) {
             throw new Exception("error");
             throw new NotFoundHttpException();
+        }
+
+        $newsletter=$entity;
+        $users=$this->userRepository->findAll();
+
+        // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
+        if (count($users)> 0) {
+            foreach ($users as $user) {
+                if ($user->getIsValid()) {
+                    // $this->sendNewsletter->send($user,$newsletter,$entity);
+                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId()));
+                }
+            }
         }
 
         $entity=$this->apiEntity($entity);
