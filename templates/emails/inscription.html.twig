@@ -1,0 +1,13 @@
+
+
+    <h3>Votre inscription :</h3>
+
+    <p>Avez-vous demandé un abonnement au bulletin d'information sur le site web <a href="{{ app.request.getSchemeAndHttpHost() }}">{{ app.request.getSchemeAndHttpHost() }} ?</a></p>
+
+    <p>Veuillez confirmer votre adresse email en cliquant sur le lien suivant  <a href="{{absolute_url(path('web_newsletters_confirm',
+    {id:user.id, token:token}))}}"> {{absolute_url(path('web_newsletters_confirm',{id:user.id, token:token}))}}</a> ,
+
+    </p>
+    <p>ou supprimer ce message si vous n'êtes pas l'auteur de cette demande. </p>
+
+

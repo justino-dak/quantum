@@ -4,7 +4,7 @@
     <joins name="category">
         <join>
             <entity-name>App\Entity\Newsletter\Categorie</entity-name>
-            <field-name>App\Entity\Newsletter\User.categorie</field-name>
+            <field-name>App\Entity\Newsletter\User.categories</field-name>
         </join>
     </joins>
     <properties>
