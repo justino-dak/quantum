@@ -78,6 +78,7 @@ class NewsletterAdmin extends Admin
             if ($this->securityChecker->hasPermission(NavigationAdmin::NEWSLETTER_SECURITY_CONTEXT,PermissionTypes::EDIT)) 
             {
                 $formToolBarAction[]=new ToolbarAction('sulu_admin.save');
+                $formToolBarAction[]=new ToolbarAction('app.newsletter_notify', ['allow_overwrite' => true]);
             }
 
             $listView=$this->viewBuilderFactory->createListViewBuilder(static::NEWSLETTER_LIST_VIEW,'/newsletters')

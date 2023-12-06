@@ -1,11 +1,4 @@
 {
-    "app.activity": "Activité",
-    "app.activities": "Activités",
-    "app.activity.select": "Veuillez sélectioner une activité",
-    "app.activity.not.selected": "Aucune activité sélectionnée",
-
-
-
     "app.article": "Article",
     "app.articles": "Articles",
     "app.article.select": "Veuillez sélectioner un article",
@@ -15,76 +8,17 @@
 
     "app.codePostal": "Code Postal",
 
-    "app.departement": "Département",
-    "app.departements": "Départements",
-    "app.departement.select": "Veuillez sélectioner un département",
-    "app.departement.not.selected": "Aucun département sélectionné",
-
-
-    "app.domain": "Domaine",
-    "app.domains": "Domaines",
-    "app.domain.select": "Veuillez sélectioner un domaine",
-    "app.domain.not.selected": "Aucun domaine sélectionné",
-
-    "app.domaineProfessionel": "Domaine professionel",
-    "app.domainesProfessionels": "Domaines professionels",
-    "app.domaineProfessionel.select": "Veuillez sélectioner un domaine professionel",
-    "app.domaineProfessionel.not.selected": "Aucun domaine professionel sélectionné",
-
-
-    "app.membre": "Membre",
-    "app.membres": "Membres",
-    "app.membre.select": "Veuillez sélectioner un membre",
-    "app.membre.not.selected": "Aucun membre sélectionné",
-
-  
-    "app.updatedAt": "Modifié le",
-    "app.updatedBy": "Modifié par",
-
-    "app.postType": "Type de publication",
-    "app.postTypes": "Types de publication",
-    "app.postType.select": "Veuillez sélectioner un Type de publication",
-    "app.postType.not.selected": "Aucun type de publication sélectionné",
-
-
-    "app.sponsor": "Partenaire",
-    "app.sponsors": "Partenaires",
-    "app.sponsor.select": "Veuillez sélectioner un partenaire",
-    "app.sponsor.not.selected": "Aucun partenaire sélectionné",
-
-    "app.profession": "Profession",
-    "app.professions": "Professions",
-    "app.profession.select": "Veuillez sélectioner une profession",
-    "app.profession.not.selected": "Aucune profession sélectionnée",
-
 
     "app.pays": "Pays",
     "app.pays.select": "Veuillez sélectioner un pays",
     "app.pays.not.selected": "Aucun pays sélectionné",
 
-    "app.setion": "Section",
-    "app.sections": "Sections",
-    "app.section.select": "Veuillez sélectioner une section",
-    "app.section.not.selected": "Aucune section sélectionnée",
-
+  
     "app.select": "Veuillez choisir",
 
-    "app.responsable": "Responsable",
-    "app.responsables": "Responsables",
-    "app.responsable.select": "Veuillez sélectioner un responsable",
-    "app.responsable.not.selected": "Aucun responsable sélectionnée",
+   
 
-
-    "app.address": "Adresse",
-    "app.tel": "Téléphone",
-
-    "app.upload_image_info_text":"Cliquer ici pour ajouter une image",
-    "app.upload_file_info_text":"Cliquer ici pour ajouter un fichier",
-    "app.upload_document_info_text":"Cliquer ici pour ajouter un document",
-    "app.upload_video_info_text":"Cliquer ici pour ajouter  une vidéo",
-
-    "app.acknowledge":"Accusé de reception",
-    "sulu_admin.logout":"Se déconnecter"
+    "app.newsletter_notify":"Notifier"
 
 
 
