@@ -160,8 +160,8 @@ class FrontEndController extends AbstractController
 
             $email = (new Email())
             ->subject($data['subject'])
-            ->from('no-reply@universaquatic.com')
-            ->to('contact@universaquatic.com')
+            ->from('no-reply@quantum.com')
+            ->to('contact@quantum.com')
             ->text($message_body);
             
             if($mailer->send($email)){

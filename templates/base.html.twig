@@ -354,6 +354,21 @@
             <!-- Template custom -->
             <script src="/assets/js/script.js"></script>
 
+            <!-- match height -->
+            <script src="/assets/js/jquery.matchHeight.js"></script>
+
+            <script>
+                $(document).ready(function(){
+                    $('.mh-1').matchHeight({byRow: false,property: 'height'});
+                    $('.mh-2').matchHeight({byRow: false,property: 'height'});
+                    $('.mh-3').matchHeight({byRow: false,property: 'height'});
+                    $('.mh-4').matchHeight({byRow: false,property: 'height'});
+                    $('.mh-5').matchHeight({byRow: false,property: 'height'});
+                    $('.mh-6').matchHeight({byRow: false,property: 'height'});
+
+                });
+
+            </script>
         {% block javascripts %}{% endblock %}
     </div>
 </body>

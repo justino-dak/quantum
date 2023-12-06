@@ -129,7 +129,7 @@ class NewsletterController extends AbstractRestController implements ClassResour
     }
 
     /**
-     * @Rest\Post("/newsletter/{id}")
+     * @Rest\Post("/newsletters/{id}")
      */
     public function postTriggerAction(int $id, Request $request): Response
     {
@@ -170,6 +170,25 @@ class NewsletterController extends AbstractRestController implements ClassResour
         // return $this->handleView($this->view());
         return $this->viewHandler->handle(View::create(null));
     }
+
+    /**
+     * @Rest\Put("/newsletters/{id}/notify")
+    */
+    public function acknowledgeAction(int $id, Request $request): Response
+    {
+        $entity = $this->load($id);
+        if (!$entity) {
+            throw new Exception("error");
+            throw new NotFoundHttpException();
+        }
+
+        $entity=$this->apiEntity($entity);
+
+        // return $this->handleView($this->view($entity));
+        return $this->viewHandler->handle(View::create($entity));
+
+    }    
+    
 
     /**
      * @param array<string, mixed> $data
@@ -213,11 +232,7 @@ class NewsletterController extends AbstractRestController implements ClassResour
     }
 
     public function apiEntity(Newsletter $entity){
-        $categories=$entity->getCategorie();
-        $categoriesIds=[];
-        foreach ($categories as $category) {
-            \array_push($categoriesIds,$category->getId());
-        }
+
         return [
             'id' =>$entity->getId(),
             'name'=>$entity->getName(),
