@@ -7,13 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Trait\ReferenceTrait;
 use Sulu\Bundle\TagBundle\Entity\Tag;
 use App\Entity\Trait\DescriptionTrait;
-use App\Repository\ArticlesRepository;
+use App\Repository\ArticleRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
+use Sulu\Bundle\CategoryBundle\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 
-#[ORM\Entity(repositoryClass: ArticlesRepository::class)]
+#[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
    
@@ -42,10 +44,30 @@ class Article
     #[ORM\ManyToMany(targetEntity:Tag::class)]
     private  $tags ;
 
+    #[ORM\ManyToMany(targetEntity: CategoryInterface::class)]
+    private  $categories ;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $client = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $debut = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fin = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $chapeau = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $autre = null;
+
     public function __construct()
     {
         $this->medias = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -103,6 +125,32 @@ class Article
     }
 
     /**
+     * @return Collection|CategoryInterface[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    public function addCategory($categorie): self
+    {
+        if (!$this->categories->contains($categorie)) {
+            $this->categories[] = $categorie;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory( $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
+        return $this;
+    }
+
+
+    /**
      * @return Collection|Tag[]
     */
     public function getTags(): Collection
@@ -149,6 +197,66 @@ class Article
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getClient(): ?string
+    {
+        return $this->client;
+    }
+
+    public function setClient(?string $client): static
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getDebut(): ?\DateTimeInterface
+    {
+        return $this->debut;
+    }
+
+    public function setDebut(?\DateTimeInterface $debut): static
+    {
+        $this->debut = $debut;
+
+        return $this;
+    }
+
+    public function getFin(): ?\DateTimeInterface
+    {
+        return $this->fin;
+    }
+
+    public function setFin(?\DateTimeInterface $fin): static
+    {
+        $this->fin = $fin;
+
+        return $this;
+    }
+
+    public function getChapeau(): ?string
+    {
+        return $this->chapeau;
+    }
+
+    public function setChapeau(?string $chapeau): static
+    {
+        $this->chapeau = $chapeau;
+
+        return $this;
+    }
+
+    public function getAutre(): ?string
+    {
+        return $this->autre;
+    }
+
+    public function setAutre(?string $autre): static
+    {
+        $this->autre = $autre;
 
         return $this;
     }

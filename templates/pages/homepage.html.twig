@@ -4,22 +4,58 @@
 {% block banner %}
 
     <div class="banner-carousel banner-carousel-1 mb-0">
-      <div class="banner-carousel-item" style="background-image:url(/assets/images/slider-main/bg1.jpg)">
-        <div class="slider-content">
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                  <div class="col-md-12 text-center">
-                    <h2 class="slide-title" data-animation-in="slideInLeft">Nam ac lacus at urna aliqu</h2>
-                    <h3 class="slide-sub-title" data-animation-in="slideInRight">aliquam vulputate</h3>
-                    <p data-animation-in="slideInLeft" data-duration-in="1.2">
-                      <a href="services.html" class="slider btn btn-primary border">En Savoir Plus</a>
-                      <a href="contact.html" class="slider btn btn-primary ">Contactez Nous</a>
-                </p>
+
+      {% if presentation is not null %}
+          {% set bkgdImage = sulu_resolve_media(presentation.thumbnail,app.request.locale) %}
+          {% if bkgdImage is not null %}
+            <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
+              <div class="slider-content">
+                  <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                          <h3 class="slide-sub-title" data-animation-in="slideInRight">{{presentation.titre}}</h3>                        
+                          <h2 class="slide-title" data-animation-in="slideInLeft">{{presentation.description | striptags| truncate(100,true) | raw }}</h2>
+                          <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                            <a href="{{path('web_article',{'slug': presentation.slug})}}" class="slider btn btn-primary border">En Savoir Plus</a>
+                            <a href="/contact" class="slider btn btn-primary ">Contactez Nous</a>
+                      </p>
+                        </div>
+                    </div>
                   </div>
               </div>
             </div>
-        </div>
-      </div>
+
+          {% endif %}
+
+      {% endif %}
+
+      {% if content.sliderBlock is defined and content.sliderBlock | length > 0 %}
+        {% for slider in content.sliderBlock  %}
+
+          {% set bkgdImage = sulu_resolve_media(presentation.thumbnail,app.request.locale) %}
+          {% if bkgdImage is not null %}
+            <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
+              <div class="slider-content">
+                  <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                          <h3 class="slide-sub-title" data-animation-in="slideInRight">{{slider.titre}}</h3>                        
+                          <h2 class="slide-title" data-animation-in="slideInLeft">{{slider.description | striptags| truncate(100,true) | raw }}</h2>
+                          <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                            <a href="{{path('web_article',{'slug': slider.slug})}}" class="slider btn btn-primary border">En Savoir Plus</a>
+                            <a href="/contact" class="slider btn btn-primary ">Contactez Nous</a>
+                      </p>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+          {% endif %}
+
+          
+        {% endfor %}
+      {% endif %}
 
 
       <div class="banner-carousel-item" style="background-image:url(/assets/images/slider-main/bg2.jpg)">
@@ -80,124 +116,112 @@
 {% endblock %}
 
 {% block content %}
+
+  {% if presentation is defined and presentation is not null %}
+
     <section id="ts-features" class="ts-features">
       <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-              <div class="ts-intro">
-                  <h2 class="into-title">Qui Sommes-Nous?</h2>
-                  <h3 class="into-sub-title"> Nous réalisasons des projets remarquables</h3>
-                  <p>We are rethoric question ran over her cheek When she reached the first hills of the Italic Mountains,
-                    she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village
-                    and the subline of her own road, the Line Lane.</p>
-              </div><!-- Intro box end -->
 
-              <div class="gap-20"></div>
+              <div class="col-lg-6">
+                <div class="ts-intro">
+                    <h2 class="into-title">{{presentation.titre | title}}</h2>
+                    <h3 class="into-sub-title">{{presentation.description}}</h3>
+                    <p>{{presentation.contenu | striptags |  truncate(200, true)| raw }}</p>
+                    <a href="{{path('web_article',{'slug': presentation.slug})}}">En savoir plus</a>
+                </div><!-- Intro box end -->
 
-              <div class="row">
-                  <div class="col-md-6">
-                    <div class="ts-service-box">
-                        <span class="ts-service-icon">
-                          <i class="fas fa-trophy"></i>
-                        </span>
-                        <div class="ts-service-box-content">
-                          <h3 class="service-box-title">Nous avons une réputation d'excélence</h3>
-                        </div>
-                    </div><!-- Service 1 end -->
-                  </div><!-- col end -->
+                <div class="gap-20"></div>
 
-                  <div class="col-md-6">
-                    <div class="ts-service-box">
-                        <span class="ts-service-icon">
-                          <i class="fas fa-sliders-h"></i>
-                        </span>
-                        <div class="ts-service-box-content">
-                          <h3 class="service-box-title">Nous créons des partenariats</h3>
-                        </div>
-                    </div><!-- Service 2 end -->
-                  </div><!-- col end -->
-              </div><!-- Content row 1 end -->
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="ts-service-box">
+                            <span class="ts-service-icon">
+                              <i class="fas fa-trophy"></i>
+                            </span>
+                            <div class="ts-service-box-content">
+                              <h3 class="service-box-title">Nous avons une réputation d'excélence</h3>
+                            </div>
+                        </div><!-- Service 1 end -->
+                      </div><!-- col end -->
 
-              <div class="row">
-                  <div class="col-md-6">
-                    <div class="ts-service-box">
-                        <span class="ts-service-icon">
-                          <i class="fas fa-thumbs-up"></i>
-                        </span>
-                        <div class="ts-service-box-content">
-                          <h3 class="service-box-title">Guidé par l’engagement</h3>
-                        </div>
-                    </div><!-- Service 1 end -->
-                  </div><!-- col end -->
+                      <div class="col-md-6">
+                        <div class="ts-service-box">
+                            <span class="ts-service-icon">
+                              <i class="fas fa-sliders-h"></i>
+                            </span>
+                            <div class="ts-service-box-content">
+                              <h3 class="service-box-title">Nous créons des partenariats</h3>
+                            </div>
+                        </div><!-- Service 2 end -->
+                      </div><!-- col end -->
+                  </div><!-- Content row 1 end -->                
 
-                  <div class="col-md-6">
-                    <div class="ts-service-box">
-                        <span class="ts-service-icon">
-                          <i class="fas fa-users"></i>
-                        </span>
-                        <div class="ts-service-box-content">
-                          <h3 class="service-box-title">Une équipe de professionnels</h3>
-                        </div>
-                    </div><!-- Service 2 end -->
-                  </div><!-- col end -->
-              </div><!-- Content row 1 end -->
-            </div><!-- Col end -->
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="ts-service-box">
+                          <span class="ts-service-icon">
+                            <i class="fas fa-thumbs-up"></i>
+                          </span>
+                          <div class="ts-service-box-content">
+                            <h3 class="service-box-title">Guidé par l’engagement</h3>
+                          </div>
+                      </div><!-- Service 1 end -->
+                    </div><!-- col end -->
+
+                    <div class="col-md-6">
+                      <div class="ts-service-box">
+                          <span class="ts-service-icon">
+                            <i class="fas fa-users"></i>
+                          </span>
+                          <div class="ts-service-box-content">
+                            <h3 class="service-box-title">Une équipe de professionnels</h3>
+                          </div>
+                      </div><!-- Service 2 end -->
+                    </div><!-- col end -->
+                </div><!-- Content row 1 end -->
+              </div><!-- Col end -->
+            
+            {% if valeurs is defined and valeurs | length > 0 %}
 
             <div class="col-lg-6 mt-4 mt-lg-0">
               <h3 class="into-sub-title">Nos Valeurs</h3>
               <p>Minim Austin 3 wolf moon scenester aesthetic, umami odio pariatur bitters. Pop-up occaecat taxidermy street art, tattooed beard literally.</p>
 
               <div class="accordion accordion-group" id="our-values-accordion">
+
+                {% for valeur in valeurs %}
+
                   <div class="card">
-                    <div class="card-header p-0 bg-transparent" id="headingOne">
+                    <div class="card-header p-0 bg-transparent" id="heading-{{valeur.id}}">
                         <h2 class="mb-0">
-                          <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Sécurité
+                          <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{valeur.id}}" aria-expanded="true" aria-controls="collapse-{{valeur.id}}">
+                            {{valeur.titre | title}}
                           </button>
                         </h2>
                     </div>
                   
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#our-values-accordion">
+                    <div id="collapse-{{valeur.id}}" class="collapse show" aria-labelledby="heading-{{valeur.id}}" data-parent="#our-values-accordion">
                         <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidata
+                          {{valeur.contenu | raw}}
                         </div>
                     </div>
                   </div>
-                  <div class="card">
-                    <div class="card-header p-0 bg-transparent" id="headingTwo">
-                        <h2 class="mb-0">
-                          <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              Service client
-                          </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#our-values-accordion">
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidata
-                        </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header p-0 bg-transparent" id="headingThree">
-                        <h2 class="mb-0">
-                          <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                              Intégrité
-                          </button>
-                        </h2>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#our-values-accordion">
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidata
-                        </div>
-                    </div>
-                  </div>
+                  
+                {% endfor %}
+
               </div>
               <!--/ Accordion end -->
 
             </div><!-- Col end -->
+            
+            {% endif %}
+
         </div><!-- Row end -->
       </div><!-- Container end -->
     </section><!-- Feature are end -->
+
+  {% endif %}
 
     <section id="facts" class="facts-area dark-bg">
       <div class="container">
@@ -250,6 +274,9 @@
       <!--/ Container end -->
     </section><!-- Facts end -->
 
+
+  {% if specialites is defined and specialites | length > 0 %}
+
     <section id="ts-service-area" class="ts-service-area pb-0">
       <div class="container">
         <div class="row text-center">
@@ -262,36 +289,22 @@
 
         <div class="row">
             <div class="col-lg-4">
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Conception et Mise en Oeuvre de Réseaux d'Entreprise</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 1 end -->
 
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Distribution Et installation d'équipements informatiques</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 2 end -->
+              {% for specialite  in specialites %}
+                {% if loop.index <= ( specialites | length )/2 %}
+                  <div class="ts-service-box d-flex">
+                      <div class="ts-service-box-img">
+                        
+                        <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
+                      </div>
+                      <div class="ts-service-box-info">
+                        <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
+                        <p>{{specialite.titre | striptags | truncate(100,true) | raw}}</p>
+                      </div>
+                  </div><!-- Service 1 end -->                
 
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png"  alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Administration et Maintenance des systèmes d'informations</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 3 end -->
+                {% endif %}
+              {% endfor %}
 
             </div><!-- Col end -->
 
@@ -300,41 +313,33 @@
             </div><!-- Col end -->
 
             <div class="col-lg-4 mt-5 mt-lg-0 mb-4 mb-lg-0">
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Consultance et Expertise</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 4 end -->
 
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Formation à thèmes sur  l'exploitation de l'outil professionnel</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 5 end -->
+              {% for specialite  in specialites %}
+                {% if loop.index > ( specialites | length )/2 %}
+                  <div class="ts-service-box d-flex">
+                      <div class="ts-service-box-img">
+                        
+                        <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
+                      </div>
+                      <div class="ts-service-box-info">
+                        <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
+                        <p>{{specialite.titre | striptags | truncate(100,true) | raw}}</p>
+                      </div>
+                  </div><!-- Service 1 end -->                
 
-              <div class="ts-service-box d-flex">
-                  <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
-                  </div>
-                  <div class="ts-service-box-info">
-                    <h3 class="service-box-title"><a href="#">Assistance et Conseils</a></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                  </div>
-              </div><!-- Service 6 end -->
+                {% endif %}
+              {% endfor %}
+
             </div><!-- Col end -->
         </div><!-- Content row end -->
 
       </div>
       <!--/ Container end -->
     </section><!-- Service end -->
+
+  {% endif %}
+  
+  {% if projets is defined and projets | length > 0 %}
 
     <section id="project-area" class="project-area solid-bg">
       <div class="container">
@@ -352,137 +357,55 @@
               <label class="active" for="all">
                 <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">TOUT
               </label>
-              <label for="reseau">
-                <input type="radio" name="shuffle-filter" id="reseau" value="reseau">RÉSEAU
-              </label>
-              <label for="distribution">
-                <input type="radio" name="shuffle-filter" id="distribution" value="distribution">DISTRIBUTION
-              </label>
-              <label for="maintenance">
-                <input type="radio" name="shuffle-filter" id="maintenance" value="maintenance">MAINTENANCE
-              </label>
-              <label for="formation">
-                <input type="radio" name="shuffle-filter" id="formation" value="formation">FORMATION
-              </label>
-              <label for="consultance">
-                <input type="radio" name="shuffle-filter" id="consultance" value="consultance">CONSULTANCE
-              </label>
-              <label for="autres">
-                <input type="radio" name="shuffle-filter" id="autres" value="autres">AUTRES
-              </label>
-            </div><!-- project filter end -->
-
+              {% if categories is defined and categories | length > 0 %}
+                {% for categorie in categories %}
+                  <label for="{{ categorie.key}}">
+                    <input type="radio" name="shuffle-filter" id="{{ categorie.key}}" value="{{ categorie.key}}">{{ categorie.key}}
+                  </label>                  
+                {% endfor %}
+              {% endif %}
 
             <div class="row shuffle-wrapper">
               <div class="col-1 shuffle-sizer"></div>
 
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;maintenance&quot;,&quot;autres&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project1.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project1.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html"> tortor pretium dictum</a>
-                      </h3>
-                      <p class="project-cat">Réseau, Autre</p>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 1 end -->
+                {% for projet in projets %}
+                  {% set groupe = [] %}
+                  {% set CategoryNames = [] %}
+                  {% for category in projet.categories %}
+                    {% set groupe = groupe|merge([category.key]) %} 
+                    {% set CategoryNames = CategoryNames|merge([ category.key]) %} 
+                  {% endfor %}
 
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;autres&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project2.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project2.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html">Nulla ex purus</a>
-                      </h3>
-                      <p class="project-cat">Autres</p>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 2 end -->
+                  {% set image = sulu_resolve_media(projet.thumbnail,app.request.locale) %}
+                  {% if image is not null %}
 
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;formation&quot;,&quot;reseau&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project3.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project3.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html">dui non imperdiet sagittis</a>
-                      </h3>
-                      <p class="project-cat">Formation</p>
+                    <div class="col-lg-4 col-md-6 shuffle-item" data-groups="{{groupe | json_encode()}}">
+                      <div class="project-img-container">
+                        <a class="gallery-popup" href="{{image.formats['750x600']}}" aria-label="project-img">
+                          <img class="img-fluid" src="{{image.formats['750x600']}}">
+                          <span class="gallery-icon"><i class="fa fa-plus"></i></span>
+                        </a>
+                        <div class="project-item-info">
+                          <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                              <a href="{{path('web_service_rendu',{'slug':projet.slug})}}"> {{projet.titre | title}}</a>
+                            </h3>
+                            <p class="project-cat">{{CategoryNames|join(' , ')}}  </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 3 end -->
-
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;distribution&quot;,&quot;formation&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project4.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project4.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html">id ornare neque metus ac</a>
-                      </h3>
-                      <p class="project-cat">Formation</p>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 4 end -->
-
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;formation&quot;,&quot;distribution&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project5.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project5.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html">Nulla ex purus</a>
-                      </h3>
-                      <p class="project-cat">Distribution</p>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 5 end -->
-
-              <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;consultance&quot;]">
-                <div class="project-img-container">
-                  <a class="gallery-popup" href="/assets/images/projects/project6.jpg" aria-label="project-img">
-                    <img class="img-fluid" src="/assets/images/projects/project6.jpg" alt="project-img">
-                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                  </a>
-                  <div class="project-item-info">
-                    <div class="project-item-info-content">
-                      <h3 class="project-item-title">
-                        <a href="projects-single.html">nisl sed nunc suscipit</a>
-                      </h3>
-                      <p class="project-cat">Consultance</p>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- shuffle item 6 end -->
-            </div><!-- shuffle end -->
+                  {% endif %}
+                                   
+                {% endfor %}
+             
+            </div>
+            <!-- shuffle end -->
           </div>
 
           <div class="col-12">
             <div class="general-btn text-center">
-              <a class="btn btn-primary" href="projects.html">Voir tous les projets</a>
+              <a class="btn btn-primary" href="{{path('web_services_rendus')}}">Voir tous les projets</a>
             </div>
           </div>
 
@@ -491,126 +414,58 @@
       <!--/ Container end -->
     </section><!-- Project area end -->
 
+  {% endif %}
+  
+  {% if clients is defined and clients| length > 0 %}
+
     <section class="content">
       <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-              <h3 class="column-title">Témoignages</h3>
+          {% if temoignages is defined and temoignages| length > 0 %}
+              <div class="col-lg-6">
+                <h3 class="column-title">Témoignages</h3>
 
-              <div id="testimonial-slide" class="testimonial-slide">
-                  <div class="item">
-                    <div class="quote-item">
-                        <span class="quote-text">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
-                          nisi ut commodo consequat.
-                        </span>
+                <div id="testimonial-slide" class="testimonial-slide">
+                    {% for temoignage in temoignages %}
+                      <div class="item">
+                        <div class="quote-item">
+                            <span class="quote-text">
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
+                              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
+                              nisi ut commodo consequat.
+                            </span>
 
-                        <div class="quote-item-footer">
-                          <img loading="lazy" class="testimonial-thumb" src="/assets/images/clients/testimonial1.png" alt="testimonial">
-                          <div class="quote-item-info">
-                              <h3 class="quote-author">Gabriel Denis</h3>
-                              <span class="quote-subtext">Chairman, OKT</span>
-                          </div>
-                        </div>
-                    </div><!-- Quote item end -->
-                  </div>
-                  <!--/ Item 1 end -->
+                            <div class="quote-item-footer">
+                              <img loading="lazy" class="testimonial-thumb" src="/assets/images/clients/testimonial1.png" alt="testimonial">
+                              <div class="quote-item-info">
+                                  <h3 class="quote-author">Gabriel Denis</h3>
+                                  <span class="quote-subtext">Chairman, OKT</span>
+                              </div>
+                            </div>
+                        </div><!-- Quote item end -->
+                      </div>                      
+                    {% endfor %}
 
-                  <div class="item">
-                    <div class="quote-item">
-                        <span class="quote-text">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
-                          nisi aliquip consequat.
-                        </span>
+                </div>
+                <!--/ Testimonial carousel end-->
+              </div><!-- Col end -->
 
-                        <div class="quote-item-footer">
-                          <img loading="lazy" class="testimonial-thumb" src="/assets/images/clients/testimonial2.png" alt="testimonial">
-                          <div class="quote-item-info">
-                              <h3 class="quote-author">Weldon Cash</h3>
-                              <span class="quote-subtext">CFO, First Choice</span>
-                          </div>
-                        </div>
-                    </div><!-- Quote item end -->
-                  </div>
-                  <!--/ Item 2 end -->
-
-                  <div class="item">
-                    <div class="quote-item">
-                        <span class="quote-text">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa tion ullamco laboris
-                          nisi ut commodo consequat.
-                        </span>
-
-                        <div class="quote-item-footer">
-                          <img loading="lazy" class="testimonial-thumb" src="/assets/images/clients/testimonial3.png" alt="testimonial">
-                          <div class="quote-item-info">
-                              <h3 class="quote-author">Minter Puchan</h3>
-                              <span class="quote-subtext">Director, AKT</span>
-                          </div>
-                        </div>
-                    </div><!-- Quote item end -->
-                  </div>
-                  <!--/ Item 3 end -->
-
-              </div>
-              <!--/ Testimonial carousel end-->
-            </div><!-- Col end -->
+          {% endif %}
+          
 
             <div class="col-lg-6 mt-5 mt-lg-0">
 
               <h3 class="column-title">Quelques partenaires</h3>
 
               <div class="row all-clients">
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client1.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 1 end -->
 
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client2.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 2 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client3.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 3 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client4.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 4 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client5.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 5 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client6.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 6 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client7.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 7 end -->
-
-                  <div class="col-sm-4 col-6">
-                    <figure class="clients-logo">
-                        <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client8.png" alt="clients-logo" /></a>
-                    </figure>
-                  </div><!-- Client 8 end -->
+                  {% for client in clients %}
+                    <div class="col-sm-4 col-6">
+                      <figure class="clients-logo">
+                          <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client1.png" alt="clients-logo" /></a>
+                      </figure>
+                    </div><!-- Client 1 end -->                    
+                  {% endfor %}
 
               </div><!-- Clients row end -->
 
@@ -621,6 +476,10 @@
       </div>
       <!--/ Container end -->
     </section><!-- Content end -->
+
+  {% endif %}
+
+  {% if articles is defined and articles| length > 0 %}
 
     <section id="news" class="news">
       <div class="container">
@@ -633,6 +492,7 @@
         <!--/ Title row end -->
 
         <div class="row">
+          {% for article in articles %}
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="latest-post">
                   <div class="latest-post-media">
@@ -652,46 +512,8 @@
                   </div>
               </div><!-- Latest post end -->
             </div><!-- 1st post col end -->
+          {% endfor %}
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="latest-post">
-                  <div class="latest-post-media">
-                    <a href="news-single.html" class="latest-post-img">
-                        <img loading="lazy" class="img-fluid" src="/assets/images/news/news2.jpg" alt="img">
-                    </a>
-                  </div>
-                  <div class="post-body">
-                    <h4 class="post-title">
-                        <a href="news-single.html" class="d-inline-block">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</a>
-                    </h4>
-                    <div class="latest-post-meta">
-                        <span class="post-item-date">
-                          <i class="fa fa-clock-o"></i> June 17, 2017
-                        </span>
-                    </div>
-                  </div>
-              </div><!-- Latest post end -->
-            </div><!-- 2nd post col end -->
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="latest-post">
-                  <div class="latest-post-media">
-                    <a href="news-single.html" class="latest-post-img">
-                        <img loading="lazy" class="img-fluid" src="/assets/images/news/news3.jpg" alt="img">
-                    </a>
-                  </div>
-                  <div class="post-body">
-                    <h4 class="post-title">
-                        <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin Construction Solar Facilities</a>
-                    </h4>
-                    <div class="latest-post-meta">
-                        <span class="post-item-date">
-                          <i class="fa fa-clock-o"></i> Aug 13, 2017
-                        </span>
-                    </div>
-                  </div>
-              </div><!-- Latest post end -->
-            </div><!-- 3rd post col end -->
         </div>
         <!--/ Content row end -->
 
@@ -703,5 +525,8 @@
       <!--/ Container end -->
     </section>
     <!--/ News end -->
+
+  {% endif %}
+  
 
 {% endblock %}

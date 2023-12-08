@@ -57,19 +57,12 @@ class ArticleController extends AbstractController
      */
     public function detail(Request $request, Article $article,$slug): Response
     {
-        $data = new SearchData();
-        $data->page = $request->get('page', 1);
-        $data->limit=5;
-        $form = $this->createForm(SearchForm::class, $data);
-        $form->handleRequest($request);
-
-        $articles = $this->articleRepository->findSearch($data);
+        $articles = $this->articleRepository->findByTag('presentation',5);
         
         $article=$this->articleRepository->findOneBy(['slug'=>$slug]);
         return $this->render('website/article/detail.html.twig', [
             'article' => $article,
             'articles' => $articles,
-            'form'=>$form->createView()
         ]);
     }
 

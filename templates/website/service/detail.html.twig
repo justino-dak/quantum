@@ -3,8 +3,15 @@
 {% block title %}<title>Quantum - Service rendu</title>{% endblock %}
 
 {% block banner %}
+  {% if projet is defined and  projet is not null %}
+    {% set bkgdImage = sulu_resolve_media(projet.thumbnail,app.request.locale) %}
+    {% set imageUrl = null %}
+    {% if bkgdImage is not null %}
+      {% set imageUrl = bkgdImage.formats['1600x300'] %}
+    {% endif %}
 
-  <div id="banner-area" class="banner-area" style="background-image:url(/assets/images//banner/banner1.jpg)">
+  {% endif %}
+  <div id="banner-area" class="banner-area" style="background-image:url({{imageUrl}})">
     <div class="banner-text">
       <div class="container">
           <div class="row">
@@ -29,147 +36,97 @@
 
 {% block content %}
 
-  <section id="main-container" class="main-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="shuffle-btn-group">
-            <label class="active" for="all">
-              <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">TOUT
-            </label>
-            <label for="reseau">
-              <input type="radio" name="shuffle-filter" id="reseau" value="reseau">RÉSEAU
-            </label>
-            <label for="distribution">
-              <input type="radio" name="shuffle-filter" id="distribution" value="distribution">DISTRIBUTION
-            </label>
-            <label for="maintenance">
-              <input type="radio" name="shuffle-filter" id="maintenance" value="maintenance">MAINTENANCE
-            </label>
-            <label for="formation">
-              <input type="radio" name="shuffle-filter" id="formation" value="formation">FORMATION
-            </label>
-            <label for="consultance">
-              <input type="radio" name="shuffle-filter" id="consultance" value="consultance">CONSULTANCE
-            </label>
-            <label for="autres">
-              <input type="radio" name="shuffle-filter" id="autres" value="autres">AUTRES
-            </label>
-          </div><!-- project filter end -->
+  {% if projet is defined and  projet is not null %}
 
+    <section id="main-container" class="main-container">
+      <div class="container">
 
-          <div class="row shuffle-wrapper">
-            <div class="col-1 shuffle-sizer"></div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div id="page-slider" class="page-slider small-bg">
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;maintenance&quot;,&quot;autres&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project1.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project1.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html"> tortor pretium dictum</a>
-                    </h3>
-                    <p class="project-cat">Réseau, Autre</p>
-                  </div>
+              {% set image = sulu_resolve_media(projet.thumbnail,app.request.locale) %}
+              {% if image is not null %}
+                <div class="item">
+                  <img loading="lazy" class="img-fluid" src="{{image.formats['750x600']}}" alt="project-image" />
                 </div>
-              </div>
-            </div><!-- shuffle item 1 end -->
+              {% endif %}
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;autres&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project2.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project2.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html">Nulla ex purus</a>
-                    </h3>
-                    <p class="project-cat">Autres</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- shuffle item 2 end -->
+              {# {% if projet.medias | length > 0 %}
+                {% for media in projet.medias %}
+                  {% set image = sulu_resolve_media(media.thumbnail,app.request.locale) %}
+                  {% if image is not null %}
+                    <div class="item">
+                      <img loading="lazy" class="img-fluid" src="{{image.formats['750x600']}}" alt="project-image" />
+                    </div>
+                  {% endif %}
+                  
+                {% endfor %}
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;formation&quot;,&quot;reseau&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project3.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project3.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html">dui non imperdiet sagittis</a>
-                    </h3>
-                    <p class="project-cat">Formation</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- shuffle item 3 end -->
+              {% endif %} #}
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;distribution&quot;,&quot;formation&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project4.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project4.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html">id ornare neque metus ac</a>
-                    </h3>
-                    <p class="project-cat">Formation</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- shuffle item 4 end -->
+            </div><!-- Page slider end -->
+          </div><!-- Slider col end -->
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;formation&quot;,&quot;distribution&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project5.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project5.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html">Nulla ex purus</a>
-                    </h3>
-                    <p class="project-cat">Distribution</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- shuffle item 5 end -->
+          <div class="col-lg-4 mt-5 mt-lg-0">
 
-            <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;consultance&quot;]">
-              <div class="project-img-container">
-                <a class="gallery-popup" href="/assets/images//projects/project6.jpg" aria-label="project-img">
-                  <img class="img-fluid" src="/assets/images//projects/project6.jpg" alt="project-img">
-                  <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                </a>
-                <div class="project-item-info">
-                  <div class="project-item-info-content">
-                    <h3 class="project-item-title">
-                      <a href="projects-single.html">nisl sed nunc suscipit</a>
-                    </h3>
-                    <p class="project-cat">Consultance</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- shuffle item 6 end -->
-          </div><!-- shuffle end -->
-        </div>
+            <h3 class="column-title mrt-0">{{projet.titre}}</h3>
+            <p>{{projet.description}}</p>
 
+            <ul class="project-info list-unstyled">
+              <li>
+                <p class="project-info-label">Client</p>
+                <p class="project-info-content">{{projet.client}}</p>
+              </li>
+              <li>
+                <p class="project-info-label">Débuit</p>
+                <p class="project-info-content">
+                  {% if projet.debut %}
+                    {{projet.debut | format_datetime('medium','none',locale='fr') }}
+                  {% endif %}
+                </p>
+              </li>
+              <li>
+                <p class="project-info-label">Fin</p>
+                <p class="project-info-content">
+                  {% if projet.fin %}
+                    {{projet.fin | format_datetime('medium','none',locale='fr') }}
+                  {% endif %}
+                
+                </p>
+              </li>
+              <li>
+                <p class="project-info-label">Contenu</p>
+                <p class="project-info-content">{{projet.contenu | striptags | truncate (400,true)| raw}}</p>
+              </li>
 
-      </div><!-- Content row end -->
+                {% if projet.categories | length > 0 %}
 
-    </div><!-- Conatiner end -->
-  </section><!-- Main container end -->
+                  <li>
+                    <p class="project-info-label">Categories</p>
+                    <p class="project-info-content ">
+                      {% for categorie in projet.categories %}
+                        {{categorie.key | upper}} {% if not loop.last %}{{~" , "}}{% endif %}
+                      
+                      {% endfor %}
+                    </p>
+                  </li>
+                {% endif %}
+              <li>
+                <p class="project-link">
+                  <a class="btn btn-primary" target="_blank" href="{{path('web_article',{'slug':projet.slug})}}">Plus de Détail</a>
+                </p>
+              </li>
+            </ul>
+
+          </div><!-- Content col end -->
+
+        </div><!-- Row end -->
+
+      </div><!-- Conatiner end -->
+    </section><!-- Main container end -->
+
+  {% endif %}
 
 
 {% endblock %}

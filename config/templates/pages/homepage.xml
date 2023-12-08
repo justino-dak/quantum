@@ -6,17 +6,18 @@
     <key>homepage</key>
 
     <view>pages/homepage</view>
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <controller>App\Controller\Website\HomePageController::indexAction</controller>
+    <!-- <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller> -->
     <cacheLifetime>86400</cacheLifetime>
 
     <meta>
-        <title lang="fr">Page d'accueil</title>
+        <title > Accueil</title>
     </meta>
 
     <properties>
         <property name="title" type="text_line" mandatory="true">
             <meta>
-                <title lang="fr">Titre</title>
+                <title >Titre</title>
             </meta>
             <params>
                 <param name="headline" value="true"/>
@@ -27,16 +28,47 @@
 
         <property name="url" type="resource_locator" mandatory="true">
             <meta>
-                <title lang="fr">Resource</title>
+                <title >Resourcelocator</title>
             </meta>
 
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="article" type="text_editor">
+        <section name="slider">
             <meta>
-                <title lang="en">Article</title>
+                <title >SLIDER</title>
             </meta>
-        </property>
+        <properties>
+                <block name="sliderBlock" default-type="sliders">
+                    <meta>
+                        <title >Sliders</title>
+                    </meta>
+                    <types>
+                        <type name="sliders">
+                            <properties>
+                                <property name="thumbnail" type="single_media_selection" >
+                                    <meta>
+                                        <title >Thumbnail</title>
+                                    </meta>
+                                </property>
+                                <property name="titre" type="text_line" >
+                                    <meta>
+                                        <title >Titre</title>
+                                    </meta>
+                                </property>
+                                <property name="description" type="text_editor" >
+                                    <meta>
+                                        <title >Description</title>
+                                    </meta>
+                                </property>                                
+                            </properties>
+
+                        </type>
+                    </types>
+                </block>
+        </properties>
+        </section>
+ 
     </properties>
+
 </template>

@@ -21,4 +21,60 @@
 
     <img src="{{ image.thumbnails['300x'] }}" alt="{{ image.title }}" title="{{ image.description|default(image.title) }}">
     -->
+
+    <format key="1600x300">
+        <meta>
+            <title lang="fr">banner</title>
+        </meta>
+        <scale x="1600" y="300"/>
+    </format>    
+    <format key="1600x800">
+        <meta>
+            <title lang="fr">slider</title>
+        </meta>
+        <scale x="1600" y="800"/>
+    </format>  
+    <format key="555x330">
+        <meta>
+            <title lang="fr">slider_small</title>
+        </meta>
+        <scale x="555" y="330"/>
+    </format> 
+    <format key="263x300">
+        <meta>
+            <title lang="fr">team</title>
+        </meta>
+        <scale x="263" y="300"/>
+    </format> 
+    <format key="100x100">
+        <meta>
+            <title lang="fr">100x100</title>
+        </meta>
+        <scale x="100" y="100"/>
+    </format> 
+    <format key="750x450">
+        <meta>
+            <title lang="fr">news</title>
+        </meta>
+        <scale x="750" y="450"/>
+    </format>   
+    <format key="750x600">
+        <meta>
+            <title lang="fr">project</title>
+        </meta>
+        <scale x="750" y="600"/>
+    </format> 
+    <format key="360x250">
+        <meta>
+            <title lang="fr">service</title>
+        </meta>
+        <scale x="360" y="250"/>
+    </format> 
+    <format key="242x80">
+        <meta>
+            <title lang="fr">client</title>
+        </meta>
+        <scale x="242" y="80"/>
+    </format>
+
 </formats>
