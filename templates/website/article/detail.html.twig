@@ -44,7 +44,7 @@
                 {% set image = sulu_resolve_media(article.thumbnail,app.request.locale) %}
                 {% if image %}
                     <div class="post-media post-image">
-                        <img loading="lazy" src="{{image.formats['750x450']}}" class="img-fluid" alt="post-image">
+                        <img loading="lazy" src="{{image.formats['750x450']}}" class="img-fluid" alt="">
                     </div>
                 
                 {% endif %}
@@ -104,7 +104,7 @@
                                 <li class="d-flex align-items-center">
                                     <div class="posts-thumb">
                                         <a href="{{path('web_article',{'slug':article.slug})}}">
-                                            <img loading="lazy" alt="img" src="{{image.formats['100x100']}}">
+                                            <img loading="lazy" alt="" src="{{image.formats['100x100']}}">
                                         </a>
                                     </div>
                                     <div class="post-info">

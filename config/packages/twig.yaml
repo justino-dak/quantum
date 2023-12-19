@@ -7,7 +7,9 @@ twig:
         '%kernel.project_dir%/public/assets/js/': js
         '%kernel.project_dir%/public/assets/images/': images
         '%kernel.project_dir%/public/assets/plugins/': plugins
-
+        
+    globals:
+        articleRepository: '@App\Repository\ArticleRepository'
 
 when@test:
     twig:

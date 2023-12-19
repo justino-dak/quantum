@@ -2979,11 +2979,11 @@ label {
   color: #7c7c7c;
 }
 
-.pagination > .active > a,
+/* .pagination > .active > a, */
 .pagination > .active > a:hover,
 .pagination > li > a:hover {
   color: #fff;
-  background: #DC8C33;
+  background: #BD315D;
   border: 1px solid transparent;
 }
 
@@ -3359,4 +3359,26 @@ label {
   margin-top: 30px;
   font-weight: 700;
 }
+
+
+/* Paginator item */
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #862342;
+    border-color: #862342;
+}
+
+.pagination .page-link {
+  color: #7c7c7c;
+  margin-right: 8px;
+}
+
+.pagination > a:hover,
+.pagination > .page-link:hover{
+  background-color:#BD315D !important;
+  color: #fff;
+}
+
+
 /*# sourceMappingURL=style.css.map */

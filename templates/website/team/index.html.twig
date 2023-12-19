@@ -13,134 +13,42 @@
     </div>
     <!--/ Title row end -->
 
+    {% if teams is defined and teams | length > 0 %}
+
+
     <div class="row justify-content-center">
-      <div class="col-lg-3 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team1.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <!--/ social-icons-->
-          </div>
-        </div>
-        <!--/ Team wrapper 1 end -->
+      {% for team in teams %}
+        {% set image = sulu_resolve_media(team.thumbnail,app.request.locale) %}
+        <div class="col-lg-3 col-sm-6 mb-5">
+          <div class="ts-team-wrapper">
+            {% if image %}
+              <div class="team-img-wrapper">
+                <img loading="lazy" src="{{image.formats['240x274']}}" class="img-fluid" alt="">
+              </div>
+            {% endif %}
 
-      </div><!-- Col end -->
-
-      <div class="col-lg-3 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team2.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+            <div class="ts-team-content-classic">
+              <h3 class="ts-name">{{team.nom | upper }} {{team.prenoms | lower }}</h3>
+              <p class="ts-designation">{{team.poste}}</p>
+              <p class="ts-description">{{team.description | raw}}</p>
+              <div class="team-social-icons">
+                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <!--/ social-icons-->
             </div>
-            <!--/ social-icons-->
           </div>
-        </div>
-        <!--/ Team wrapper 2 end -->
-      </div><!-- Col end -->
+          <!--/ Team wrapper 1 end -->
+
+        </div><!-- Col end -->
+        
+      {% endfor %}    
 
     </div><!-- Content row 1 end -->
 
-    <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team3.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <!--/ social-icons-->
-          </div>
-        </div>
-        <!--/ Team wrapper 3 end -->
-      </div><!-- Col end -->
 
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team4.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <!--/ social-icons-->
-          </div>
-        </div>
-        <!--/ Team wrapper 4 end -->
-
-      </div><!-- Col end -->
-
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team5.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <!--/ social-icons-->
-          </div>
-        </div>
-        <!--/ Team wrapper 5 end -->
-      </div><!-- Col end -->
-
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
-        <div class="ts-team-wrapper">
-          <div class="team-img-wrapper">
-            <img loading="lazy" src="/assets/images/team/team6.jpg" class="img-fluid" alt="team-img">
-          </div>
-          <div class="ts-team-content-classic">
-            <h3 class="ts-name">Nom Prénoms</h3>
-            <p class="ts-designation">Poste</p>
-            <p class="ts-description">Nats Stenman began his career in construction with boots on the ground</p>
-            <div class="team-social-icons">
-              <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
-              <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <!--/ social-icons-->
-          </div>
-        </div>
-        <!--/ Team wrapper 6 end -->
-      </div><!-- Col end -->
-    </div><!-- Content row end -->
+    {% endif %}
 
   </div><!-- Container end -->
 </section><!-- Main container end -->

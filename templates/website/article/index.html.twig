@@ -15,7 +15,7 @@
                         <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                         <li class="breadcrumb-item"><a href="#">Blog</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Nos publication</li>
+                        <li class="breadcrumb-item active" aria-current="page">Nos publications</li>
                         </ol>
                     </nav>
                 </div>
@@ -28,229 +28,139 @@
 {% endblock %}
 
 {% block content %}
+   
 
     <section id="main-container" class="main-container">
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
 
-        <div class="col-lg-4 order-1 order-lg-0">
+                <div class="col-lg-4 order-1 order-lg-0">
 
-            <div class="sidebar sidebar-left">
-            <div class="widget recent-posts">
-                <h3 class="widget-title">Publications récentes</h3>
-                <ul class="list-unstyled">
-                <li class="d-flex align-items-center">
-                    <div class="posts-thumb">
-                    <a href="#"><img loading="lazy" alt="img" src="/assets/images/news/news1.jpg"></a>
-                    </div>
-                    <div class="post-info">
-                    <h4 class="entry-title">
-                        <a href="#">ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae</a>
-                    </h4>
-                    </div>
-                </li><!-- 1st post end-->
+                    <div class="sidebar sidebar-left">
+                    <div class="widget recent-posts">
+                        <h3 class="widget-title">Publications récentes</h3>
+                        {% if articlesRecentes is defined and articlesRecentes | length > 0 %}
+                            <ul class="list-unstyled">
+                                {% for article in articlesRecentes %}
+                                    {% set image = sulu_resolve_media(article.thumbnail,app.request.locale) %}
+                                    {% if image %}
+                                        <li class="d-flex align-items-center">
+                                            <div class="posts-thumb">
+                                            <a href="{{path('web_article',{'slug':article.slug})}}"><img loading="lazy" alt="" src="{{image.formats['90x70']}}"></a>
+                                            </div>
+                                            <div class="post-info">
+                                            <h4 class="entry-title">
+                                                <a href="{{path('web_article',{'slug':article.slug})}}">{{article.titre}}</a>
+                                            </h4>
+                                            </div>
+                                        </li><!-- 1st post end-->
 
-                <li class="d-flex align-items-center">
-                    <div class="posts-thumb">
-                    <a href="#"><img loading="lazy" alt="img" src="/assets/images/news/news2.jpg"></a>
-                    </div>
-                    <div class="post-info">
-                    <h4 class="entry-title">
-                        <a href="#">Nulla ex purus, pulvinar sit amet egestas pellentesque</a>
-                    </h4>
-                    </div>
-                </li><!-- 2nd post end-->
+                                    {% endif %}
+                                    
+                                {% endfor %}
+                            </ul>                        
+                        {% endif %}
+                    </div><!-- Recent post end -->
 
-                <li class="d-flex align-items-center">
-                    <div class="posts-thumb">
-                    <a href="#"><img loading="lazy" alt="img" src="/assets/images/news/news3.jpg"></a>
-                    </div>
-                    <div class="post-info">
-                    <h4 class="entry-title">
-                        <a href="#">convallis auctor quam ullamcorper sit amet</a>
-                    </h4>
-                    </div>
-                </li><!-- 3rd post end-->
+                    <!-- <div class="widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="arrow nav nav-tabs">
+                        <li><a href="#">Construction</a></li>
+                        <li><a href="#">Commercial</a></li>
+                        <li><a href="#">Building</a></li>
+                        <li><a href="#">Safety</a></li>
+                        <li><a href="#">Structure</a></li>
+                        </ul>
+                    </div> -->
+                    
+                    <!-- Categories end -->
 
-                </ul>
+                    <!-- <div class="widget">
+                        <h3 class="widget-title">Archives </h3>
+                        <ul class="arrow nav nav-tabs">
+                        <li><a href="#">Feburay 2016</a></li>
+                        <li><a href="#">January 2016</a></li>
+                        <li><a href="#">December 2015</a></li>
+                        <li><a href="#">November 2015</a></li>
+                        <li><a href="#">October 2015</a></li>
+                        </ul>
+                    </div> -->
+                    <!-- Archives end -->
 
-            </div><!-- Recent post end -->
+                    <!-- <div class="widget widget-tags">
+                        <h3 class="widget-title">Tags </h3>
 
-            <!-- <div class="widget">
-                <h3 class="widget-title">Categories</h3>
-                <ul class="arrow nav nav-tabs">
-                <li><a href="#">Construction</a></li>
-                <li><a href="#">Commercial</a></li>
-                <li><a href="#">Building</a></li>
-                <li><a href="#">Safety</a></li>
-                <li><a href="#">Structure</a></li>
-                </ul>
-            </div> -->
-            
-            <!-- Categories end -->
-
-            <!-- <div class="widget">
-                <h3 class="widget-title">Archives </h3>
-                <ul class="arrow nav nav-tabs">
-                <li><a href="#">Feburay 2016</a></li>
-                <li><a href="#">January 2016</a></li>
-                <li><a href="#">December 2015</a></li>
-                <li><a href="#">November 2015</a></li>
-                <li><a href="#">October 2015</a></li>
-                </ul>
-            </div> -->
-            <!-- Archives end -->
-
-            <!-- <div class="widget widget-tags">
-                <h3 class="widget-title">Tags </h3>
-
-                <ul class="list-unstyled">
-                <li><a href="#">Construction</a></li>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">Project</a></li>
-                <li><a href="#">Building</a></li>
-                <li><a href="#">Finance</a></li>
-                <li><a href="#">Safety</a></li>
-                <li><a href="#">Contracting</a></li>
-                <li><a href="#">Planning</a></li>
-                </ul>
-            </div> -->
-            <!-- Tags end -->
+                        <ul class="list-unstyled">
+                        <li><a href="#">Construction</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Project</a></li>
+                        <li><a href="#">Building</a></li>
+                        <li><a href="#">Finance</a></li>
+                        <li><a href="#">Safety</a></li>
+                        <li><a href="#">Contracting</a></li>
+                        <li><a href="#">Planning</a></li>
+                        </ul>
+                    </div> -->
+                    <!-- Tags end -->
 
 
-            </div><!-- Sidebar end -->
-        </div><!-- Sidebar Col end -->
+                    </div><!-- Sidebar end -->
+                </div><!-- Sidebar Col end -->
 
-        <div class="col-lg-8 mb-5 mb-lg-0 order-0 order-lg-1">
-            <div class="post">
-            <div class="post-media post-image">
-                <img loading="lazy" src="/assets/images/news/news1.jpg" class="img-fluid" alt="post-image">
-            </div>
+                <div class="col-lg-8 mb-5 mb-lg-0 order-0 order-lg-1">
+                    {% if articles is defined and articles | length > 0 %}
+                        {% for article in articles %}
+                            <div class="post">
+                                {% set image = sulu_resolve_media(article.thumbnail,app.request.locale) %}
+                                {% if image %}
+                                    <div class="post-media post-image">
+                                        <a href="{{path('web_article',{'slug':article.slug})}}">
+                                            <img loading="lazy" src="{{image.formats['750x450']}}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                {% endif %}
 
-            <div class="post-body">
-                <div class="entry-header">
-                <div class="post-meta">
-                    <span class="post-author">
-                    <i class="far fa-user"></i><a href="#"> Admin</a>
-                    </span>
-                    <span class="post-cat">
-                    <i class="far fa-folder-open"></i><a href="#"> Blog</a>
-                    </span>
-                    <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
-                    <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
-                        class="comments-link">Comments</a></span> -->
-                </div>
-                <h2 class="entry-title">
-                    <a href="news-single.html">Duis aute irure dolor in reprehenderit in voluptate </a>
-                </h2>
-                </div><!-- header end -->
+                                <div class="post-body">
+                                    <div class="entry-header">
+                                    <div class="post-meta">
+                                        <span class="post-author">
+                                        <i class="far fa-user"></i><a href="#"> {{article.createdBy.contact.lastName | upper }} {{article.createdBy.contact.firstName | title }}</a>
+                                        </span>
+                                        <span class="post-cat">
+                                        <i class="far fa-folder-open"></i><a href="#"> Blog</a>
+                                        </span>
+                                        <span class="post-meta-date"><i class="far fa-calendar"></i>{{article.createdAt | format_datetime('medium','none',locale='fr')}}</span>
+                                        <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                                            class="comments-link">Comments</a></span> -->
+                                    </div>
+                                    <h2 class="entry-title">
+                                        <a href="{{path('web_article',{'slug':article.slug})}}">{{article.titre}}</a>
+                                    </h2>
+                                    </div><!-- header end -->
 
-                <div class="entry-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur ...</p>
-                </div>
+                                    <div class="entry-content">
+                                        {{article.contenu | striptags | truncate(300,true) | raw}}
+                                    </div>
 
-                <div class="post-footer">
-                <a href="news-single.html" class="btn btn-primary">Continuer à lire</a>
-                </div>
+                                    <div class="post-footer">
+                                    <a href="{{path('web_article',{'slug':article.slug})}}" class="btn btn-primary">Continuer à lire</a>
+                                    </div>
 
-            </div><!-- post-body end -->
-            </div><!-- 1st post end -->
+                                </div><!-- post-body end -->
+                            </div><!-- 1st post end -->
+                                    
+                        {% endfor %}
+                    {% endif %}
 
-            <div class="post">
-            <div class="post-media post-video">
-                <div class="embed-responsive embed-responsive-16by9">
-                <!-- Change the url -->
-                <iframe class="embed-responsive-item" src="//player.vimeo.com/video/153089270?title=0&amp;byline=0&amp;portrait=0&amp;color=8aba56" allowfullscreen></iframe>
-                </div>
-            </div>
+                    <nav class="paging" aria-label="Page navigation">
+                        {{ knp_pagination_render(articles) }}
+                    </nav>
 
-            <div class="post-body">
-                <div class="entry-header">
-                <div class="post-meta">
-                    <span class="post-author">
-                    <i class="far fa-user"></i><a href="#"> Admin</a>
-                    </span>
-                    <span class="post-cat">
-                    <i class="far fa-folder-open"></i><a href="#"> Blog</a>
-                    </span>
-                    <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
-                    <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
-                        class="comments-link">Comments</a></span> -->
-                </div>
-                <h2 class="entry-title">
-                    <a href="news-single.html">consectetur adipisicing elit</a>
-                </h2>
-                </div><!-- header end -->
+                </div><!-- Content Col end -->
 
-                <div class="entry-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur ...</p>
-                </div>
+            </div><!-- Main row end -->
 
-                <div class="post-footer">
-                <a href="news-single.html" class="btn btn-primary">Continuer à lire</a>
-                </div>
-
-            </div><!-- post-body end -->
-            </div><!-- 2nd post end -->
-
-            <div class="post">
-            <div class="post-media post-image">
-                <img loading="lazy" src="/assets/images/news/news3.jpg" class="img-fluid" alt="post-image">
-            </div>
-
-            <div class="post-body">
-                <div class="entry-header">
-                <div class="post-meta">
-                    <span class="post-author">
-                    <i class="far fa-user"></i><a href="#"> Admin</a>
-                    </span>
-                    <span class="post-cat">
-                    <i class="far fa-folder-open"></i><a href="#"> Blog</a>
-                    </span>
-                    <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
-                    <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
-                        class="comments-link">Comments</a></span> -->
-                </div>
-                <h2 class="entry-title">
-                    <a href="news-single.html"> Ut enim ad minim veniam</a>
-                </h2>
-                </div><!-- header end -->
-
-                <div class="entry-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur ...</p>
-                </div>
-
-                <div class="post-footer">
-                <a href="news-single.html" class="btn btn-primary">Continuer à lire</a>
-                </div>
-
-            </div><!-- post-body end -->
-            </div><!-- 3rd post end -->
-
-            <nav class="paging" aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
-            </ul>
-            </nav>
-
-        </div><!-- Content Col end -->
-
-        </div><!-- Main row end -->
-
-    </div><!-- Container end -->
+        </div><!-- Container end -->
     </section><!-- Main container end -->
 
 {% endblock %}

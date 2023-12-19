@@ -216,6 +216,11 @@
         {% block content %}{% endblock %}
 
         {% block footer %}
+            <!-- ======= globalSpecialite ======= -->
+            {% if articleRepository is defined and articleRepository is not null %}
+                {% set globalSpecialites = articleRepository.findByTag('specialite') %}
+            {% endif %}
+
             <section class="subscribe no-padding">
             <div class="container">
                 <div class="row">
@@ -284,14 +289,14 @@
 
                         <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 footer-widget">
                         <h3 class="widget-title">Nos Services</h3>
-                        <ul class="list-arrow">
-                            <li><a href="#">Conception et mise en Oeuvre de reseau d'entreprise</a></li>
-                            <li><a href="#">Distribution et installation d'eqipement inofrmatiques</a></li>
-                            <li><a href="#">Consultance et expertise</a></li>
-                            <li><a href="#">Administration de maintenance de systemes d'information</a></li>
-                            <li><a href="#">Assistance et conseils</a></li>
-                            <li><a href="#">Formations à thèmes sur l'utilisation de l'outil d'infofrmation</a></li>
-                        </ul>
+                        {% if globalSpecialites is defined  and globalSpecialites | length > 0 %}
+                            <ul class="list-arrow">
+                                {% for specialite in globalSpecialites %}
+                                    <li><a href="{{path('web_article',{'slug':specialite.slug})}}" target="_blank">{{specialite.titre}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        
+                        {% endif %}
                         </div><!-- Col end -->
                     </div><!-- Row end -->
                     </div><!-- Container end -->
@@ -310,9 +315,9 @@
                         <div class="footer-menu text-center text-md-right">
                             <ul class="list-unstyled">
                             <li><a href="/">Accueil</a></li>
-                            <li><a href="#">Qui sommes-nous</a></li>
-                            <li><a href="#">Bon a savoir</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="{{path('web_aboutus')}}">Qui sommes-nous</a></li>
+                            <li><a href="{{path('web_bon_a_savoir')}}">Bon a savoir</a></li>
+                            <li><a href="{{path('web_articles')}}">Blog</a></li>
                             </ul>
                         </div>
                         </div>

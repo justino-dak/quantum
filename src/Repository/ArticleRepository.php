@@ -98,6 +98,12 @@ class ArticleRepository extends ServiceEntityRepository
                         ->setParameter('q', "%{$search->q}%");
                         // ->orderBy('a.id', 'DESC');
        }
+       if(!empty($search->tag)){
+        $query=$query->join('a.tags','t')
+                    ->andWhere('t.name = :tag')
+                    ->setParameter('tag', $search->tag);
+        }
+
        return $this->paginator->paginate(
            $query,
            $search->page,

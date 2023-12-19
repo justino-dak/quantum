@@ -73,12 +73,16 @@ class FrontEndController extends AbstractController
     public function bonAsavoir(Request $request): Response
     {
         
-        $aboutus = $this->articleRepository->findByTag('aboutus');
-        $teams=$this->teamRepository->findAll();
+        $savoirs = $this->articleRepository->findByTag('bon_a_savoir');
+        $faqs = $this->articleRepository->findByTag('faq');
+        $articlesRecentes = $this->articleRepository->findByTag('article',6);
+
+
 
         return $this->render('website/bon_a_savoir.html.twig', [
-            'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
-            'teams'=>$teams
+            'savoirs'=>$savoirs,
+            'faqs'=>$faqs,
+            'articlesRecentes'=>$articlesRecentes,
         ]);
     }
 
@@ -88,22 +92,35 @@ class FrontEndController extends AbstractController
     public function specialiteIndex(Request $request): Response
     {
         
-        // $aboutus = $this->articleRepository->findByTag('aboutus');
-        // $teams=$this->teamRepository->findAll();
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+
+        $data->tag= "specialite";
+        $data->limit = 9;
+        $specialites = $this->articleRepository->findSearch($data);
 
         return $this->render('website/specialite/index.html.twig', [
-            // 'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
-            // 'teams'=>$teams
+            'specialites'=>$specialites,
         ]);
     }
 
     /**
      * @Route("/services_rendus", name="web_services_rendus")
      */
-    public function servicesRenduIndus(Request $request): Response
+    public function servicesRenduIndex(Request $request): Response
     {
         
-        $projets = $this->articleRepository->findByTag('projet');
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+
+        $data->tag= "projet";
+        $data->limit = 1;
+        $projets  = $this->articleRepository->findSearch($data);
+
         $categories=$this->categoryRepository->findAll();
 
         return $this->render('website/service/index.html.twig', [

@@ -58,6 +58,13 @@
         </meta>
         <scale x="750" y="450"/>
     </format>   
+    <format key="90x70">
+        <meta>
+            <title lang="fr">news side bar</title>
+        </meta>
+        <scale x="90" y="70"/>
+    </format> 
+
     <format key="750x600">
         <meta>
             <title lang="fr">project</title>
@@ -76,5 +83,10 @@
         </meta>
         <scale x="242" y="80"/>
     </format>
-
+    <format key="240x274">
+        <meta>
+            <title lang="fr">team</title>
+        </meta>
+        <scale x="240" y="274"/>
+    </format>
 </formats>

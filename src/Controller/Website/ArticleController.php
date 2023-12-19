@@ -44,10 +44,15 @@ class ArticleController extends AbstractController
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
 
+        $data->tag= "article";
+        $data->limit = 3;
         $articles = $this->articleRepository->findSearch($data);
+
+        $articlesRecentes = $this->articleRepository->findByTag('article',6);
 
         return $this->render('website/article/index.html.twig', [
             'articles' => $articles,
+            'articlesRecentes'=>$articlesRecentes,
             'form'=>$form->createView()
         ]);
     }
@@ -57,7 +62,7 @@ class ArticleController extends AbstractController
      */
     public function detail(Request $request, Article $article,$slug): Response
     {
-        $articles = $this->articleRepository->findByTag('presentation',5);
+        $articles = $this->articleRepository->findByTag('article',5);
         
         $article=$this->articleRepository->findOneBy(['slug'=>$slug]);
         return $this->render('website/article/detail.html.twig', [
