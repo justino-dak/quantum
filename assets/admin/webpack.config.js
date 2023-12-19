@@ -14,5 +14,12 @@ module.exports = (env, argv) => {
     const config = webpackConfig(env, argv);
     config.entry = path.resolve(__dirname, 'index.js');
 
+    /* overwrite stylesheet of sulu login component with custom stylesheet of project */
+    const loginScssPath = path.resolve(env.node_modules_path, 'sulu-admin-bundle/containers/Login/login.scss');
+    const navigationScssPath = path.resolve(env.node_modules_path, 'sulu-admin-bundle/components/Navigation/navigation.scss');
+    
+    config.resolve.alias[loginScssPath] = path.resolve(__dirname, 'containers/Login/login.scss');
+    config.resolve.alias[navigationScssPath] = path.resolve(__dirname, 'components/Navigation/navigation.scss');
+    
     return config;
 };

@@ -48,7 +48,7 @@ class HomePageController extends DefaultController
 
     protected function getCustomAttributes()
     {
-        $articles=$this->articleRepository->findBy([],['id'=>'DESC'],3);
+        $articles=$this->articleRepository->findByTag('article',3);
         $aboutus=$this->articleRepository->findByTag('presentation');
         $temoignages=$this->articleRepository->findByTag('temoignage');
         $valeurs=$this->articleRepository->findByTag('valeur');

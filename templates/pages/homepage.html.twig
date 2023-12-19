@@ -105,7 +105,7 @@
               </div><!-- Col end -->
               <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
                   <div class="call-to-action-btn">
-                    <a class="btn btn-dark" href="contact.html">Contactez nous</a>
+                    <a class="btn btn-primary" href="contact.html">Contactez nous</a>
                   </div>
               </div><!-- col end -->
             </div><!-- row end -->
@@ -128,7 +128,7 @@
                     <h2 class="into-title">{{presentation.titre | title}}</h2>
                     <h3 class="into-sub-title">{{presentation.description}}</h3>
                     <p>{{presentation.contenu | striptags |  truncate(200, true)| raw }}</p>
-                    <a href="{{path('web_article',{'slug': presentation.slug})}}">En savoir plus</a>
+                    <a href="{{path('web_article',{'slug': presentation.slug})}}" class="">En savoir plus</a>
                 </div><!-- Intro box end -->
 
                 <div class="gap-20"></div>
@@ -229,7 +229,10 @@
             <div class="row">
               <div class="col-md-3 col-sm-6 ts-facts">
                   <div class="ts-facts-img">
-                    <img loading="lazy" src="/assets/images/icon-image/fact3.png" alt="facts-img">
+                    <span class="ts-facts-icon">
+                      <i class="fas fa-clock"></i>
+                    </span>
+                    <!-- <img loading="lazy" src="images/icon-image/fact3.png" alt="facts-img"> -->
                   </div>
                   <div class="ts-facts-content">
                     <h2 class="ts-facts-num">+<span class="counterUp" data-count="20">0</span></h2>
@@ -239,7 +242,10 @@
 
               <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-sm-0">
                   <div class="ts-facts-img">
-                    <img loading="lazy" src="/assets/images/icon-image/fact1.png" alt="facts-img">
+                    <span class="ts-facts-icon">
+                      <i class="fas fa-trophy"></i>
+                    </span>
+                    <!-- <img loading="lazy" src="images/icon-image/fact1.png" alt="facts-img"> -->
                   </div>
                   <div class="ts-facts-content">
                     <h2 class="ts-facts-num">+<span class="counterUp" data-count="100">0</span></h2>
@@ -249,7 +255,10 @@
 
               <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
                   <div class="ts-facts-img">
-                    <img loading="lazy" src="images/icon-image/fact2.png" alt="facts-img">
+                    <span class="ts-facts-icon">
+                      <i class="fa fa-truck"></i>
+                    </span>                    
+                    <!-- <img loading="lazy" src="images/icon-image/fact2.png" alt="facts-img"> -->
                   </div>
                   <div class="ts-facts-content">
                     <h2 class="ts-facts-num">+<span class="counterUp" data-count="20">0</span></h2>
@@ -259,7 +268,10 @@
 
               <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
                   <div class="ts-facts-img">
-                    <img loading="lazy" src="/assets/images/icon-image/fact4.png" alt="facts-img">
+                    <span class="ts-facts-icon">
+                      <i class="fas fa-award"></i>
+                    </span>                    
+                    <!-- <img loading="lazy" src="images/icon-image/fact4.png" alt="facts-img"> -->
                   </div>
                   <div class="ts-facts-content">
                     <h2 class="ts-facts-num">+<span class="counterUp" data-count="10">0</span></h2>
@@ -294,8 +306,10 @@
                 {% if loop.index <= ( specialites | length )/2 %}
                   <div class="ts-service-box d-flex">
                       <div class="ts-service-box-img">
-                        
-                        <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
+                        <span class="ts-service-icon">
+                          <i class="fas fa-check"></i>
+                        </span>                        
+                        {# <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon"> #}
                       </div>
                       <div class="ts-service-box-info">
                         <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
@@ -318,8 +332,10 @@
                 {% if loop.index > ( specialites | length )/2 %}
                   <div class="ts-service-box d-flex">
                       <div class="ts-service-box-img">
-                        
-                        <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon">
+                        <span class="ts-service-icon">
+                          <i class="fas fa-check"></i>
+                        </span>                                                
+                        {# <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon"> #}
                       </div>
                       <div class="ts-service-box-info">
                         <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
@@ -436,7 +452,10 @@
                             </span>
 
                             <div class="quote-item-footer">
-                              <img loading="lazy" class="testimonial-thumb" src="/assets/images/clients/testimonial1.png" alt="testimonial">
+                              {% set image = sulu_resolve_media(temoignage.thumbnail,app.request.locale) %}
+                              {% if image %}
+                                <img loading="lazy" class="testimonial-thumb" src="{{image.formats['100x100']}}" alt="testimonial">
+                              {% endif %}
                               <div class="quote-item-info">
                                   <h3 class="quote-author">Gabriel Denis</h3>
                                   <span class="quote-subtext">Chairman, OKT</span>
@@ -460,11 +479,15 @@
               <div class="row all-clients">
 
                   {% for client in clients %}
-                    <div class="col-sm-4 col-6">
-                      <figure class="clients-logo">
-                          <a href="#!"><img loading="lazy" class="img-fluid" src="/assets/images/clients/client1.png" alt="clients-logo" /></a>
-                      </figure>
-                    </div><!-- Client 1 end -->                    
+                    {% set image = sulu_resolve_media(client.thumbnail,app.request.locale) %}
+                    {% if image %}
+                      <div class="col-sm-4 col-6">
+                        <figure class="clients-logo">
+                            <a href="#!"><img loading="lazy" class="img-fluid" src="{{image.formats['242x80']}}" alt="clients-logo" /></a>
+                        </figure>
+                      </div><!-- Client  end -->                    
+                    {% endif %}
+                   
                   {% endfor %}
 
               </div><!-- Clients row end -->
@@ -495,18 +518,22 @@
           {% for article in articles %}
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="latest-post">
-                  <div class="latest-post-media">
-                    <a href="news-single.html" class="latest-post-img">
-                        <img loading="lazy" class="img-fluid" src="/assets/images/news/news1.jpg" alt="img">
-                    </a>
-                  </div>
+                  {% set image = sulu_resolve_media(article.thumbnail,app.request.locale) %}
+                  {% if image %}
+                    <div class="latest-post-media">
+                      <a href="news-single.html" class="latest-post-img">
+                          <img loading="lazy" class="img-fluid" src="{{image.formats['360x250']}}" alt="img">
+                      </a>
+                    </div>
+                  {% endif %}
                   <div class="post-body">
                     <h4 class="post-title">
-                        <a href="news-single.html" class="d-inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
+                        <a href="news-single.html" class="d-inline-block">{{article.titre}}</a>
                     </h4>
                     <div class="latest-post-meta">
                         <span class="post-item-date">
-                          <i class="fa fa-clock-o"></i> July 20, 2017
+                          <i class="fa fa-clock-o"></i> 
+                          {{article.createdAt | format_datetime('medium','none',locale='fr')}}
                         </span>
                     </div>
                   </div>

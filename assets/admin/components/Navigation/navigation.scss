@@ -1,0 +1,16 @@
+/* import original stylesheet to keep original styling */
+@import 'sulu-admin-bundle/components/Navigation/navigation.scss';
+
+/* overwrite style for specific elements */
+
+.logo {
+    color: inherit;
+    flex: 0 0 auto;
+    display: block;
+    font-size: 1px;
+    line-height: 1;
+    text-decoration: none;
+    transform: translateY(2px); /* visual centering the logo */
+    background-color: red;
+
+}
