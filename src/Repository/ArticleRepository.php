@@ -70,17 +70,21 @@ class ArticleRepository extends ServiceEntityRepository
    /**
     * @return Article[] Returns an array of Article objects
     */
-   public function findByTag($value): array
+   public function findByTag($criteria,$limit=null): array
    {
-       return $this->createQueryBuilder('a')
-            ->join('a.tags','t')
-           ->andWhere('t.name = :val')
-           ->setParameter('val', $value)
-         //  ->orderBy('a.id', 'ASC')
-           ->setMaxResults(1)
-           ->getQuery()
-           ->getResult()
+        $query=$this->createQueryBuilder('a');
+        $query=$query->join('a.tags','t')
+                    ->andWhere('t.name = :criteria')
+                    ->setParameter('criteria', $criteria)
+                    ->orderBy('a.id', 'DESC');
+          if ($limit) {
+            $query=$query->setMaxResults($limit);
+          }
+           
+          $query=$query->getQuery()
+                        ->getResult()
        ;
+       return $query;
    }
 
    public function findSearch(SearchData $search): PaginationInterface
@@ -94,6 +98,12 @@ class ArticleRepository extends ServiceEntityRepository
                         ->setParameter('q', "%{$search->q}%");
                         // ->orderBy('a.id', 'DESC');
        }
+       if(!empty($search->tag)){
+        $query=$query->join('a.tags','t')
+                    ->andWhere('t.name = :tag')
+                    ->setParameter('tag', $search->tag);
+        }
+
        return $this->paginator->paginate(
            $query,
            $search->page,

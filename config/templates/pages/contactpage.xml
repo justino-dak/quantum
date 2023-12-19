@@ -7,8 +7,8 @@
     <key>contactpage</key>
 
     <view>pages/contact</view>
-    <!-- <controller>App\Controller\Website\ContactPageController::indexAction</controller> -->
-    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <controller>App\Controller\Website\ContactPageController::indexAction</controller>
+    <!-- <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller> -->
     <cacheLifetime>86400</cacheLifetime>
 
     <meta>

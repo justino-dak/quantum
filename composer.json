@@ -58,7 +58,8 @@
         "twig/cssinliner-extra": "^3.7",
         "twig/extensions": "^1.5",
         "twig/extra-bundle": "^3.7",
-        "twig/inky-extra": "*"
+        "twig/inky-extra": "*",
+        "twig/intl-extra": "^3.7"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.9",

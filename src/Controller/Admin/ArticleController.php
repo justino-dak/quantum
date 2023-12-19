@@ -24,6 +24,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Sulu\Bundle\TagBundle\Tag\TagRepositoryInterface;
 use Sulu\Component\Security\SecuredControllerInterface;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryRepository;
 use Sulu\Bundle\MediaBundle\Entity\MediaRepositoryInterface;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
@@ -86,6 +87,11 @@ class ArticleController extends AbstractRestController implements ClassResourceI
     private $tagRepository;
 
     /**
+     * @var CategoryRepositoryInterface
+     */
+    private $categoryRepository;
+
+    /**
      * @var ArticleRepository
      */
     private $repository;
@@ -100,6 +106,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
         MediaRepositoryInterface $mediaRepository,
         MediaManagerInterface $mediaManager,
         TagRepositoryInterface $tagRepository,
+        CategoryRepositoryInterface $categoryRepository,
         Security $security
     )
     {
@@ -112,6 +119,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
         $this->mediaManager = $mediaManager;
         $this->tagRepository = $tagRepository;
         $this->security = $security;
+        $this->categoryRepository = $categoryRepository;
 
     }
 
@@ -212,7 +220,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
      */
     protected function mapDataToEntity(array $data, Article $entity): void
     {
-        // dump($data);
+        dump($data);
         if ($titre = $data['titre'] ?? null) {
             $entity->setTitre($titre);
         }
@@ -251,6 +259,18 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             foreach ($entity->getTags() as $tag) {
                 if (!in_array($tag->getName(),$tags)) {
                     $entity->removeTag($tag);
+                }
+            }            
+        }
+
+        if ($categoryIds = ($data['categories'] ?? null)) {
+            foreach ($categoryIds as $id){
+                $category = $this->categoryRepository->find($id); 
+                $entity->addCategory($category);
+            }
+            foreach ($entity->getCategories() as $category) {
+                if (!in_array($category->getId(),$categoryIds)) {
+                    $entity->removeCategory($category);
                 }
             }            
         }
@@ -309,7 +329,13 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             foreach ($ids as $id){
                 array_push($tags,$id->getName());
             }
-        }        
+        }  
+        $categories=[];        
+        if($ids=$entity->getCategories() ?? null){
+            foreach ($ids as $id){
+                array_push($categories,$id->getId());
+            }
+        }         
         return [
             'id' =>$entity->getId(),
             'titre'=>$entity->getTitre(),
@@ -322,7 +348,8 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             ]: null,
             'medias'=>['ids'=>$medias],
             // 'tags'=>[]
-            'tags'=>$tags
+            'tags'=>$tags,
+            'categories'=> $categories
         ];
     }
 

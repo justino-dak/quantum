@@ -49,14 +49,46 @@
                         <title>Description </title>
                     </meta>
                 </property>
-                <property name="tags" type="tag_selection" >
+                <property name="tags" type="tag_selection" colspan="6">
                     <meta>
                         <title>Étiquete </title>
                     </meta>
                 </property>
+                <property name="categories" type="category_selection" colspan="6">
+                    <meta>
+                        <title>Catégories </title>
+                    </meta>
+                </property>                
                 <property name="contenu" type="text_editor" mandatory='true' >
                     <meta>
                         <title>Contenu </title>
+                    </meta>
+                </property>
+                <property name="debut" type="datetime" colspan="6">
+                    <meta>
+                        <title>Début </title>
+                    </meta>
+                </property>
+                <property name="fin" type="datetime" colspan="6" >
+                    <meta>
+                        <title>Fin </title>
+                    </meta>
+                </property>
+                <property name="chapeau" type="text_line" colspan="6">
+                    <meta>
+                        <title>Chapeau </title>
+                    </meta>
+                </property>
+
+                <property name="client" type="text_line"  colspan="6">
+                    <meta>
+                        <title>Client </title>
+                    </meta>
+                </property>
+                
+                <property name="autre" type="text_line" colspan="6">
+                    <meta>
+                        <title>Autre </title>
                     </meta>
                 </property>
 

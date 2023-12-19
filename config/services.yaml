@@ -50,10 +50,12 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
-    # App\EventSubscriber\DoctrineEventSubscriber:
-    #     tags:
-    #         - { name: 'doctrine.event_subscriber'}
+    App\EventSubscriber\DoctrineEventSubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber'}
 
+    App\Repository\ArticleRepository: 
+        public: true
 
     App\Repository\Newsletters\NewslettersRepository:       
         public: true

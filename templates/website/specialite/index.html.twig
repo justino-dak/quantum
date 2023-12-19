@@ -30,119 +30,45 @@
 {% block content %}
 
     <section id="main-container" class="main-container pb-2">
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
+                {% if specialites is defined and specialites | length > 0 %}
+                    {% for specialite in specialites %}
+                        <div class="col-lg-4 col-md-6 mb-5">
+                            <div class="ts-service-box">
+                                {% set image = sulu_resolve_media(specialite.thumbnail,app.request.locale) %}
+                                {% if image %}
+                                    <div class="ts-service-image-wrapper">
+                                        <img loading="lazy" class="w-100" src="{{image.formats['360x250']}}" alt="">
+                                    </div>                                
+                                {% endif %}
+                                <div class="d-flex">
+                                    <div class="ts-service-box-img">
+                                        <span class="ts-service-icon">
+                                        <i class="fa fa-{{specialite.titre | first | lower}}"></i>
+                                        </span>
+                                    </div>
+                                <div class="ts-service-info">
+                                    <h3 class="service-box-title"><a href="{{path('web_article',{'slug':specialite.slug})}}">{{specialite.titre}}</a></h3>
+                                    <p>{{specialite.contenu | striptags | truncate(300,true) | raw}}</p>
+                                    <a class="learn-more d-inline-block" href="{{path('web_article',{'slug':specialite.slug})}}" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
+                                </div>
+                                </div>
+                            </div><!-- Service1 end -->
+                        </div><!-- Col 1 end -->                        
+                    {% endfor %}
 
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service1.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">CONCEPTION ET MISE EN OEUVRE DE RÉSEAUX D'ENTREPRISE</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service1 end -->
-        </div><!-- Col 1 end -->
+                    <div class="justify-content-center">
+                        <div class="paging " aria-label="Page navigation">
+                            {{ knp_pagination_render(specialites) }}
+                        </div>
+                    </div>
 
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service2.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">DISTRIBUTION ET INSTALLATION D'ÉQUIPEMENTS INFORMATIQUES</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service2 end -->
-        </div><!-- Col 2 end -->
+                {% endif %}
 
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service3.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">ADMINISTRATION ET MAINTENANCE DES SYSTÈMES D'INFORMATIONS</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service3 end -->
-        </div><!-- Col 3 end -->
 
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service4.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">CONSULTANCE ET EXPERTISE</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service1 end -->
-        </div><!-- Col 4 end -->
-
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service5.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">FORMATION À THÈMES SUR L'EXPLOITATION DE L'OUTIL PROFESSIONNEL</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service2 end -->
-        </div><!-- Col 5 end -->
-
-        <div class="col-lg-4 col-md-6 mb-5">
-            <div class="ts-service-box">
-                <div class="ts-service-image-wrapper">
-                <img loading="lazy" class="w-100" src="/assets/images/services/service6.jpg" alt="service-image">
-                </div>
-                <div class="d-flex">
-                <div class="ts-service-box-img">
-                    <img loading="lazy" src="/assets/images/icon-image/service-icon2.png" alt="service-icon">
-                </div>
-                <div class="ts-service-info">
-                    <h3 class="service-box-title"><a href="service-single.html">ASSISTANCE ET CONSEILS</a></h3>
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla non blandit urna, et facilisis arcu. Quisque</p>
-                    <a class="learn-more d-inline-block" href="service-single.html" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
-                </div>
-                </div>
-            </div><!-- Service3 end -->
-        </div><!-- Col 6 end -->
-
-        </div><!-- Main row end -->
-    </div><!-- Conatiner end -->
+            </div><!-- Main row end -->
+        </div><!-- Conatiner end -->
     </section><!-- Main container end -->
 
 {% endblock %}

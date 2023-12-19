@@ -19,4 +19,8 @@ class SearchData
      */
     public $q = '';
 
+    /**
+     * @var string
+     */
+    public $tag = '';
 }

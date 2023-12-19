@@ -9,6 +9,8 @@ use Symfony\Component\Mime\Email;
 use App\Repository\TeamRepository;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaRepositoryInterface;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +29,11 @@ class FrontEndController extends AbstractController
      * @var TeamRepository
      */
     private $teamRepository;
+
+    /**
+     * @var CategoryMetaRepositoryInterface
+     */
+    private $categoryRepository;
     /**
      * @var PaginatorInterface
      */
@@ -35,11 +42,13 @@ class FrontEndController extends AbstractController
     public function __construct(
         ArticleRepository $articleRepository,
         TeamRepository $teamRepository,
-        PaginatorInterface $paginator
+        PaginatorInterface $paginator,
+        CategoryRepositoryInterface $categoryRepository
         )
     {
         $this->articleRepository = $articleRepository;
         $this->teamRepository = $teamRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->paginator = $paginator;
     }
 
@@ -49,11 +58,11 @@ class FrontEndController extends AbstractController
     public function aboutus(Request $request): Response
     {
         
-        $aboutus = $this->articleRepository->findByTag('aboutus');
+        $aboutus = $this->articleRepository->findByTag('presentation');
         $teams=$this->teamRepository->findAll();
 
         return $this->render('website/aboutus.html.twig', [
-            'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
+            'article'=>(count($aboutus)> 0)?$aboutus[0]:null,
             'teams'=>$teams
         ]);
     }
@@ -64,12 +73,16 @@ class FrontEndController extends AbstractController
     public function bonAsavoir(Request $request): Response
     {
         
-        $aboutus = $this->articleRepository->findByTag('aboutus');
-        $teams=$this->teamRepository->findAll();
+        $savoirs = $this->articleRepository->findByTag('bon_a_savoir');
+        $faqs = $this->articleRepository->findByTag('faq');
+        $articlesRecentes = $this->articleRepository->findByTag('article',6);
+
+
 
         return $this->render('website/bon_a_savoir.html.twig', [
-            'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
-            'teams'=>$teams
+            'savoirs'=>$savoirs,
+            'faqs'=>$faqs,
+            'articlesRecentes'=>$articlesRecentes,
         ]);
     }
 
@@ -79,69 +92,95 @@ class FrontEndController extends AbstractController
     public function specialiteIndex(Request $request): Response
     {
         
-        // $aboutus = $this->articleRepository->findByTag('aboutus');
-        // $teams=$this->teamRepository->findAll();
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+
+        $data->tag= "specialite";
+        $data->limit = 9;
+        $specialites = $this->articleRepository->findSearch($data);
 
         return $this->render('website/specialite/index.html.twig', [
-            // 'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
-            // 'teams'=>$teams
+            'specialites'=>$specialites,
         ]);
     }
 
     /**
      * @Route("/services_rendus", name="web_services_rendus")
      */
-    public function servicesRenduIndus(Request $request): Response
+    public function servicesRenduIndex(Request $request): Response
     {
         
-        // $aboutus = $this->articleRepository->findByTag('aboutus');
-        // $teams=$this->teamRepository->findAll();
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+
+        $data->tag= "projet";
+        $data->limit = 1;
+        $projets  = $this->articleRepository->findSearch($data);
+
+        $categories=$this->categoryRepository->findAll();
 
         return $this->render('website/service/index.html.twig', [
-            // 'aboutus'=>(count($aboutus)> 0)?$aboutus[0]:null,
-            // 'teams'=>$teams
+            'projets'=>$projets,
+            'categories'=>$categories
         ]);
     }    
 
     /**
-     * @Route("/blog/article/{slug}", name="web_article")
+     * @Route("/services_rendus/{slug}", name="web_service_rendu")
      */
-    public function detail(Request $request, Article $article,$slug): Response
+    public function serviceRenduDetail($slug, Request $request): Response
     {
-        $data = new SearchData();
-        $data->page = $request->get('page', 1);
-        $data->limit=5;
-        $form = $this->createForm(SearchForm::class, $data);
-        $form->handleRequest($request);
+        $projet=$this->articleRepository->findOneBy(['slug'=>$slug]);
 
-        $articles = $this->articleRepository->findSearch($data);
+        return $this->render('website/service/detail.html.twig', [
+            'projet'=>$projet
+        ]);
+    }  
+
+
+    // /**
+    //  * @Route("/blog/article/{slug}", name="web_article")
+    //  */
+    // public function detail(Request $request, Article $article,$slug): Response
+    // {
+    //     $data = new SearchData();
+    //     $data->page = $request->get('page', 1);
+    //     $data->limit=5;
+    //     $form = $this->createForm(SearchForm::class, $data);
+    //     $form->handleRequest($request);
+
+    //     $articles = $this->articleRepository->findSearch($data);
         
-        $article=$this->articleRepository->findOneBy(['slug'=>$slug]);
-        return $this->render('website/article/detail.html.twig', [
-            'article' => $article,
-            'articles' => $articles,
-            'form'=>$form->createView()
-        ]);
-    }
+    //     $article=$this->articleRepository->findOneBy(['slug'=>$slug]);
+    //     return $this->render('website/article/detail.html.twig', [
+    //         'article' => $article,
+    //         'articles' => $articles,
+    //         'form'=>$form->createView()
+    //     ]);
+    // }
 
-    /**
-     * @Route("/bog/articles/recherche", name="web_articles_recherche")
-     */
-    public function search(Request $request): Response
-    {
-        $data = new SearchData();
-        $data->page = $request->get('page', 1);
-        $data->limit=12;
-        $form = $this->createForm(SearchForm::class, $data);
-        $form->handleRequest($request);
+    // /**
+    //  * @Route("/bog/articles/recherche", name="web_articles_recherche")
+    //  */
+    // public function search(Request $request): Response
+    // {
+    //     $data = new SearchData();
+    //     $data->page = $request->get('page', 1);
+    //     $data->limit=12;
+    //     $form = $this->createForm(SearchForm::class, $data);
+    //     $form->handleRequest($request);
 
-        $articles = $this->articleRepository->findSearch($data);
+    //     $articles = $this->articleRepository->findSearch($data);
 
-        return $this->render('website/article/search.html.twig', [
-            'articles' => $articles,
-            'form'=>$form->createView()
-        ]);
-    }
+    //     return $this->render('website/article/search.html.twig', [
+    //         'articles' => $articles,
+    //         'form'=>$form->createView()
+    //     ]);
+    // }
 
 
     /**
