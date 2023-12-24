@@ -7,7 +7,7 @@ formToolbarActionRegistry.add('app.newsletter_notify', SendNewsletterToolbarActi
 
 (function (d) {
 
-    d.title = "Quantum - Admin"
+    d.title = "Quantum"
 
     // inject the global navigation
     // const script = d.createElement('script');

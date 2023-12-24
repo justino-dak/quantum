@@ -2119,7 +2119,7 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
 }
 
 .clients-logo img {
-  filter: grayscale(100%);
+  filter: grayscale(0%);
   filter: gray;
 }
 

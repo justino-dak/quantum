@@ -192,16 +192,23 @@
 
                 {% for valeur in valeurs %}
 
+                  {% set show = '' %}
+                  {% set collapsed = '' %}
+                  {% if loop.first %}
+                      {% set show = 'show' %}
+                  {% else %}
+                      {% set collapsed = 'collapsed' %}
+                  {% endif %}
                   <div class="card">
                     <div class="card-header p-0 bg-transparent" id="heading-{{valeur.id}}">
                         <h2 class="mb-0">
-                          <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{valeur.id}}" aria-expanded="false" aria-controls="collapse-{{valeur.id}}">
+                          <button class="btn btn-block text-left {{collapsed}}" type="button" data-toggle="collapse" data-target="#collapse-{{valeur.id}}" aria-expanded={{loop.first}} aria-controls="collapse-{{valeur.id}}">
                             {{valeur.titre | title}}
                           </button>
                         </h2>
                     </div>
                   
-                    <div id="collapse-{{valeur.id}}" class="collapse show" aria-labelledby="heading-{{valeur.id}}" data-parent="#our-values-accordion">
+                    <div id="collapse-{{valeur.id}}" class="collapse {{show}}" aria-labelledby="heading-{{valeur.id}}" data-parent="#our-values-accordion">
                         <div class="card-body">
                           {{valeur.contenu | raw}}
                         </div>
@@ -483,7 +490,7 @@
                     {% if image %}
                       <div class="col-sm-4 col-6">
                         <figure class="clients-logo">
-                            <a href="#!"><img loading="lazy" class="img-fluid" src="{{image.formats['242x80']}}" alt="clients-logo" /></a>
+                            <a href="#!"><img loading="lazy" class="img-fluid" src="{{image.formats['242x80']}}" alt="" /></a>
                         </figure>
                       </div><!-- Client  end -->                    
                     {% endif %}

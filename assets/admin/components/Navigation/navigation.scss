@@ -3,14 +3,26 @@
 
 /* overwrite style for specific elements */
 
+$color: $silver;
+$headerColor: $white;
+$activeColor: $wildSand;
+$backgroundColor: $pickledBluewood;
+$darkBackgroundColor: $ebonyClay;
+$hoverColor: $shakespeare;
+
 .logo {
     color: inherit;
     flex: 0 0 auto;
     display: block;
-    font-size: 1px;
+    font-size: 30px;
     line-height: 1;
     text-decoration: none;
     transform: translateY(2px); /* visual centering the logo */
-    background-color: red;
+    
 
 }
+
+.logo:before {
+    content: 'QUNTUM';
+}
+

@@ -220,7 +220,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
      */
     protected function mapDataToEntity(array $data, Article $entity): void
     {
-        dump($data);
+        // dump($data);
         if ($titre = $data['titre'] ?? null) {
             $entity->setTitre($titre);
         }
@@ -232,7 +232,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             $entity->setContenu($contenu);
         }
 
-        if ($thumbnailId = ($data['thumbnail']['id'])) {
+        if ($thumbnailId = ($data['thumbnail']['id'] ?? null)) {
             $thumbnail = $this->mediaRepository->findMediaById($thumbnailId);
             $entity->setThumbnail($thumbnail); 
         }

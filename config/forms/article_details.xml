@@ -8,7 +8,7 @@
     <properties>
         <section name="thumbnail" colspan="4">
             <properties>
-                <property name="thumbnail" type="single_media_upload"  mandatory='true' >
+                <property name="thumbnail" type="single_media_upload"  >
                     <params>
                         <param name="upload_text">
                             <meta>
