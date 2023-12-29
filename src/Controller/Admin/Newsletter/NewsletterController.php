@@ -199,16 +199,19 @@ class NewsletterController extends AbstractRestController implements ClassResour
             throw new Exception("error");
             throw new NotFoundHttpException();
         }
-
+        $request=Request::createFromGlobals();
+        $homepage=$request->getSchemeAndHttpHost();
         $newsletter=$entity;
+        // $users=$this->userRepository->findBy(['is_valid'=>true]);
         $users=$this->userRepository->findAll();
+
 
         // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
         if (count($users)> 0) {
             foreach ($users as $user) {
                 if ($user->getIsValid()) {
                     // $this->sendNewsletter->send($user,$newsletter,$entity);
-                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId()));
+                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),null,$homepage));
                 }
             }
         }
@@ -219,7 +222,7 @@ class NewsletterController extends AbstractRestController implements ClassResour
         return $this->viewHandler->handle(View::create($entity));
 
     }    
-    
+  
 
     /**
      * @param array<string, mixed> $data

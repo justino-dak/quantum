@@ -33,6 +33,6 @@ final class SendNewsletterMessageHandler implements MessageHandlerInterface
             $article= $this->em->find(Article::class,$message->getArticleId());
         }
 
-        $this->newsService->send($user,$newsletter,$article);
+        $this->newsService->send($user,$newsletter,$article,$message->getLink());
     }
 }

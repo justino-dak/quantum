@@ -28,88 +28,94 @@
 {% endblock %}
 
 {% block content %}
+{# <pre>
+  {{ dump(projets) }}
+</pre> #}
 
-  {% if projets is defined and projets | length > 0 %}
+  {# {% if projets is defined and projets | length > 0 %} #}
 
     <section id="project-area" class="project-area solid-bg main-container">
       <div class="container">
-        <div class="row text-center">
-          <div class="col-lg-12">
-            <h2 class="section-title">Travail d'Excelence</h2>
-            <h3 class="section-sub-title">Services rendus</h3>
+          <div class="row text-center">
+            <div class="col-lg-12">
+              <h2 class="section-title">Travail d'Excelence</h2>
+              <h3 class="section-sub-title">Services rendus</h3>
+            </div>
           </div>
-        </div>
         <!--/ Title row end -->
-
-        <div class="row">
-          <div class="col-12">
-            <div class="shuffle-btn-group">
-              <label class="active" for="all">
-                <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">TOUT
-              </label>
-              {% if categories is defined and categories | length > 0 %}
-                {% for categorie in categories %}
-                  <label for="{{ categorie.key}}">
-                    <input type="radio" name="shuffle-filter" id="{{ categorie.key}}" value="{{ categorie.key}}">{{ categorie.key}}
-                  </label>                  
-                {% endfor %}
-              {% endif %}
-
-            <div class="row shuffle-wrapper">
-              <div class="col-1 shuffle-sizer"></div>
-
-                {% for projet in projets %}
-                  {% set groupe = [] %}
-                  {% set CategoryNames = [] %}
-                  {% for category in projet.categories %}
-                    {% set groupe = groupe|merge([category.key]) %} 
-                    {% set CategoryNames = CategoryNames|merge([ category.key]) %} 
+        {% if projets is defined and projets | length > 0 %}
+          <div class="row">
+            <div class="col-12">
+              <div class="shuffle-btn-group">
+                <label class="active" for="all">
+                  <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">TOUT
+                </label>
+                {% if categories is defined and categories | length > 0 %}
+                  {% for categorie in categories %}
+                    <label for="{{ categorie.key}}">
+                      <input type="radio" name="shuffle-filter" id="{{ categorie.key}}" value="{{ categorie.key}}">{{ categorie.key}}
+                    </label>                  
                   {% endfor %}
+                {% endif %}
 
-                  {% set image = sulu_resolve_media(projet.thumbnail,app.request.locale) %}
-                  {% if image is not null %}
+              <div class="row shuffle-wrapper">
+                <div class="col-1 shuffle-sizer"></div>
 
-                    <div class="col-lg-4 col-md-6 shuffle-item" data-groups="{{groupe | json_encode()}}">
-                      <div class="project-img-container">
-                        <a class="gallery-popup" href="{{image.formats['750x600']}}" aria-label="project-img">
-                          <img class="img-fluid" src="{{image.formats['750x600']}}">
-                          <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                        </a>
-                        <div class="project-item-info">
-                          <div class="project-item-info-content">
-                            <h3 class="project-item-title">
-                              <a href="{{path('web_service_rendu',{'slug':projet.slug})}}"> {{projet.titre | title}}</a>
-                            </h3>
-                            <p class="project-cat">{{CategoryNames|join(' , ')}}  </p>
+                  {% for projet in projets %}
+                    {% set groupe = [] %}
+                    {% set CategoryNames = [] %}
+                    {% for category in projet.categories %}
+                      {% set groupe = groupe|merge([category.key]) %} 
+                      {% set CategoryNames = CategoryNames|merge([ category.key]) %} 
+                    {% endfor %}
+
+                    {% set image = sulu_resolve_media(projet.thumbnail,app.request.locale) %}
+                    {% if image is not null %}
+
+                      <div class="col-lg-4 col-md-6 shuffle-item" data-groups="{{groupe | json_encode()}}">
+                        <div class="project-img-container">
+                          <a class="gallery-popup" href="{{image.formats['750x600']}}" aria-label="project-img">
+                            <img class="img-fluid" src="{{image.formats['750x600']}}">
+                            <span class="gallery-icon"><i class="fa fa-plus"></i></span>
+                          </a>
+                          <div class="project-item-info">
+                            <div class="project-item-info-content">
+                              <h3 class="project-item-title">
+                                <a href="{{path('web_service_rendu',{'slug':projet.slug})}}"> {{projet.titre | title}}</a>
+                              </h3>
+                              <p class="project-cat">{{CategoryNames|join(' , ')}}  </p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  {% endif %}
-                                   
-                {% endfor %}
-             
+                    {% endif %}
+                                    
+                  {% endfor %}
+              
+              </div>
+              <!-- shuffle end -->
             </div>
-            <!-- shuffle end -->
-          </div>
 
-          <div class="col-12">
-          
-              <nav class="paging" aria-label="Page navigation">
-                  {{ knp_pagination_render(projets) }}
-              </nav>            
+            <div class="col-12">
+            
+                <nav class="paging" aria-label="Page navigation">
+                    {{ knp_pagination_render(projets) }}
+                </nav>            
 
-            {# <div class="general-btn text-center">
-              <a class="btn btn-primary" href="{{path('web_services_rendus')}}">Voir tous les projets</a>
-            </div> #}
-          </div>
+              {# <div class="general-btn text-center">       
+                <a class="btn btn-primary" href="{{path('web_services_rendus')}}">Voir tous les projets</a>
+              </div> #}
+            </div>
 
-        </div><!-- Content row end -->
+          </div><!-- Content row end -->
+        {% endif %}
+
       </div>
+
       <!--/ Container end -->
     </section><!-- Project area end -->
 
-  {% endif %}
+  {# {% endif %} #}
 
 
 {% endblock %}

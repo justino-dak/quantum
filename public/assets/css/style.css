@@ -105,13 +105,13 @@ a:visited {
 }
 
 a {
-  color: inherit;
+  color: #DC8C33;
   transition: 0.2s ease;
 }
 
 a:hover {
   text-decoration: none;
-  color: #000;
+  color: #f8b161;
 }
 
 a.read-more {
