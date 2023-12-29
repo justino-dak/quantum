@@ -218,13 +218,6 @@ class FrontEndController extends AbstractController
                 $this->addFlash('danger', 'Désolé ! Votre message n\'a pas pu être envoyé. Veuillez réessayer ou nous contacter à nos addresses ! ');
             }
 
-            // if($m=$mailer->send($email)){
-                
-            //     $this->addFlash('success', 'Votre message a été envoyé avec succès. Nous allons vous répondre dans un instant.');
-            // }else{
-            //     $this->addFlash('danger', 'Désolé ! Votre message n\'a pas pu être envoyé. Veuillez réessayer ou nous contacter à nos addresses ! ');
-            // }
-
         }
         return $this->redirect($referer);
 
