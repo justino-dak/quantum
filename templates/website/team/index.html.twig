@@ -30,11 +30,33 @@
             <div class="ts-team-content-classic">
               <h3 class="ts-name">{{team.nom | upper }} {{team.prenoms | lower }}</h3>
               <p class="ts-designation">{{team.poste}}</p>
-              <p class="ts-description">{{team.description | raw}}</p>
+              <p class="ts-description mh-1">{{team.description | raw}}</p>
               <div class="team-social-icons">
-                <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+              {% if team.facebook is not null and team.facebook != "" %}
+                <a target="_blank" href="{{team.facebook }}"><i class="fab fa-facebook-f"></i></a>
+              {% endif %}
+
+              {% if team.whatsapp is not null and team.whatsapp != "" %}
+                <a target="_blank" href="{{team.whatsapp}}"><i class="fab fa-whatsapp"></i></a>
+              {% endif %}
+
+              {% if team.linkedin is not null and team.linkedin != ""%}
+                <a target="_blank" href="{{team.linkedin}}"><i class="fab fa-linkedin"></i></a>
+              {% endif %}
+
+              {% if team.twitter is not null and team.twitter != "" %}
+                <a target="_blank" href="{{team.twitter}}"><i class="fab fa-twitter"></i></a>
+              {% endif %}
+
+              {% if team.youtube is not null and team.youtube != "" %}
+                <a target="_blank" href="{{team.youtube}}"><i class="fab fa-youtube"></i></a>
+              {% endif %}
+
+              {% if team.instagram is not null and team.instagram != "" %}
+                <a target="_blank" href="{{team.instagram}}"><i class="fab fa-instagram"></i></a>
+              {% endif %}
+
+
               </div>
               <!--/ social-icons-->
             </div>

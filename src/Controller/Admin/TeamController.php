@@ -212,6 +212,10 @@ class TeamController extends AbstractRestController implements ClassResourceInte
         if ($prenoms = $data['prenoms'] ?? null) {
             $entity->setPrenoms($prenoms);
         }
+        if ($poste = $data['poste'] ?? null) {
+            $entity->setPoste($poste);
+        }
+
         if ($whatsapp = $data['whatsapp'] ?? null) {
             $entity->setWhatsapp($whatsapp);
         }
