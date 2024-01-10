@@ -86,7 +86,7 @@ class NewslettersController extends AbstractController
 
         //Ici on cree le message
         $email=(new TemplatedEmail())
-                ->from('no-reply@quantum.com')
+                ->from('no-reply@quantum-togo.com')
                 ->to($user->getEmail())
                 ->subject('CONFIRMATION D\'ADRESSE E-MAIL')
                 ->htmlTemplate('emails/inscription.html.twig')

@@ -38,7 +38,7 @@ class SendNewsletterService
             if($user){
                 $_locale='fr';
                 $email=(new TemplatedEmail())
-                ->from('no-reply@quantum.com')
+                ->from('no-reply@quantum-togo.com')
                 ->to( trim($user->getEmail()))
                 ->subject('QUANTUM : NEWSLETTER')
                 ->htmlTemplate('emails/newsletter.html.twig')

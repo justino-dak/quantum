@@ -206,8 +206,8 @@ class FrontEndController extends AbstractController
 
             $email = (new Email())
             ->subject($data['objet'])
-            ->from('no-reply@quantum.com')
-            ->to('contact@quantum.com')
+            ->from('no-reply@quantum-togo.com')
+            ->to('contact@quantum-togo.com')
             ->text($message_body);
 
             try {
