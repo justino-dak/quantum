@@ -95,13 +95,13 @@ class DoctrineEventSubscriber implements EventSubscriber
         $entity=$args->getObject();
        
         switch ($action) {
-            case 'postPersist':
+            case 'postUpdate':
                 break;
 
             case 'prePersist':
                 break;
 
-            case 'postUpdate':
+            case 'postPersist':
 
                 /// Article
                 if ($entity instanceof Article) {
