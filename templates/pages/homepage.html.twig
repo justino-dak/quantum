@@ -42,7 +42,7 @@
                           <h3 class="slide-sub-title" data-animation-in="slideInRight">{{slider.titre}}</h3>                        
                           <h2 class="slide-title" data-animation-in="slideInLeft">{{slider.description | striptags| truncate(100,true) | raw }}</h2>
                           <p data-animation-in="slideInLeft" data-duration-in="1.2">
-                            <a href="{{path('web_article',{'slug': slider.slug})}}" class="slider btn btn-primary border">En Savoir Plus</a>
+                            <a href="{{path('web_specialites')}}" class="slider btn btn-primary border">En Savoir Plus</a>
                             <a href="/contact" class="slider btn btn-primary ">Contactez Nous</a>
                       </p>
                         </div>
@@ -56,41 +56,6 @@
           
         {% endfor %}
       {% endif %}
-
-
-      <div class="banner-carousel-item" style="background-image:url(/assets/images/slider-main/bg2.jpg)">
-        <div class="slider-content">
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                  <div class="col-md-12 text-center">
-                    <h2 class="slide-title" data-animation-in="slideInLeft">dui non imperdiet sagittis</h2>
-                    <h3 class="slide-sub-title" data-animation-in="slideInRight">Aliquam malesuada lectus ex dapibus ligula</h3>
-                    <p data-animation-in="slideInLeft" data-duration-in="1.2">
-                        <a href="services.html" class="slider btn btn-primary border">En Savoir Plus</a>
-                        <a href="contact.html" class="slider btn btn-primary ">Contactez Nous</a>
-                    </p>
-                  </div>
-              </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="banner-carousel-item" style="background-image:url(/assets/images/slider-main/bg3.jpg)">
-        <div class="slider-content">
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                  <div class="col-md-12 text-center">
-                    <h2 class="slide-title" data-animation-in="slideInLeft">luctus et ultrices posuere cubilia </h2>
-                    <h3 class="slide-sub-title" data-animation-in="slideInRight">non scelerisque velit feugiat</h3>
-                    <p data-animation-in="slideInLeft" data-duration-in="1.2">
-                      <a href="services.html" class="slider btn btn-primary border">En Savoir Plus</a>
-                      <a href="contact.html" class="slider btn btn-primary ">Contactez Nous</a>
-                </p>
-                  </div>
-              </div>
-            </div>
-        </div>
-      </div>
 
     </div>
 
