@@ -62,7 +62,20 @@
         <property name="tags" visibility="always" searchability="yes" translation="sulu_tag.tags">
             <field-name>name</field-name>
             <entity-name>%sulu.model.tag.class%</entity-name>
+            <joins ref="tag"/>           
+        </property>
+        <property name="tag" visibility="no"  translation="sulu_tag.tag">
+            <field-name>id</field-name>
+            <entity-name>%sulu.model.tag.class%</entity-name>
             <joins ref="tag"/>
+            <filter type="selection">
+                <params>
+                    <param name="displayProperty" value="name" />
+                    <param name="resourceKey" value="tags" />
+                    <param name="type" value="select" />
+                </params>
+            </filter>
+            
         </property>
 
         <property name="updatedAt" visibility="always" searchability="yes" type="datetime" translation="Modifié le ">

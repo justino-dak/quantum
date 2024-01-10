@@ -10,6 +10,7 @@ use App\Entity\Newsletter\Newsletter;
 use App\Message\SendNewsletterMessage;
 use App\Service\SendNewsletterService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use App\Repository\Newsletter\NewsletterRepository;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -114,7 +115,7 @@ class DoctrineEventSubscriber implements EventSubscriber
                             foreach ($users as $user) {
                                 if ($user->getIsValid()) {
                                     // $this->sendNewsletter->send($user,$newsletter,$entity);
-                                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),$entity->getId()));
+                                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),$entity->getId(),(Request::createFromGlobals())->getSchemeAndHttpHost()));
                                 }
                             }
                         }

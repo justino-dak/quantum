@@ -40,18 +40,24 @@ class NewslettersController extends AbstractController
      * @var SendNewsletterService
      */
     private  $sendNewsletterService;
+    /**
+     * @var Request
+     */
+    private $request;
 
     public function __construct(
         UserRepository $usersRepository,
         CategorieRepository $categoriesRepository,
         NewsletterRepository $newslettersRepository,
-        SendNewsletterService $sendNewsletterService
+        SendNewsletterService $sendNewsletterService,
+        Request $request
         )
     {
         $this->usersRepository = $usersRepository;
         $this->categoriesRepository = $categoriesRepository;
         $this->newslettersRepository = $newslettersRepository;
         $this->sendNewsletterService = $sendNewsletterService;
+        $this->request = $request;
     }
 
     /**
@@ -80,11 +86,11 @@ class NewslettersController extends AbstractController
 
         //Ici on cree le message
         $email=(new TemplatedEmail())
-                ->from('no-reply@universaquatic.com')
+                ->from('no-reply@quantum-togo.com')
                 ->to($user->getEmail())
                 ->subject('CONFIRMATION D\'ADRESSE E-MAIL')
                 ->htmlTemplate('emails/inscription.html.twig')
-                // ->context(compact('user', 'token'))
+                ->context(compact('user', 'token'))
                 ;
 
         // ici nous verifions si utilisateur eiste deja
@@ -118,7 +124,7 @@ class NewslettersController extends AbstractController
                 
             } catch (\Throwable $th) {
 
-                $this->addFlash('error', 'Echec: une erreur inconue s\'est produite. Veuillez reéssayer.'.$th->getMessage());
+                $this->addFlash('error', 'Erreur : '.$th->getMessage().'\nVeuillez reésayer utérieurement ou  contacter l\'administrateur si l\'erreur persiste . \'Merci ');
             }
             return $this->render('newsletters/confirm.html.twig' );  
         }
@@ -163,6 +169,7 @@ class NewslettersController extends AbstractController
     /**
      * @Route("/newsletter/unsubscribe/{id}/{newsletter}/{token}" , name="web_newsletter_unsubscribe")
      */
+    // #[Route('/newsletter/unsubscribe/{id}/{newsletter}/{token}',name:'web_newsletter_unsubscribe')]
     public function unsubcrib($id, $newsletter, $token)
     {
         $user=$this->usersRepository->find($id);
@@ -215,6 +222,11 @@ class NewslettersController extends AbstractController
     {
         // $messenger->failed();
         return new Response($messenger->failed());
+    }
+
+    public  function getRequest()
+    {
+        return $this->request;
     }
 
 }

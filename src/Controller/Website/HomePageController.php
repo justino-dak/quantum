@@ -53,7 +53,7 @@ class HomePageController extends DefaultController
         $temoignages=$this->articleRepository->findByTag('temoignage');
         $valeurs=$this->articleRepository->findByTag('valeur');
         $clients=$this->articleRepository->findByTag('client');
-        $projets=$this->articleRepository->findByTag('presentation',6);
+        $projets=$this->articleRepository->findByTag('projet',6);
         $specialites=$this->articleRepository->findByTag('specialite');
         $categories=$this->categoryRepository->findAll();
 

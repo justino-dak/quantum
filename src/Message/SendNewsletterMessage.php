@@ -12,17 +12,19 @@ final class SendNewsletterMessage
     private $userId;
     private $newsId;
     private $articleId;
+    private $link;
 
     /**
      * @param int $userId "Id de l\'utilisateur"
      * @param int $newsId "Id de la newsletter"
      * @param int | null $articleId "Id de la nouvelle article publiée"
      */
-    public function __construct(int $userId, int $newsId, int $articleId=null)
+    public function __construct(int $userId, int $newsId, int $articleId=null,string $link=null)
     {
         $this->userId = $userId;
         $this->newsId = $newsId;
         $this->articleId = $articleId;
+        $this->link = $link;
     }
 
 
@@ -50,4 +52,12 @@ final class SendNewsletterMessage
     {
         return $this->articleId;
     }
+
+        /**
+         * Get the value of link
+         */ 
+        public function getLink()
+        {
+                return $this->link;
+        }
 }

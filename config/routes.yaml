@@ -1,1 +1,11 @@
 # Define website routes in `routes_website.yaml` and admin routes in the `routes_admin.yaml`
+web_newsletter_unsubscribe:
+  controller: App\Controller\Website\NewslettersController::unsubscrib
+  path: /newsletter/unsubscribe/{id}/{newsletter}/{token}
+
+
+web_article:
+  controller: App\Controller\Website\ArtticleController::detail
+  path: /blog/article/{slug}
+# web_homepage:
+#   path: /

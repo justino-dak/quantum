@@ -4,11 +4,11 @@
     source('@styles/style.css'),
    ) %} 
 
- <html lang="fr">
+ {# <html lang="fr">
 
-        <body> 
-            <main id="main">
-            <section id="blog" class="blog">
+    <body>  #}
+        <div class="body-inner">
+            <section id="main-container" class="main-container">
                 <div class="container">
 
                     <div >
@@ -21,43 +21,48 @@
                     {% if article is defined and article is not null %}
 
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 mx-auto d-flex justify-content-center">
-                                <article class="entry">
-                    
-                                <div class="entry-img">
+
+                            <div class="col-lg-12 mb-5 mb-lg-0">
+                                <div class="post">
                                     {% if article.thumbnail %}
-                                    {% set articleImage = sulu_resolve_media(article.thumbnail,'fr') %}
-                                        <img src="{{absolute_url(articleImage.formats['1920x700'])}}" alt="img" class="img-fluid">
-                                    </a>
+                                        {% set image = sulu_resolve_media(article.thumbnail,null) %}
+                                        {% if image %}
+                                            <div class="post-media post-image">
+                                                <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}">
+                                                    <img loading="lazy" src="{{ homeLink}}{{image.formats['750x450']}}" class="img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
-                                </div>
-                    
-                                <h2 class="entry-title">
-                                    <a href="{{absolute_url(path('web_article',{'slug':article.slug}))}}" title="Lire plus">
-                                        {{article.titre}}
-                                    </a>
-                                </h2>
-                    
-                                <div class="entry-meta">
-                                    <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href=""></a>{{article.createdBy.contact.firstName | upper}} {{article.createdBy.contact.lastName | title}}</a></li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href=""><time datetime="2020-01-01">{{article.createdAt | date('d-M-Y H:m')}}</time></a></li>
-                                    </ul>
-                                </div>
-                    
-                                <div class="entry-content">
-                                    <p>
-                                        {{article.contenu | striptags |  truncate(150, true)| raw }}
-                                    </p>
-                                    <div class="read-more">
-                                    <a href="{{absolute_url(path('web_article',{'slug':article.slug}))}}" title="Lire plus">Lire plus</a>
-                                    </div>
-                                </div>
-                    
-                                </article>
-                            </div>
-                    
-                        </div> 
+
+                                    <div class="post-body">
+                                        <div class="entry-header">
+                                        <div class="post-meta">
+                                            <span class="post-author">
+                                            <i class="far fa-user"></i><a href="#"> {{article.createdBy.contact.lastName | upper }} {{article.createdBy.contact.firstName | title }}</a>
+                                            </span>
+                                            <span class="post-cat">
+                                            <i class="far fa-folder-open"></i><a href="#"> Blog</a>
+                                            </span>
+                                            <span class="post-meta-date"><i class="far fa-calendar"></i>{{article.createdAt | format_datetime('medium','none',locale='fr')}}</span>
+                                        </div>
+                                        <h2 class="entry-title">
+                                            <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}">{{article.titre}}</a>
+                                        </h2>
+                                        </div><!-- header end -->
+
+                                        <div class="entry-content">
+                                            {{article.contenu | striptags | truncate(300,true) | raw}}
+                                        </div>
+
+                                        <div class="post-footer">
+                                            <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}" class="btn btn-primary">Continuer à lire</a>
+                                        </div>
+
+                                    </div><!-- post-body end -->
+                                </div><!-- 1st post end -->
+                            </div><!-- Content Col end -->
+                        </div><!-- Main row end -->
                         
                     {% endif %}
                      
@@ -65,14 +70,16 @@
             </section>
 
             {# <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur <a href="{{app.request.getSchemeAndHttpHost() }}">{{app.request.getSchemeAndHttpHost() }}</a> </p>     #}
-            <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur <a href="www.quantum.com">www.quantum.com</a> </p>    
+            <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur 
+                <a href="{{ homeLink}}" target="_blank"> {{ homeLink}}</a> 
+            </p>    
             <p> Pour se désabonner, cliquer sur 
-                <a href="{{absolute_url(path('web_newsletter_unsubscribe',{id:user.id, newsletter:newsletter.id, token:user.validationToken}))}}">
+                <a href="{{ homeLink}}{{path('web_newsletter_unsubscribe',{id:user.id, newsletter:newsletter.id, token:user.validationToken})}}" >
                 se désinscrire
                 </a> et vous ne recevrez plus ce type de message.
             </p>
-        </main>
-    </body>
-</html> 
+        </div>
+    {# </body>
+</html>  #}
 {% endapply %} 
 

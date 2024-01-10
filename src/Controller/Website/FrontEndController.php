@@ -118,7 +118,7 @@ class FrontEndController extends AbstractController
         $form->handleRequest($request);
 
         $data->tag= "projet";
-        $data->limit = 1;
+        // $data->limit = 1;
         $projets  = $this->articleRepository->findSearch($data);
 
         $categories=$this->categoryRepository->findAll();
@@ -191,26 +191,35 @@ class FrontEndController extends AbstractController
         $referer=$request->headers->get('referer');
         if($request->getMethod()=="POST") {
             $data=$request->request->all();
-            $message_body="Message de {$data['email'] } ({$data['name'] }) :\n\n";
+            $message_body="Message de \n{$data['email'] } ({$data['fullName'] }) ;\n";
+            if ($data['telephone'] ?? null) {
+                $message_body.= "Téléphone : {$data['telephone']} ;\n";                
+            }
+            if ($data['entreprise'] ?? null) {
+                $message_body.= "Entreprise : {$data['entreprise']} ;\n";                
+            }            
+            $message_body.="Contenu : ====> \n\n";
             $message_body.=$data['message'];
             // dump($message_body); die();
 
 
 
             $email = (new Email())
-            ->subject($data['subject'])
-            ->from('no-reply@quantum.com')
-            ->to('contact@quantum.com')
+            ->subject($data['objet'])
+            ->from('no-reply@quantum-togo.com')
+            ->to('contact@quantum-togo.com')
             ->text($message_body);
-            
-            if($mailer->send($email)){
-                // dump($message);die();
+
+            try {
+                $mailer->send($email);
                 $this->addFlash('success', 'Votre message a été envoyé avec succès. Nous allons vous répondre dans un instant.');
-            }else{
+            } catch (\Throwable $th) {
+                //throw $th;
                 $this->addFlash('danger', 'Désolé ! Votre message n\'a pas pu être envoyé. Veuillez réessayer ou nous contacter à nos addresses ! ');
             }
-            return $this->redirect($referer);
+
         }
+        return $this->redirect($referer);
 
     
     }    
