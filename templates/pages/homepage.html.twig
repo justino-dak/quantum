@@ -92,13 +92,13 @@
                 <div class="ts-intro">
                     <h2 class="into-title">{{presentation.titre | title}}</h2>
                     <h3 class="into-sub-title">{{presentation.description}}</h3>
-                    <p>{{presentation.contenu | striptags |  truncate(200, true)| raw }}</p>
+                    <p>{{presentation.contenu | striptags |  truncate(400, true)| raw }}</p>
                     <a href="{{path('web_article',{'slug': presentation.slug})}}" class="">En savoir plus</a>
                 </div><!-- Intro box end -->
 
                 <div class="gap-20"></div>
 
-                  <div class="row">
+                  {# <div class="row">
                       <div class="col-md-6">
                         <div class="ts-service-box">
                             <span class="ts-service-icon">
@@ -107,8 +107,8 @@
                             <div class="ts-service-box-content">
                               <h3 class="service-box-title">Nous avons une réputation d'excélence</h3>
                             </div>
-                        </div><!-- Service 1 end -->
-                      </div><!-- col end -->
+                        </div>
+                      </div>
 
                       <div class="col-md-6">
                         <div class="ts-service-box">
@@ -118,9 +118,9 @@
                             <div class="ts-service-box-content">
                               <h3 class="service-box-title">Nous créons des partenariats</h3>
                             </div>
-                        </div><!-- Service 2 end -->
-                      </div><!-- col end -->
-                  </div><!-- Content row 1 end -->                
+                        </div>
+                      </div>
+                  </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -144,8 +144,8 @@
                           </div>
                       </div><!-- Service 2 end -->
                     </div><!-- col end -->
-                </div><!-- Content row 1 end -->
-              </div><!-- Col end -->
+                </div> #}
+              </div>
             
             {% if valeurs is defined and valeurs | length > 0 %}
 
@@ -295,7 +295,7 @@
             </div><!-- Col end -->
 
             <div class="col-lg-4 text-center">
-              <img loading="lazy" class="img-fluid" src="/assets/images/services/service-center.jpg" alt="service-avater-image">
+              {# <img loading="lazy" class="img-fluid" src="/assets/images/services/service-center.jpg" alt="service-avater-image"> #}
             </div><!-- Col end -->
 
             <div class="col-lg-4 mt-5 mt-lg-0 mb-4 mb-lg-0">
