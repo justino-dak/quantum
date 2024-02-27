@@ -3,18 +3,18 @@
 {% block title %}<title>Quantum - Spécialités</title>{% endblock %}
 
 {% block banner %}
-    <div id="banner-area" class="banner-area" style="background-image:url(images/banner/banner1.jpg)">
+    <div id="banner-area" class="banner-area" style="background-image:url(/assets/images/banner/banner1.jpg)">
     <div class="banner-text">
         <div class="container">
             <div class="row">
             <div class="col-lg-12">
                 <div class="banner-heading">
-                    <h1 class="banner-title">Domaines</h1>
+                    <h1 class="banner-title">Spécialités</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item"><a href="#">Domaines de travail</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Nom du domaine</li>
+                        <li class="breadcrumb-item"><a href="#">Spécialités</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" style="color: #DC8C33 !important;">{{specialite ? specialite.titre : ''}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -28,6 +28,8 @@
 
 {% block content %}
 
+{% set curentSpecialite = specialite %}
+
     <section id="main-container" class="main-container">
     <div class="container">
         <div class="row">
@@ -35,15 +37,23 @@
         <div class="col-xl-3 col-lg-4">
             <div class="sidebar sidebar-left">
             <div class="widget">
-                <h3 class="widget-title">Autres Domaines</h3>
-                <ul class="nav service-menu">
+                <h3 class="widget-title">Autres Spécialités</h3>
+
+                {% if specialites is defined and specialites | length > 0 %}
+                    <ul class="nav service-menu">
+                        {% for specialite in specialites %}
+                            <li class="{{specialite.id == curentSpecialite.id  ? 'active' : ''}}"><a  href="{{path('web_specialite',{'slug':specialite.slug})}}">{{specialite.titre}}</a></li>                           
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {# <ul class="nav service-menu">
                 <li><a href="service-single.html">CONCEPTION ET MISE EN OEUVRE DE RÉSEAUX D'ENTREPRISE</a></li>
                 <li class="active"><a href="service-single.html">DISTRIBUTION ET INSTALLATION D'ÉQUIPEMENTS INFORMATIQUES</a></li>
                 <li><a href="#">ADMINISTRATION ET MAINTENANCE DES SYSTÈMES D'INFORMATIONS</a></li>
                 <li><a href="#">CONSULTANCE ET EXPERTISE</a></li>
                 <li><a href="#">FORMATION À THÈMES SUR L'EXPLOITATION DE L'OUTIL PROFESSIONNEL</a></li>
                 <li><a href="#">ASSISTANCE ET CONSEILS</a></li>
-                </ul>
+                </ul> #}
             </div><!-- Widget end -->
 
 
@@ -51,62 +61,47 @@
             </div><!-- Sidebar end -->
         </div><!-- Sidebar Col end -->
 
-        <div class="col-xl-8 col-lg-8">
-            <div class="content-inner-page">
 
-            <h2 class="column-title mrt-0">DISTRIBUTION ET INSTALLATION D'ÉQUIPEMENTS INFORMATIQUES</h2>
+        {% if specialite is defined and specialite is not null %}
 
-            <div class="gap-40"></div>
+            <div class="col-xl-8 col-lg-8">
+                <div class="content-inner-page">
 
-            <div id="page-slider" class="page-slider">
-                <div class="item">
-                <img loading="lazy" class="img-fluid" src="images/projects/project1.jpg" alt="project-slider-image" />
-                </div>
+                <h2 class="column-title mrt-0">{{specialite.titre}}</h2>
 
-                <div class="item">
-                <img loading="lazy" class="img-fluid" src="images/projects/project2.jpg" alt="project-slider-image" />
-                </div>
-            </div><!-- Page slider end -->
-
-            <div class="gap-40"></div>
-            
+                <div class="gap-40"></div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        {{specialite.contenu | raw}}
+                    </div><!-- col end -->
+                </div><!-- 1st row end-->
 
 
+                <!--2nd row end -->
 
-            <div class="row">
-                <div class="col-md-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget risus
-                    sollicitudin pellentesque et non erat. Maecenas nibh dolor, malesuada et bibendum a, sagittis accumsan
-                    ipsum. Pellentesque ultrices ultrices sapien.</p>
-                <p>Nam scelerisque tristique dolor vitae tincidunt. Aenean quis massa uada mi elementum elementum. , nec
-                    tincidunt nunc posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo
-                    iaculis ligula, ac dapibus quam ornare ut. Praesent ac hendrerit sem, et tempus sem</p>
-                </div><!-- col end -->
-            </div><!-- 1st row end-->
+                <div class="gap-40"></div>
+                <div class="gap-40"></div>
 
 
-            <!--2nd row end -->
+                <div class="call-to-action classic">
+                    <div class="row align-items-center">
+                    <div class="col-md-8 text-center text-md-left">
+                        <div class="call-to-action-text">
+                        <h3 class="action-title">Intéressé(e) par ce service?</h3>
+                        </div>
+                    </div><!-- Col end -->
+                    <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
+                        <div class="call-to-action-btn">
+                        <a class="btn btn-primary" href="/contact">Contactez nous</a>
+                        </div>
+                    </div><!-- col end -->
+                    </div><!-- row end -->
+                </div><!-- Action end -->
 
-            <div class="gap-40"></div>
-
-            <div class="call-to-action classic">
-                <div class="row align-items-center">
-                <div class="col-md-8 text-center text-md-left">
-                    <div class="call-to-action-text">
-                    <h3 class="action-title">Intéressé(e) par ce service?</h3>
-                    </div>
-                </div><!-- Col end -->
-                <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
-                    <div class="call-to-action-btn">
-                    <a class="btn btn-primary" href="contact.html">Contactez nous</a>
-                    </div>
-                </div><!-- col end -->
-                </div><!-- row end -->
-            </div><!-- Action end -->
-
-            </div><!-- Content inner end -->
-        </div><!-- Content Col end -->
-
+                </div><!-- Content inner end -->
+            </div><!-- Content Col end -->
+        {% endif %}
 
         </div><!-- Main row end -->
     </div><!-- Conatiner end -->

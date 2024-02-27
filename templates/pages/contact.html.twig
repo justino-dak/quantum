@@ -74,9 +74,12 @@
                 </span>
                 <div class="ts-service-box-content">
                     <h4>Email</h4>
-                    {% for item in content.emailBlock %}
+                    <p>
+                        <a href="#contact-form">Contactez nous ici</a>
+                    </p>
+                    {# {% for item in content.emailBlock %}
                     <p>{{item.email}}</p>
-                    {% endfor %}                
+                    {% endfor %}                 #}
                 </div>
                 </div>
             </div><!-- Col 2 end -->
@@ -107,11 +110,11 @@
           </div>
         {% endif %}
 
-        {# <div class="gap-40"></div> #}
+        <div class="gap-40"></div>
 
         <div class="row">
         <div class="col-md-12">
-            <h3 class="column-title">Nous aimerions vous entendre</h3>
+            <h3 class="column-title text-center mt-4">Nous aimerions vous lire</h3>
 
             <form id="contact-form" action="{{path('web_contact')}}" method="post" role="form">
                 <div class="error-container"></div>
@@ -152,6 +155,7 @@
                     <label>Message</label>
                     <textarea class="form-control form-control-message" name="message" id="message" placeholder="" rows="10"
                     required></textarea>
+                    <input type="hidden" name="recaptcha-response" id="recaptchaResponse">
                 </div>
                 <div class="text-right"><br>
                     <button class="btn btn-primary solid blank" type="submit">Envoyer Message</button>
@@ -162,5 +166,18 @@
         </div><!-- Content row -->
     </div><!-- Conatiner end -->
     </section><!-- Main container end -->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ldz4XspAAAAAI2o0HApCXYO1ibh3oKC338lCjIu"></script>
+    <script>
+       
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Ld-0IEpAAAAAAXoJzCexxQl7-P8NjSTz232UMLx', {action: 'contact'}).then(function(token) {
+                document.getElementById("recaptchaResponse").value = token;
+            });
+        }); 
+    </script>
 
 {% endblock %}

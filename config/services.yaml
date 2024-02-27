@@ -13,8 +13,9 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         # Binding arguments by name or type
         # https://symfony.com/doc/current/service_container.html#binding-arguments-by-name-or-type
-        #bind:
+        bind:
         #    'bool $isDebug': '%kernel.debug%'
+            string $projectDirectory: '%kernel.project_dir%'
 
 
     # makes classes in src/ available to be used as services
@@ -62,8 +63,8 @@ services:
     App\Repository\ArticleRepository: 
         public: true
 
-    App\Repository\Newsletters\NewslettersRepository:       
-        public: true
+    # App\Repository\Newsletter\NewslettersRepository:       
+    #     public: true
 
 
     Symfony\Component\HttpFoundation\Request:

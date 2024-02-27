@@ -48,9 +48,11 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <ul class="top-info text-center text-md-left">
-                            {# <li><i class="fas fa-map-marker-alt"></i> <p class="info-text">
-                                Rue des Mimosas, non loin de ex Supermarché le Château Bè Souza Nétimé – BP 61951 Lomé – Togo</p>
-                            </li> #}
+                            <li><i class="fa-regular fa-clock"></i> 
+                                <p class="info-text">                                    
+                                    <time id="liveDateTime" ></time>
+                                </p>
+                            </li>
                         </ul>
                     </div>
                     <!--/ Top info end -->
@@ -94,10 +96,8 @@
 
         {% block header %}
             <header id="header" class="header-one">
-            <div 
-            {# class="bg-white"  #}
-                style="background: #DC8C33;"
-
+            <div class="bg-white" 
+                {# style="background: #DC8C33;" #}
             >
                 <div class="container"
                     {# style="background: #DC8C33;" #}
@@ -125,8 +125,8 @@
                                 <li>
                                     <div class="info-box">
                                         <div class="info-box-content">
-                                            <h3 class="action-title"
-                                                style="font-size:30px"
+                                            <h3 class="action-title text-center"
+                                                style="font-size:30px;color:#DC8C33;"
 
                                             >
                                             La TECHNOLOGIE au SERVICE de l'INFORMATION
@@ -270,7 +270,7 @@
                         <div class="col-lg-4">
                         <div class="subscribe-call-to-acton">
                             <h3>Besoins d'aide?</h3>
-                            <h4>+228 90 04 22 62</h4>
+                            <h4>+228 98 25 62 26</h4>
                         </div>
                         </div><!-- Col end -->
 
@@ -327,19 +327,22 @@
                                 <li><a href="https://wa.me/+22898256226" aria-label="Whatsapp2"><i
                                         class="fab fa-whatsapp"></i></a>
                                 </li>
+                                <li><a href="#" aria-label="Youtube"><i
+                                        class="fab fa-youtube"></i></a>
+                                </li>
 
                                 </ul>
                             </div><!-- Footer social end -->
                             </div><!-- Col end -->
 
                             <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
-                            <h3 class="widget-title">Heurs d'ouverture</h3>
+                            <h3 class="widget-title">Heures d'ouverture</h3>
                             <div class="working-hours">
                                 Nous travaillons de lundi à vendredi hors jours fériés.  Nous restons joignables à tout moment 
                                 sur les contacts mobiles et mail affichés.
                                 <br><br> Lundi - Vendredi: <span class="text-right">08:00 - 11:00 , 15h00 - 18h00</span>
                                 <br><br> Téléphones: <span class="text-right">(+228) 90 04 22 62 / 98 25 62 26</span>
-                                <br><br> Email: <span class="text-right">contact@quantum-togo.com</span>
+                                                                        <p class="text-right">22 21 57 75</p>
                                 <br><br><i class="fas fa-map-marker-alt"></i> <span class="info-text"> 
                                 Rue des Mimosas, non loin de ex Supermarché le Château Bè Souza Nétimé – BP 61951 Lomé – Togo</span>
 
@@ -366,7 +369,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-6">
                                 <div class="copyright-info">
-                                    <span>Copyright &copy; 2023,  Developed by <a href="https://viciconcept.com" style="color: #fff;">VICICONCEPT</a></span>
+                                    <span>Copyright &copy; 2023 </span>
                                 </div>
                             </div>
 
@@ -409,9 +412,11 @@
             <!-- shuffle -->
             <script src="/assets/plugins/shuffle/shuffle.min.js" defer></script>
 
+            {# <script src="https://www.google.com/recaptcha/api.js?render=6Ldz4XspAAAAAI2o0HApCXYO1ibh3oKC338lCjIu"></script> #}
+
 
             <!-- Google Map API Key-->
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+            {# <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script> #}
             <!-- Google Map Plugin-->
             <script src="/assets/plugins/google-map/map.js" defer></script>
 
@@ -420,6 +425,18 @@
 
             <!-- match height -->
             <script src="/assets/js/jquery.matchHeight.js"></script>
+
+            <script>
+                function updateDateTime() {
+                    var now = new Date();
+                    var dateTimeString = now.toLocaleString(); // Get current date and time as a string
+                    document.getElementById('liveDateTime').textContent = dateTimeString;
+                }
+
+                // Call updateDateTime function every second to update the time
+                setInterval(updateDateTime, 1000);
+            </script>             
+
 
             <script>
                 $(document).ready(function(){
