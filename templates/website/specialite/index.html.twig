@@ -44,14 +44,14 @@
                                 {% endif %}
                                 <div class="d-flex">
                                     <div class="ts-service-box-img">
-                                        <span class="ts-service-icon">
-                                        <i class="fa fa-{{specialite.titre | first | lower}}"></i>
-                                        </span>
+                                        {# <span class="ts-service-icon">
+                                            <i class="fa fa-{{specialite.titre | first | lower}}"></i>
+                                        </span> #}
                                     </div>
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="{{path('web_article',{'slug':specialite.slug})}}">{{specialite.titre}}</a></h3>
+                                    <h3 class="service-box-title"><a href="{{path('web_specialite',{'slug': specialite.slug})}}">{{specialite.titre}}</a></h3>
                                     <p>{{specialite.contenu | striptags | truncate(300,true) | raw}}</p>
-                                    <a class="learn-more d-inline-block" href="{{path('web_article',{'slug':specialite.slug})}}" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
+                                    <a class="learn-more d-inline-block" href="{{path('web_specialite',{'slug': specialite.slug})}}" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
                                 </div>
                                 </div>
                             </div><!-- Service1 end -->

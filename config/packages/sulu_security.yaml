@@ -1,0 +1,7 @@
+sulu_security:
+  checker:
+    # enabled: true
+
+  reset_password:
+    mail:
+      sender: no-reply@quantum-togo.com

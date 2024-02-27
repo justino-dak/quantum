@@ -4,12 +4,14 @@
 
 {% block banner %}
 
-    {% set image = sulu_resolve_media(article.thumbnail,app.request.locale) %}
+    {% set image = sulu_resolve_media(article.thumbnail,null) %}
     {% if image %}
         {% set imageUrl = image.formats['1600x300'] %}
+    {% else %}
+        {% set imageUrl = '/assets/images/banner/banner1.jpg' %}
     {% endif %}
 
-    <div id="banner-area" class="banner-area" style="background-image:url({{imageUrl}})">
+    <div id="banner-area" class="banner-area" style="background-image:url({{imageUrl }})">
         <div class="banner-text">
             <div class="container">
                 <div class="row">
@@ -72,7 +74,7 @@
                 </div><!-- post-body end -->
                 </div><!-- post content end -->
 
-                <div class="author-box d-nlock d-sm-flex">
+                {# <div class="author-box d-nlock d-sm-flex">
                     {% set user = sulu_resolve_user(article.updatedBy.id) %}
                     {% set avatar = sulu_resolve_media(user.contact.avatar,app.request.locale) %}
                     {% if avatar %}
@@ -84,7 +86,8 @@
                         <h3><span class="">Auteur : </span>{{user.contact.lastName | upper}} {{user.contact.firstName | title}}</h3>
                         <p class="mb-2"> {{user.contact.note}}</p>
                     </div>
-                </div> <!-- Author box end -->
+                </div>  #}
+                <!-- Author box end -->
 
         
             </div><!-- Content Col end -->

@@ -32,7 +32,7 @@
       {% if content.sliderBlock is defined and content.sliderBlock | length > 0 %}
         {% for slider in content.sliderBlock  %}
 
-          {% set bkgdImage = sulu_resolve_media(presentation.thumbnail,app.request.locale) %}
+          {% set bkgdImage = sulu_resolve_media(slider.thumbnail,app.request.locale) %}
           {% if bkgdImage is not null %}
             <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
               <div class="slider-content">
@@ -86,19 +86,19 @@
 
     <section id="ts-features" class="ts-features">
       <div class="container">
-        <div class="row">
+        <div class="row {{valeurs | length > 0 ? '' : 'justify-content-center'}} ">
 
-              <div class="col-lg-6">
+              <div class="{{valeurs | length > 0 ? 'col-lg-6 ' : 'col-lg-10 '}}">
                 <div class="ts-intro">
                     <h2 class="into-title">{{presentation.titre | title}}</h2>
                     <h3 class="into-sub-title">{{presentation.description}}</h3>
-                    <p>{{presentation.contenu | striptags |  truncate(200, true)| raw }}</p>
+                    <p>{{presentation.contenu  |  truncate(400, true)| raw }}</p>
                     <a href="{{path('web_article',{'slug': presentation.slug})}}" class="">En savoir plus</a>
                 </div><!-- Intro box end -->
 
                 <div class="gap-20"></div>
 
-                  <div class="row">
+                  {# <div class="row">
                       <div class="col-md-6">
                         <div class="ts-service-box">
                             <span class="ts-service-icon">
@@ -107,8 +107,8 @@
                             <div class="ts-service-box-content">
                               <h3 class="service-box-title">Nous avons une réputation d'excélence</h3>
                             </div>
-                        </div><!-- Service 1 end -->
-                      </div><!-- col end -->
+                        </div>
+                      </div>
 
                       <div class="col-md-6">
                         <div class="ts-service-box">
@@ -118,9 +118,9 @@
                             <div class="ts-service-box-content">
                               <h3 class="service-box-title">Nous créons des partenariats</h3>
                             </div>
-                        </div><!-- Service 2 end -->
-                      </div><!-- col end -->
-                  </div><!-- Content row 1 end -->                
+                        </div>
+                      </div>
+                  </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -144,8 +144,8 @@
                           </div>
                       </div><!-- Service 2 end -->
                     </div><!-- col end -->
-                </div><!-- Content row 1 end -->
-              </div><!-- Col end -->
+                </div> #}
+              </div>
             
             {% if valeurs is defined and valeurs | length > 0 %}
 
@@ -278,13 +278,13 @@
                 {% if loop.index <= ( specialites | length )/2 %}
                   <div class="ts-service-box d-flex">
                       <div class="ts-service-box-img">
-                        <span class="ts-service-icon">
+                        {# <span class="ts-service-icon">
                           <i class="fas fa-check"></i>
-                        </span>                        
+                        </span>                         #}
                         {# <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon"> #}
                       </div>
                       <div class="ts-service-box-info">
-                        <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
+                        <h3 class="service-box-title"><a href="{{path('web_specialite',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
                         <p>{{specialite.titre | striptags | truncate(100,true) | raw}}</p>
                       </div>
                   </div><!-- Service 1 end -->                
@@ -295,7 +295,7 @@
             </div><!-- Col end -->
 
             <div class="col-lg-4 text-center">
-              <img loading="lazy" class="img-fluid" src="/assets/images/services/service-center.jpg" alt="service-avater-image">
+              {# <img loading="lazy" class="img-fluid" src="/assets/images/services/service-center.jpg" alt="service-avater-image"> #}
             </div><!-- Col end -->
 
             <div class="col-lg-4 mt-5 mt-lg-0 mb-4 mb-lg-0">
@@ -304,13 +304,13 @@
                 {% if loop.index > ( specialites | length )/2 %}
                   <div class="ts-service-box d-flex">
                       <div class="ts-service-box-img">
-                        <span class="ts-service-icon">
+                        {# <span class="ts-service-icon">
                           <i class="fas fa-check"></i>
-                        </span>                                                
+                        </span>                                                 #}
                         {# <img loading="lazy" src="/assets/images/icon-image/check-solid.png" alt="service-icon"> #}
                       </div>
                       <div class="ts-service-box-info">
-                        <h3 class="service-box-title"><a href="{{path('web_article',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
+                        <h3 class="service-box-title"><a href="{{path('web_specialite',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
                         <p>{{specialite.titre | striptags | truncate(100,true) | raw}}</p>
                       </div>
                   </div><!-- Service 1 end -->                
@@ -444,16 +444,16 @@
           {% endif %}
           
 
-            <div class="col-lg-6 mt-5 mt-lg-0">
+            <div class="{{temoignages | length > 0 ? 'col-lg-6 ' : ' '}} mt-5 mt-lg-0">
 
-              <h3 class="column-title">Quelques partenaires</h3>
+              <h3 class="column-title text-center">Quelques partenaires</h3>
 
               <div class="row all-clients">
 
                   {% for client in clients %}
                     {% set image = sulu_resolve_media(client.thumbnail,app.request.locale) %}
                     {% if image %}
-                      <div class="col-sm-4 col-6">
+                      <div class=" {{temoignages | length > 0 ? 'col-sm-4 ' : 'col-sm-3 '}} col-6">
                         <figure class="clients-logo">
                             <a href="#!"><img loading="lazy" class="img-fluid" src="{{image.formats['242x80']}}" alt="" /></a>
                         </figure>
@@ -481,7 +481,7 @@
         <div class="row text-center">
             <div class="col-12">
               <h2 class="section-title">Blog</h2>
-              <h3 class="section-sub-title">Publication récente</h3>
+              <h3 class="section-sub-title">Publications récentes</h3>
             </div>
         </div>
         <!--/ Title row end -->
@@ -500,7 +500,7 @@
                   {% endif %}
                   <div class="post-body">
                     <h4 class="post-title">
-                        <a href="news-single.html" class="d-inline-block">{{article.titre}}</a>
+                        <a href="{{path('web_article',{'slug':article.slug})}}" class="d-inline-block">{{article.titre}}</a>
                     </h4>
                     <div class="latest-post-meta">
                         <span class="post-item-date">

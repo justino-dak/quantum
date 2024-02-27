@@ -9,16 +9,20 @@ use Symfony\Component\Mime\Email;
 use App\Repository\TeamRepository;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaRepositoryInterface;
-use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
+use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaRepositoryInterface;
+use Sulu\Component\Content\Repository\Content;
 
 class FrontEndController extends AbstractController
 {
+    const GR_URL = 'https://www.google.com/recaptcha/api/siteverify';
+    const GR_TOKEN="6Ld-0IEpAAAAAF6avHMrspWx3PFeCTB9sz02XCLW";
 
     /**
      * @var ArticleRepository
@@ -39,10 +43,16 @@ class FrontEndController extends AbstractController
      */
     private $paginator;
 
+    /**
+     *  @var HttpClientInterface
+     */
+    private $client;
+
     public function __construct(
         ArticleRepository $articleRepository,
         TeamRepository $teamRepository,
         PaginatorInterface $paginator,
+        HttpClientInterface $client,
         CategoryRepositoryInterface $categoryRepository
         )
     {
@@ -50,6 +60,7 @@ class FrontEndController extends AbstractController
         $this->teamRepository = $teamRepository;
         $this->categoryRepository = $categoryRepository;
         $this->paginator = $paginator;
+        $this->client = $client;
     }
 
     /**
@@ -87,7 +98,7 @@ class FrontEndController extends AbstractController
     }
 
     /**
-     * @Route("/spécialités", name="web_specialites")
+     * @Route("/specialites", name="web_specialites")
      */
     public function specialiteIndex(Request $request): Response
     {
@@ -105,6 +116,35 @@ class FrontEndController extends AbstractController
             'specialites'=>$specialites,
         ]);
     }
+
+    /**
+     * @Route("/specialites/{slug}", name="web_specialite")
+     */
+    public function specialite(Request $request,$slug): Response    {
+
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $data->tag= "specialite";
+        $data->limit = 12;
+        $specialites = $this->articleRepository->findSearch($data);     
+        
+        $specialite=$this->articleRepository->findOneBy(['slug'=>$slug]);
+
+
+        return $this->render('website/specialite/detail.html.twig', [
+            'specialite'=>$specialite,
+            'specialites'=>$specialites,
+        ]);
+
+        // return $this->render('website/article/detail.html.twig', [
+        //     'article' => $article,
+        //     'articles' => $articles,
+        //     'form'=>$form->createView()
+        // ]);
+    }
+
+
+
 
     /**
      * @Route("/services_rendus", name="web_services_rendus")
@@ -142,26 +182,7 @@ class FrontEndController extends AbstractController
     }  
 
 
-    // /**
-    //  * @Route("/blog/article/{slug}", name="web_article")
-    //  */
-    // public function detail(Request $request, Article $article,$slug): Response
-    // {
-    //     $data = new SearchData();
-    //     $data->page = $request->get('page', 1);
-    //     $data->limit=5;
-    //     $form = $this->createForm(SearchForm::class, $data);
-    //     $form->handleRequest($request);
 
-    //     $articles = $this->articleRepository->findSearch($data);
-        
-    //     $article=$this->articleRepository->findOneBy(['slug'=>$slug]);
-    //     return $this->render('website/article/detail.html.twig', [
-    //         'article' => $article,
-    //         'articles' => $articles,
-    //         'form'=>$form->createView()
-    //     ]);
-    // }
 
     // /**
     //  * @Route("/bog/articles/recherche", name="web_articles_recherche")
@@ -191,31 +212,56 @@ class FrontEndController extends AbstractController
         $referer=$request->headers->get('referer');
         if($request->getMethod()=="POST") {
             $data=$request->request->all();
-            $message_body="Message de \n{$data['email'] } ({$data['fullName'] }) ;\n";
-            if ($data['telephone'] ?? null) {
-                $message_body.= "Téléphone : {$data['telephone']} ;\n";                
-            }
-            if ($data['entreprise'] ?? null) {
-                $message_body.= "Entreprise : {$data['entreprise']} ;\n";                
-            }            
-            $message_body.="Contenu : ====> \n\n";
-            $message_body.=$data['message'];
-            // dump($message_body); die();
+
+            if (isset($data['recaptcha-response'])) {
+                $response= $this->client->request(
+                    'POST',
+                    self::GR_URL,
+                    [
+                        'headers'=>[
+                            'Content-Type' => 'application/json; charset=utf-8',
+                            'Accept' => 'application/json'
+                        ],
+                        'body'=>[
+                            'response'=>$data['recaptcha-response'],
+                            'secret'=>self::GR_TOKEN,
+   
+                        ]
+                    ]
+                );
+                $response =json_decode($response->getContent());
+
+                if (!$response->success) {
+                    return $this->redirect($referer);
+                }
+
+                $message_body="Message de \n{$data['email'] } ({$data['fullName'] }) ;\n";
+                if ($data['telephone'] ?? null) {
+                    $message_body.= "Téléphone : {$data['telephone']} ;\n";                
+                }
+                if ($data['entreprise'] ?? null) {
+                    $message_body.= "Entreprise : {$data['entreprise']} ;\n";                
+                }            
+                $message_body.="Contenu : ====> \n\n";
+                $message_body.=$data['message'];
+    
+                $email = (new Email())
+                ->subject($data['objet'])
+                ->from('no-reply@quantum-togo.com')
+                ->to('contact@quantum-togo.com')
+                ->text($message_body);
+    
+                try {
+                    $mailer->send($email);
+                    $this->addFlash('success', 'Votre message a été envoyé avec succès. Nous allons vous répondre dans un instant.');
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    $this->addFlash('danger', 'Désolé ! Votre message n\'a pas pu être envoyé. Veuillez réessayer ou nous contacter à nos addresses ! ');
+                }
 
 
-
-            $email = (new Email())
-            ->subject($data['objet'])
-            ->from('no-reply@quantum-togo.com')
-            ->to('contact@quantum-togo.com')
-            ->text($message_body);
-
-            try {
-                $mailer->send($email);
-                $this->addFlash('success', 'Votre message a été envoyé avec succès. Nous allons vous répondre dans un instant.');
-            } catch (\Throwable $th) {
-                //throw $th;
-                $this->addFlash('danger', 'Désolé ! Votre message n\'a pas pu être envoyé. Veuillez réessayer ou nous contacter à nos addresses ! ');
+            }else{
+                return $this->redirect($referer);
             }
 
         }

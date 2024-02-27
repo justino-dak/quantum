@@ -48,8 +48,10 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <ul class="top-info text-center text-md-left">
-                            <li><i class="fas fa-map-marker-alt"></i> <p class="info-text">
-                                Rue des Mimosas, non loin de ex Supermarché le Château Bè Souza Nétimé – BP 61951 Lomé – Togo</p>
+                            <li><i class="fa-regular fa-clock"></i> 
+                                <p class="info-text">                                    
+                                    <time id="liveDateTime" ></time>
+                                </p>
                             </li>
                         </ul>
                     </div>
@@ -64,17 +66,19 @@
                             <a title="Twitter" href="https://twitter.com/@TgQuantum" target="_blank">
                                 <span class="social-icon"><i class="fab fa-twitter"></i></span>
                             </a>
-                            <a title="Instagram" href="https://instagram.com" target="_blank">
-                                <span class="social-icon"><i class="fab fa-instagram"></i></span>
-                            </a>
 
-                            <a title="Whatsapp" href="https://whatsapp.com" target="_blank">
+                            <a title="Whatsapp" href="https://wa.me/+22890042262" target="_blank">
                                 <span class="social-icon"><i class="fab fa-whatsapp"></i></span>
                             </a>
+                            <a title="Whatsapp" href="https://wa.me/+22898256226" target="_blank">
+                                <span class="social-icon"><i class="fab fa-whatsapp"></i></span>
+                            </a>                            
                             <a title="Linkedin" href="https://www.linkedin.com/company/quantumtg" target="_blank">
                                 <span class="social-icon"><i class="fab fa-linkedin"></i></span>
                             </a>
-
+                            <a title="Linkedin" href="#" target="_blank">
+                                <span class="social-icon"><i class="fab fa-youtube"></i></span>
+                            </a>
 
                             </li>
                         </ul>
@@ -92,46 +96,76 @@
 
         {% block header %}
             <header id="header" class="header-one">
-            <div class="bg-white">
-                <div class="container">
-                <div class="logo-area">
+            <div class="bg-white" 
+                {# style="background: #DC8C33;" #}
+            >
+                <div class="container"
+                    {# style="background: #DC8C33;" #}
+ 
+                >
+                <div class="logo-area" 
+                    {# style="background: #DC8C33;" #}
+                >
                     <div class="row align-items-center">
                         <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
                             <a class="d-block" href="/">
-                            <img loading="lazy" src="/assets/images/logo.png" alt="Constra">
+                            <img loading="lazy" src="/assets/images/logo.png" alt="">
                             </a>
                         </div><!-- logo end -->
             
-                        <div class="col-lg-9 header-right">
-                            <ul class="top-info-box">
-                            <li>
-                                <div class="info-box">
-                                <div class="info-box-content">
-                                    <p class="info-box-title">Téléphone</p>
-                                    <p class="info-box-subtitle">+228 22 21 57 75</p>
-                                </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="info-box">
-                                <div class="info-box-content">
-                                    <p class="info-box-title">Email </p>
-                                    <p class="info-box-subtitle">contact@quantum-togo.com</p>
-                                </div>
-                                </div>
-                            </li>
-                            <li class="last">
-                                <div class="info-box last">
-                                <div class="info-box-content">
-                                    <p class="info-box-title">Certificat</p>
-                                    <p class="info-box-subtitle">ISO xxxx:xxxx</p>
-                                </div>
-                                </div>
-                            </li>
-                            <li class="header-get-a-quote">
-                                <a class="btn btn-primary" href="/contact">Contactez-nous</a>
-                            </li>
-                            </ul><!-- Ul end -->
+                        <div class="col-lg-9 header-right" 
+                            {# style="background: #DC8C33;" #}
+                         >
+                            
+                            {# <img  class=" class="img-fluid" loading="lazy" width="100%" src="/assets/images/header/logo-top.jpg" alt=""
+                                style="height: 80px;"
+                            > #}
+
+                            <ul class="top-info-box ">
+                                <li>
+                                    <div class="info-box">
+                                        <div class="info-box-content">
+                                            <h3 class="action-title text-center"
+                                                style="font-size:30px;color:#DC8C33;"
+
+                                            >
+                                            La TECHNOLOGIE au SERVICE de l'INFORMATION
+                                            </h3>
+                                            {# <p class="info-box-subtitle">+228 90 04 22 62</p> #}
+                                        </div>
+                                    </div>
+                                </li>
+                                                              
+                                {# <li class="header-get-a-quote">
+                                    <a class="btn btn-primary" href="/contact">Contactez-nous</a>
+                                </li> #}
+                            </ul>
+
+                            
+                            {# <ul class="top-info-box">
+                                <li>
+                                    <div class="info-box">
+                                        <div class="info-box-content">
+                                            <p class="info-box-title">Téléphone</p>
+                                            <p class="info-box-subtitle">+228 90 04 22 62</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="info-box">
+                                    <div class="info-box-content">
+                                        <p class="info-box-title">Email </p>
+                                        <p class="info-box-subtitle">contact@quantum-togo.com</p>
+                                    </div>
+                                    </div>
+                                </li>
+                               
+                                <li class="header-get-a-quote">
+                                    <a class="btn btn-primary" href="/contact">Contactez-nous</a>
+                                </li>
+                            </ul> #}
+
+                            <!-- Ul end -->
                         </div><!-- header right end -->
                     </div><!-- logo area end -->
             
@@ -236,7 +270,7 @@
                         <div class="col-lg-4">
                         <div class="subscribe-call-to-acton">
                             <h3>Besoins d'aide?</h3>
-                            <h4>+228 22 21 57 75</h4>
+                            <h4>+228 98 25 62 26</h4>
                         </div>
                         </div><!-- Col end -->
 
@@ -270,9 +304,14 @@
                         <div class="row justify-content-between">
                             <div class="col-lg-4 col-md-6 footer-widget footer-about">
                             <h3 class="widget-title">Qui sommes-nous</h3>
-                            <img loading="lazy" width="120px" class="footer-logo" src="/assets/images/footer-logo.png" alt="Constra">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci done idunt ut
-                                labore et dolore magna aliqua.</p>
+                            {# <img loading="lazy" width="120px" class="footer-logo" src="/assets/images/footer-logo.png" alt="Constra"> #}
+                            <p>
+                            Une équipe dynamique et disponible, à l'écoute du client pour sa satisfaction. 
+                            Une expérience de plus de 25 années sur les solutions évolutives en technologie au service de l'information. 
+                            Nous opérons à la satisfaction de nos partenaires clients et fournisseurs de matériels et licences logicielles, 
+                            qui ont bien voulu nous faire confiance et à qui nous renouvelons ici notre engagement à mieux faire 
+                            pour plus de compétitivité et plus de performance .                          
+                            </p>
                             <div class="footer-social">
                                 <ul>
                                 <li><a href="https://www.facebook.com/QuantumTg" aria-label="Facebook"><i
@@ -280,18 +319,33 @@
                                 <li><a href="https://twitter.com/@TgQuantum" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                                 </li>
                                 <li><a href="https://www.linkedin.com/company/quantumtg" aria-label="LinkedIn"><i
-                                        class="fab fa-linkedin"></i></a></li>
+                                        class="fab fa-linkedin"></i></a>
+                                </li>
+                                <li><a href="https://wa.me/+22890042262" aria-label="Whatsapp1"><i
+                                        class="fab fa-whatsapp"></i></a>
+                                </li>
+                                <li><a href="https://wa.me/+22898256226" aria-label="Whatsapp2"><i
+                                        class="fab fa-whatsapp"></i></a>
+                                </li>
+                                <li><a href="#" aria-label="Youtube"><i
+                                        class="fab fa-youtube"></i></a>
+                                </li>
+
                                 </ul>
                             </div><!-- Footer social end -->
                             </div><!-- Col end -->
 
                             <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
-                            <h3 class="widget-title">Heurs d'ouverture</h3>
+                            <h3 class="widget-title">Heures d'ouverture</h3>
                             <div class="working-hours">
-                                Nous travaillons 7 jours sur 7, tous les jours hors jours fériés. Contactez-nous en cas d'urgence,
-                                avec notre Hotline et notre formulaire de contact.
-                                <br><br> Lundi - Vendredi: <span class="text-right">08:00 - 16:00 </span>
-                                <br> Samedi: <span class="text-right">09:00 - 12:00</span>
+                                Nous travaillons de lundi à vendredi hors jours fériés.  Nous restons joignables à tout moment 
+                                sur les contacts mobiles et mail affichés.
+                                <br><br> Lundi - Vendredi: <span class="text-right">08:00 - 11:00 , 15h00 - 18h00</span>
+                                <br><br> Téléphones: <span class="text-right">(+228) 90 04 22 62 / 98 25 62 26</span>
+                                                                        <p class="text-right">22 21 57 75</p>
+                                <br><br><i class="fas fa-map-marker-alt"></i> <span class="info-text"> 
+                                Rue des Mimosas, non loin de ex Supermarché le Château Bè Souza Nétimé – BP 61951 Lomé – Togo</span>
+
                             </div>
                             </div><!-- Col end -->
 
@@ -315,7 +369,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-6">
                                 <div class="copyright-info">
-                                    <span>Copyright &copy; 2023,  Developed by <a href="https://viciconcept.com" style="color: #fff;">VICICONCEPT</a></span>
+                                    <span>Copyright &copy; 2023 </span>
                                 </div>
                             </div>
 
@@ -358,9 +412,11 @@
             <!-- shuffle -->
             <script src="/assets/plugins/shuffle/shuffle.min.js" defer></script>
 
+            {# <script src="https://www.google.com/recaptcha/api.js?render=6Ldz4XspAAAAAI2o0HApCXYO1ibh3oKC338lCjIu"></script> #}
+
 
             <!-- Google Map API Key-->
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+            {# <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script> #}
             <!-- Google Map Plugin-->
             <script src="/assets/plugins/google-map/map.js" defer></script>
 
@@ -369,6 +425,18 @@
 
             <!-- match height -->
             <script src="/assets/js/jquery.matchHeight.js"></script>
+
+            <script>
+                function updateDateTime() {
+                    var now = new Date();
+                    var dateTimeString = now.toLocaleString(); // Get current date and time as a string
+                    document.getElementById('liveDateTime').textContent = dateTimeString;
+                }
+
+                // Call updateDateTime function every second to update the time
+                setInterval(updateDateTime, 1000);
+            </script>             
+
 
             <script>
                 $(document).ready(function(){
