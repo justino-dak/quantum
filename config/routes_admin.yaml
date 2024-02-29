@@ -36,3 +36,9 @@ app_newsletter_categories:
     prefix: /admin/api
     resource: App\Controller\Admin\Newsletter\NewsletterCategorieController
     name_prefix: app.
+
+app_backup:
+    type: rest
+    prefix: /admin/api
+    resource: App\Controller\Admin\BackupController
+    name_prefix: app.
