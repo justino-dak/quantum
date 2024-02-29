@@ -170,11 +170,14 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://www.google.com/recaptcha/api.js?render=6Ldz4XspAAAAAI2o0HApCXYO1ibh3oKC338lCjIu"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lcco4QpAAAAAOePvPxh5DwGcbeYoCjQY-tfWIxm"></script>
     <script>
+
+    const key="6Lcco4QpAAAAAOePvPxh5DwGcbeYoCjQY-tfWIxm";
+
        
         grecaptcha.ready(function() {
-            grecaptcha.execute('6Ld-0IEpAAAAAAXoJzCexxQl7-P8NjSTz232UMLx', {action: 'contact'}).then(function(token) {
+            grecaptcha.execute(key, {action: 'contact'}).then(function(token) {
                 document.getElementById("recaptchaResponse").value = token;
             });
         }); 
