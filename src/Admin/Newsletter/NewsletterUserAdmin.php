@@ -59,7 +59,7 @@ class NewsletterUserAdmin extends Admin
 
             if ($this->securityChecker->hasPermission(NavigationAdmin::NEWSLETTER_USER_SECURITY_CONTEXT,PermissionTypes::ADD)) 
             {
-                $listToolBarAction[]=new ToolbarAction('sulu_admin.add');
+                // $listToolBarAction[]=new ToolbarAction('sulu_admin.add');
 
             }
 

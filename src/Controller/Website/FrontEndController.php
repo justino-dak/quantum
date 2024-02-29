@@ -22,7 +22,8 @@ use Sulu\Component\Content\Repository\Content;
 class FrontEndController extends AbstractController
 {
     const GR_URL = 'https://www.google.com/recaptcha/api/siteverify';
-    const GR_TOKEN="6Ld-0IEpAAAAAF6avHMrspWx3PFeCTB9sz02XCLW";
+    const GR_SECRET="6Lcco4QpAAAAADr_j7Y0EsDzbRFsCbTR_OoTlgOp";
+
 
     /**
      * @var ArticleRepository
@@ -136,11 +137,6 @@ class FrontEndController extends AbstractController
             'specialites'=>$specialites,
         ]);
 
-        // return $this->render('website/article/detail.html.twig', [
-        //     'article' => $article,
-        //     'articles' => $articles,
-        //     'form'=>$form->createView()
-        // ]);
     }
 
 
@@ -224,7 +220,7 @@ class FrontEndController extends AbstractController
                         ],
                         'body'=>[
                             'response'=>$data['recaptcha-response'],
-                            'secret'=>self::GR_TOKEN,
+                            'secret'=>self::GR_SECRET,
    
                         ]
                     ]
@@ -261,6 +257,7 @@ class FrontEndController extends AbstractController
 
 
             }else{
+                // return new Response(Response::HTTP_INTERNAL_SERVER_ERROR);
                 return $this->redirect($referer);
             }
 

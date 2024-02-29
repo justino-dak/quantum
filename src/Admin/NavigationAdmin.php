@@ -3,6 +3,7 @@ namespace App\Admin;
 
 use App\Admin\Team\TeamAdmin;
 use App\Admin\Blog\ArticleAdmin;
+use App\Admin\Backup\BackupAdmin;
 use Sulu\Bundle\AdminBundle\Admin\Admin;
 use App\Admin\Newsletter\NewsletterAdmin;
 use App\Admin\Newsletter\NewsletterUserAdmin;
@@ -25,10 +26,11 @@ class NavigationAdmin extends Admin
     const TEAM_SECURITY_CONTEXT='sulu.Equipe.equipe';
 
 
+
     const NEWSLETTER_SECURITY_CONTEXT='sulu.newsletter.Newsletter';
     const NEWSLETTER_USER_SECURITY_CONTEXT='sulu.newsletter.Abonné';
     const NEWSLETTER_CATEGORIE_SECURITY_CONTEXT='sulu.newsletter.Catégorie de Newsletter';
-
+    const BACKUP_SECURITY_CONTEXT='sulu.Backup.backup';
     
     /**
      * @var ViewBuilderFactoryInterface
@@ -140,6 +142,28 @@ class NavigationAdmin extends Admin
 
         // Ajouter le menu "NEWSLETTER" à la navigation
         $navigationItemCollection->add($menuNewsletter);
+
+
+        //-------------------------------------------------------------------------------
+        //       MENU SAUVEGARDE
+        //--------------------------------------------------------------------------------
+        $menuBackup= new NavigationItem('BACKUP');
+        $menuBackup->setIcon('su-newspaper');
+        $menuBackup->setPosition(40);
+
+            //les sous Memu
+
+            if ($this->securityChecker->hasPermission(Static::BACKUP_SECURITY_CONTEXT,PermissionTypes::VIEW))
+            {
+                $sousMenuBackup= new NavigationItem('Sauvegardes');
+                $sousMenuBackup->setView(BackupAdmin::BACKUP_LIST_VIEW);
+                $sousMenuBackup->setPosition(10);
+                $menuBackup->addChild($sousMenuBackup);
+            }           
+        
+
+        // Ajouter le menu "EQUIPE" à la navigation
+        $navigationItemCollection->add($menuBackup);       
         
 
 

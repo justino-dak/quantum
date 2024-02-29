@@ -34,6 +34,11 @@ sulu_admin:
                 routes:
                     list: app.get_newslettercategories
                     detail: app.get_newslettercategorie
+
+        backups:
+                routes:
+                    list: app.get_backups
+                    detail: app.get_backup
                 
 
     # Registering Selection Field Types in this section

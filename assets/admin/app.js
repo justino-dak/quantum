@@ -1,9 +1,15 @@
 // Add project specific javascript code and import of additional bundles here:
 
-import {formToolbarActionRegistry} from 'sulu-admin-bundle/views';
+import {formToolbarActionRegistry,
+    listItemActionRegistry,
+    listToolbarActionRegistry} from 'sulu-admin-bundle/views';
 import SendNewsletterToolbarAction from './components/formToolbarActions/SendNewsletterToolbarAction';
+import DownloadBackupListItemAction from './components/listItemActions/DownloadBackupListItemAction';
+import BackupToolbarAction from "./components/listToolbarActions/BackupToolbarAction";
 
 formToolbarActionRegistry.add('app.newsletter_notify', SendNewsletterToolbarAction);
+listItemActionRegistry.add('app.download_backup', DownloadBackupListItemAction);
+listToolbarActionRegistry.add('app.generate_backup', BackupToolbarAction);
 
 (function (d) {
 
