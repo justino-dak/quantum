@@ -120,7 +120,7 @@ class NewslettersController extends AbstractController
                 $email->context(compact('user', 'token'));
                 $mailer->send($email);// on envois le message
 
-                $this->addFlash('message','Un email a été envoyé à votre adresse. Veuillez le chercher parmis les méssages non désirables pour confirmer votre inscription .');
+                $this->addFlash('message','Un message a été envoyé à votre adresse e-mail. Veuillez consulter votre boîte de réception ou vérifier dans les courriers indésirables (spam) pour confirmer votre inscription .');
                 
             } catch (\Throwable $th) {
 

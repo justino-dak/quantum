@@ -257,6 +257,7 @@ class FrontEndController extends AbstractController
 
 
             }else{
+                // return new Response(Response::HTTP_INTERNAL_SERVER_ERROR);
                 return $this->redirect($referer);
             }
 
