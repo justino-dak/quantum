@@ -124,7 +124,7 @@ class NewslettersController extends AbstractController
                 
             } catch (\Throwable $th) {
 
-                $this->addFlash('error', 'Erreur : '.$th->getMessage().'\nVeuillez reésayer utérieurement ou  contacter l\'administrateur si l\'erreur persiste . \'Merci ');
+                $this->addFlash('error', 'Erreur : L\'inscription n\'a pas abouti. Veuillez reésayer utérieurement ou  contacter l\'administrateur si l\'erreur persiste . \'Merci ');
             }
             return $this->render('newsletters/confirm.html.twig' );  
         }

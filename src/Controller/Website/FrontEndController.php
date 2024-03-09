@@ -11,13 +11,17 @@ use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Sulu\Component\Content\Repository\Content;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryRepositoryInterface;
 use Sulu\Bundle\CategoryBundle\Entity\CategoryMetaRepositoryInterface;
-use Sulu\Component\Content\Repository\Content;
 
 class FrontEndController extends AbstractController
 {
@@ -49,11 +53,17 @@ class FrontEndController extends AbstractController
      */
     private $client;
 
+    /**
+     *  @var KernelInterface
+     */
+    private $kernel;
+
     public function __construct(
         ArticleRepository $articleRepository,
         TeamRepository $teamRepository,
         PaginatorInterface $paginator,
         HttpClientInterface $client,
+        KernelInterface $kernel,
         CategoryRepositoryInterface $categoryRepository
         )
     {
@@ -62,6 +72,7 @@ class FrontEndController extends AbstractController
         $this->categoryRepository = $categoryRepository;
         $this->paginator = $paginator;
         $this->client = $client;
+        $this->kernel=$kernel;
     }
 
     /**
@@ -256,15 +267,19 @@ class FrontEndController extends AbstractController
                 }
 
 
-            }else{
-                // return new Response(Response::HTTP_INTERNAL_SERVER_ERROR);
-                return $this->redirect($referer);
             }
+            // else{
+            //     // return new Response(Response::HTTP_INTERNAL_SERVER_ERROR);
+            //     return $this->redirect($referer);
+            // }
 
         }
         return $this->redirect($referer);
 
     
-    }    
+    }   
+    
+   
+
 
 }

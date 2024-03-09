@@ -187,38 +187,44 @@
                             
                             <div id="navbar-collapse" class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav mr-auto">
-                                <li class="nav-item  active">
+                                <li class="nav-item {% if app.request.requestUri == '/' %}active{% endif %}">
                                     <a class="nav-link " href="{{ sulu_content_root_path() }}">Accueil</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Qui sommes-nous <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{path('web_aboutus')}}">Quantum</a></li>
-                                        <li><a href="{{path('web_teams')}}">Equipe de travail</a></li>
-                                        <li><a href="{{path('web_services_rendus')}}">Services rendus</a></li>
+                                        <li class="nav-item {% if app.request.attributes.get('_route')=='web_aboutus' %}active{% endif %} ">
+                                            <a href="{{path('web_aboutus')}}">Quantum</a>
+                                        </li>
+                                        <li class="nav-item {% if app.request.attributes.get('_route')=='web_teams' %}active{% endif %} ">
+                                            <a href="{{path('web_teams')}}">Equipe de travail</a>
+                                        </li>
+                                        <li class="nav-item {% if app.request.attributes.get('_route')=='web_services_rendus' %}active{% endif %} ">
+                                            <a href="{{path('web_services_rendus')}}">Services rendus</a>
+                                        </li>
                                     </ul>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item {% if app.request.attributes.get('_route')=='web_specialites' %}active{% endif %} ">
                                     <a href="{{path('web_specialites')}}" class="nav-link" >Spécialité </a>
                                 </li>
                         
-                                <li class="nav-item ">
+                                <li class="nav-item {% if app.request.attributes.get('_route')=='web_services_rendus' %}active{% endif %} ">
                                     <a href="{{path('web_services_rendus')}}" class="nav-link " >Services rendus</a>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item {% if app.request.attributes.get('_route')=='web_bon_a_savoir' %}active{% endif %}">
                                     <a href="{{path('web_bon_a_savoir')}}" class="nav-link" >Bon a savoir </a>
                                 </li>
                         
                         
-                                <li class="nav-item">
+                                <li class="nav-item {% if app.request.attributes.get('_route')=='web_articles' %}active{% endif %}">
                                     <a href="{{path('web_articles')}}" class="nav-link" >Blog</a>
                                 </li>
 
                                     {% for item in sulu_navigation_root_tree('main') %}
-                                        <li class="nav-item">
+                                        <li class="nav-item {% if app.request.requestUri == item.url %}active{% endif %}">
                                             <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}" class="nav-link"
                                             title="{{ item.title }}">{{ item.title }}</a>
                                         </li>
@@ -346,7 +352,7 @@
                             <div class="working-hours">
                                 Nous travaillons de lundi à vendredi hors jours fériés.  Nous restons joignables à tout moment 
                                 sur les contacts mobiles et mail affichés.
-                                <br><br> Lundi - Vendredi: <span class="text-right">08:00 - 11:00 , 15h00 - 18h00</span>
+                                <br><br> Lundi - Vendredi: <span class="text-right">08:00 - 13:00 , 15h00 - 18h00</span>
                                 <br><br> Téléphones: <span class="text-right">(+228) 90 04 22 62 / 98 25 62 26</span>
                                                                         <p class="text-right">22 21 57 75</p>
                                 <br><br><i class="fas fa-map-marker-alt"></i> <span class="info-text"> 
