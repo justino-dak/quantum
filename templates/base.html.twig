@@ -294,10 +294,11 @@
                             </div>
 
                             <div class="col-md-7 newsletter-form">
-                                <form action="{{path('web_newsletters_inscription')}}" method="post">
+                                <form id="newsletter-form" action="{{path('web_newsletters_inscription')}}" method="post">
                                     <div class="form-group">
                                         <label for="newsletter-email" class="content-hidden">Newsletter Email</label>
                                         <input type="email" name="email" id="newsletter-email" class="form-control form-control-lg" placeholder="Entrer votre Email et appuyer sur la touche Entrer" autocomplete="off">
+                                        <input type="hidden" name="recaptcha-newsletter" id="recaptchaNewsletter">
                                     </div>
                                 </form>
                             </div>
@@ -438,6 +439,8 @@
             <!-- match height -->
             <script src="/assets/js/jquery.matchHeight.js"></script>
 
+            <script src="https://www.google.com/recaptcha/api.js?render=6Lcco4QpAAAAAOePvPxh5DwGcbeYoCjQY-tfWIxm"></script>
+
             <script>
                 function updateDateTime() {
                     var now = new Date();
@@ -447,8 +450,7 @@
 
                 // Call updateDateTime function every second to update the time
                 setInterval(updateDateTime, 1000);
-            </script>             
-
+            </script>    
 
             <script>
                 $(document).ready(function(){
@@ -462,6 +464,40 @@
                 });
 
             </script>
+
+            <script>
+
+                const key="6Lcco4QpAAAAAOePvPxh5DwGcbeYoCjQY-tfWIxm";
+
+                $(document).ready(function(){
+
+                    $('#newsletter-form').on("submit", function(e) {
+                        e.preventDefault(); // cancel the actual submit
+
+                
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute(key, {action: 'newletter'}).then(function(token) {
+                                document.getElementById("recaptchaNewsletter").value = token;
+                                e.currentTarget.submit();
+                            });
+                        });
+                    
+                    });
+                    $('#contact-form').on("submit", function(e) {
+                        e.preventDefault(); 
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute(key, {action: 'contact'}).then(function(token) {
+                                document.getElementById("recaptchaContact").value = token;
+                                e.currentTarget.submit();
+                            });
+                        });
+                    
+                    });
+
+                });
+
+            </script>
+
         {% block javascripts %}{% endblock %}
     </div>
 </body>

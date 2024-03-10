@@ -220,7 +220,7 @@ class FrontEndController extends AbstractController
         if($request->getMethod()=="POST") {
             $data=$request->request->all();
 
-            if (isset($data['recaptcha-response'])) {
+            if (isset($data['recaptcha-contact'])) {
                 $response= $this->client->request(
                     'POST',
                     self::GR_URL,
@@ -230,7 +230,7 @@ class FrontEndController extends AbstractController
                             'Accept' => 'application/json'
                         ],
                         'body'=>[
-                            'response'=>$data['recaptcha-response'],
+                            'response'=>$data['recaptcha-contact'],
                             'secret'=>self::GR_SECRET,
    
                         ]
