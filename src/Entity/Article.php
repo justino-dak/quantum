@@ -62,6 +62,9 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $autre = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
+    private ?\DateTimeInterface $dateDePublication = null;
+
     public function __construct()
     {
         $this->medias = new ArrayCollection();
@@ -257,6 +260,18 @@ class Article
     public function setAutre(?string $autre): static
     {
         $this->autre = $autre;
+
+        return $this;
+    }
+
+    public function getDateDePublication(): ?\DateTimeInterface
+    {
+        return $this->dateDePublication;
+    }
+
+    public function setDateDePublication(\DateTimeInterface $dateDePublication): static
+    {
+        $this->dateDePublication = $dateDePublication;
 
         return $this;
     }

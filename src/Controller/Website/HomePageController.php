@@ -56,6 +56,7 @@ class HomePageController extends DefaultController
         $projets=$this->articleRepository->findByTag('projet',6);
         $specialites=$this->articleRepository->findByTag('specialite');
         $categories=$this->categoryRepository->findAll();
+        $carrousels=$this->articleRepository->findByTag('carrousel');
 
 
 
@@ -68,7 +69,8 @@ class HomePageController extends DefaultController
             'clients'=>$clients,
             'projets'=>$projets,
             'specialites'=>$specialites,
-            'categories'=> $categories
+            'categories'=> $categories,
+            'carrousels'=>$carrousels
         ];
     }
 

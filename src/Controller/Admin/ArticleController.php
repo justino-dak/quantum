@@ -231,6 +231,10 @@ class ArticleController extends AbstractRestController implements ClassResourceI
         if ($contenu = $data['contenu'] ?? null) {
             $entity->setContenu($contenu);
         }
+        if ($dateDePublication = $data['dateDePublication'] ?? null) {
+            $entity->setDateDePublication(new Datetime($dateDePublication));
+        }
+
 
         if ($thumbnailId = ($data['thumbnail']['id'] ?? null)) {
             $thumbnail = $this->mediaRepository->findMediaById($thumbnailId);
@@ -341,6 +345,7 @@ class ArticleController extends AbstractRestController implements ClassResourceI
             'titre'=>$entity->getTitre(),
             'description'=> $entity->getDescription(),
             'contenu'=> $entity->getContenu(),
+            'dateDePublication'=>$entity->getDateDePublication(),
             'thumbnail'=>($apiThumbnail)? [
                 'id' => $apiThumbnail->getId(),
                 'url'=>$apiThumbnail->getUrl(),

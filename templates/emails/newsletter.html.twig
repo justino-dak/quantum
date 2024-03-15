@@ -4,32 +4,63 @@
     source('@styles/style.css'),
    ) %} 
 
- {# <html lang="fr">
+ <html lang="fr">
 
-    <body>  #}
+    <body> 
         <div class="body-inner">
-            <section id="main-container" class="main-container">
+            <section id="news" class="news">
                 <div class="container">
 
                     <div >
-                        <p> 
+                        <p class="mb-5"> 
                             {{newsletter.content | raw}}
-                        </p>
-                        
+                        </p>                        
                     </div> 
 
                     {% if article is defined and article is not null %}
+                        {% if article.tags and article.tags | length > 0 %}
+                            {% set continue = true %}
+                            {% set link = homeLink ~ path('web_article',{'slug':article.slug}) %}
+
+                            {% for tag in article.tags if continue %}
+                                {% if tag.name == 'article'  %}
+                                    {% set link = homeLink ~ path('web_article',{'slug':article.slug}) %}
+                                    {% set continue = false %}
+                                {% endif %}
+                                {% if tag.name == 'specialite'  %}
+                                    {% set link = homeLink ~ path('web_specialite',{'slug':article.slug}) %}
+                                    {% set continue = false %}
+                                {% endif %}
+                                {% if tag.name == 'projet'  %}
+                                    {% set link = homeLink ~ path('web_service_rendu',{'slug':article.slug}) %}
+                                    {% set continue = false %}
+                                {% endif %}
+                                {% if tag.name == 'bon_a_savoir'  %}
+                                    {% set link = homeLink ~ path('web_bon_a_savoir') %}
+                                    {% set continue = false %}
+                                {% endif %}
+                                {% if tag.name == 'faq'  %}
+                                    {% set link = homeLink ~ path('web_bon_a_savoir') %}
+                                    {% set continue = false %}
+                                {% endif %}                                
+                            {% endfor %}
+
+                        {% endif %}
 
                         <div class="row">
 
-                            <div class="col-lg-12 mb-5 mb-lg-0">
-                                <div class="post">
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                {# <div class="post"> #}
+                                <div class="latest-post">
                                     {% if article.thumbnail %}
                                         {% set image = sulu_resolve_media(article.thumbnail,null) %}
                                         {% if image %}
                                             <div class="post-media post-image">
-                                                <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}">
-                                                    <img loading="lazy" src="{{ homeLink}}{{image.formats['750x450']}}" class="img-fluid" alt="">
+                                                <a href="{{ link}}">
+                                                {# <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}"> #}
+                                                    <img  height="200" src="{{homeLink ~ (asset(image.formats['360x250']))}}" class="img-fluid" alt="img">
+                                                    {# <img loading="lazy" src="{{email.image(absolute_url(image.formats['750x450']))}}" class="img-fluid" alt=""> #}
+
                                                 </a>
                                             </div>
                                         {% endif %}
@@ -37,7 +68,7 @@
 
                                     <div class="post-body">
                                         <div class="entry-header">
-                                        <div class="post-meta">
+                                        {# <div class="post-meta">
                                             <span class="post-author">
                                             <i class="far fa-user"></i><a href="#"> {{article.createdBy.contact.lastName | upper }} {{article.createdBy.contact.firstName | title }}</a>
                                             </span>
@@ -45,18 +76,19 @@
                                             <i class="far fa-folder-open"></i><a href="#"> Blog</a>
                                             </span>
                                             <span class="post-meta-date"><i class="far fa-calendar"></i>{{article.createdAt | format_datetime('medium','none',locale='fr')}}</span>
-                                        </div>
+                                        </div> #}
                                         <h2 class="entry-title">
-                                            <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}">{{article.titre}}</a>
+                                            <a href="{{ link}}">{{article.titre}}</a>
+                                            {# <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}">{{article.titre}}</a> #}
                                         </h2>
                                         </div><!-- header end -->
 
                                         <div class="entry-content">
-                                            {{article.contenu | striptags | truncate(300,true) | raw}}
+                                            {{article.contenu | truncate(300,true) | raw}}
                                         </div>
 
                                         <div class="post-footer">
-                                            <a href="{{ homeLink}}{{path('web_article',{'slug':article.slug})}}" class="btn btn-primary">Continuer à lire</a>
+                                            <a href="{{ link}}" class="btn btn-primary">Continuer à lire</a>
                                         </div>
 
                                     </div><!-- post-body end -->
@@ -70,16 +102,18 @@
             </section>
 
             {# <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur <a href="{{app.request.getSchemeAndHttpHost() }}">{{app.request.getSchemeAndHttpHost() }}</a> </p>     #}
-            <p>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur 
-                <a href="{{ homeLink}}" target="_blank"> {{ homeLink}}</a> 
-            </p>    
-            <p> Pour se désabonner, cliquer sur 
-                <a href="{{ homeLink}}{{path('web_newsletter_unsubscribe',{id:user.id, newsletter:newsletter.id, token:user.validationToken})}}" >
-                se désinscrire
-                </a> et vous ne recevrez plus ce type de message.
+            <p style="font-size:12px;">
+                <span>Ceci est un message automatique envoyé à tous les abonnés à la newsletter sur 
+                    <a href="{{ homeLink}}" target="_blank"> {{ homeLink}}</a> .
+                </span>    
+                <span> Pour se désabonner, cliquer sur 
+                    <a href="{{ homeLink}}{{path('web_newsletter_unsubscribe',{id:user.id, newsletter:newsletter.id, token:user.validationToken})}}" >
+                    se désinscrire
+                    </a> et vous ne recevrez plus ce type de message.
+                </span>            
             </p>
         </div>
-    {# </body>
-</html>  #}
+    </body>
+</html> 
 {% endapply %} 
 
