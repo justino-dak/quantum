@@ -120,30 +120,34 @@ class DoctrineEventSubscriber implements EventSubscriber
                         }
                     }
 
-            }
+                }
                 break;
 
             case 'prePersist':
                 break;
 
             case 'postPersist':
-
-                /// Article
                 if ($entity instanceof Article) {
+                    $tags=$entity->getTags();
 
-                        // $newsletter=$this->newslettersRepository->findOneByCategories ('Newsletter');
-                        $newsletter=($this->em->getRepository(Newsletter::class))->findOneBy(['name'=>'Newsletter']);
-                        $users=$newsletter->getCategorie()->getUsers();
-    
-                        // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
-                        if (count($users)> 0) {
-                            foreach ($users as $user) {
-                                if ($user->getIsValid()) {
-                                    // $this->sendNewsletter->send($user,$newsletter,$entity);
-                                    $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),$entity->getId(),(Request::createFromGlobals())->getSchemeAndHttpHost()));
+                    foreach ($tags as $tag) {
+                        if (in_array($tag,self::TAGS)) {
+                            // $newsletter=$this->newslettersRepository->findOneByCategories ('Newsletter');
+                            $newsletter=($this->em->getRepository(Newsletter::class))->findOneBy(['name'=>'Newsletter']);
+                            $users=$newsletter->getCategorie()->getUsers();
+
+                            // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
+                            if (count($users)> 0) {
+                                foreach ($users as $user) {
+                                    if ($user->getIsValid()) {
+                                        // $this->sendNewsletter->send($user,$newsletter,$entity);
+                                        $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),$entity->getId(),(Request::createFromGlobals())->getSchemeAndHttpHost()));
+                                    }
                                 }
                             }
+                            break;
                         }
+                    }
 
                 }
                 
