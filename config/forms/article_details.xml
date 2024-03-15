@@ -54,7 +54,7 @@
                         <title>Étiquete </title>
                     </meta>
                 </property>
-                <property name="categories" type="category_selection" colspan="6">
+                <property name="categories"  type="category_selection" colspan="6">
                     <meta>
                         <title>Catégories </title>
                     </meta>
@@ -64,6 +64,12 @@
                         <title>Contenu </title>
                     </meta>
                 </property>
+                <property name="dateDePublication" type="datetime" mandatory='true' colspan="6">
+                    <meta>
+                        <title>Date de publication </title>
+                    </meta>
+                </property>
+              
                 <property name="debut" type="datetime" colspan="6">
                     <meta>
                         <title>Début </title>

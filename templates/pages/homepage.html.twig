@@ -5,7 +5,7 @@
 
     <div class="banner-carousel banner-carousel-1 mb-0">
 
-      {% if presentation is not null %}
+      {# {% if presentation is not null %}
           {% set bkgdImage = sulu_resolve_media(presentation.thumbnail,app.request.locale) %}
           {% if bkgdImage is not null %}
             <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
@@ -27,12 +27,42 @@
 
           {% endif %}
 
+      {% endif %} #}
+  
+      {% if carrousels is defined and carrousels | length > 0 %}
+        {% for slider in carrousels  %}
+
+          {% set bkgdImage = sulu_resolve_media(slider.thumbnail,app.request.locale) %}
+
+          {% if bkgdImage is not null %}
+            <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
+              <div class="slider-content">
+                  <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                          <h3 class="slide-sub-title" data-animation-in="slideInRight">{{slider.titre}}</h3>                        
+                          <h2 class="slide-title" data-animation-in="slideInLeft">{{slider.description | striptags| truncate(100,true) | raw }}</h2>
+                          <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                            <a href="{{path('web_article',{'slug': slider.slug})}}" class="slider btn btn-primary border">En Savoir Plus</a>
+                            <a href="/contact" class="slider btn btn-primary ">Contactez Nous</a>
+                      </p>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+          {% endif %}
+
+          
+        {% endfor %}
       {% endif %}
 
       {% if content.sliderBlock is defined and content.sliderBlock | length > 0 %}
         {% for slider in content.sliderBlock  %}
 
           {% set bkgdImage = sulu_resolve_media(slider.thumbnail,app.request.locale) %}
+
           {% if bkgdImage is not null %}
             <div class="banner-carousel-item" style="background-image:url({{bkgdImage.formats['1600x800']}})">
               <div class="slider-content">
@@ -286,6 +316,7 @@
                       <div class="ts-service-box-info">
                         <h3 class="service-box-title"><a href="{{path('web_specialite',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
                         <p>{{specialite.contenu | striptags | truncate(100,true) | raw}}</p>
+                        <a class="learn-more d-inline-block" href="{{path('web_specialite',{'slug': specialite.slug})}}" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
                       </div>
                   </div><!-- Service 1 end -->                
 
@@ -312,6 +343,7 @@
                       <div class="ts-service-box-info">
                         <h3 class="service-box-title"><a href="{{path('web_specialite',{'slug': specialite.slug})}}">{{specialite.titre | title}}</a></h3>
                         <p>{{specialite.contenu | striptags | truncate(100,true) | raw}}</p>
+                        <a class="learn-more d-inline-block" href="{{path('web_specialite',{'slug': specialite.slug})}}" aria-label="service-details"><i class="fa fa-caret-right"></i> En  savoir plus</a>
                       </div>
                   </div><!-- Service 1 end -->                
 
@@ -418,7 +450,7 @@
                       <div class="item">
                         <div class="quote-item">
                             <span class="quote-text">
-                              {{temoignage.contenu}}
+                              {{temoignage.contenu | raw}}
                             </span>
 
                             <div class="quote-item-footer">
@@ -427,8 +459,8 @@
                                 <img loading="lazy" class="testimonial-thumb" src="{{image.formats['100x100']}}" alt="testimonial">
                               {% endif %}
                               <div class="quote-item-info">
-                                  <h3 class="quote-author">{{temoignage.titre}}</h3>
-                                  <span class="quote-subtext">{{temoignage.description}}</span>
+                                  <h3 class="quote-author">{{temoignage.titre | raw}}</h3>
+                                  <span class="quote-subtext">{{temoignage.description | raw}}</span>
                               </div>
                             </div>
                         </div><!-- Quote item end -->

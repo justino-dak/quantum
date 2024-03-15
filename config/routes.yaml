@@ -7,5 +7,18 @@ web_newsletter_unsubscribe:
 web_article:
   controller: App\Controller\Website\ArtticleController::detail
   path: /blog/article/{slug}
+
+web_specialite:
+  controller: App\Controller\Website\FrontEndController::specialite
+  path: /specialites/{slug}
+
+web_services_rendu:
+  controller: App\Controller\Website\FrontEndController::serviceRenduDetail
+  path: /services_rendus/{slug}
+
+web_bon_a_savoir:
+  controller: App\Controller\Website\FrontEndController::bonAsavoir
+  path: /bon_a_savoir
+  
 # web_homepage:
 #   path: /

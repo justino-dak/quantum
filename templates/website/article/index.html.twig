@@ -129,7 +129,9 @@
                                         <span class="post-cat">
                                         <i class="far fa-folder-open"></i><a href="#"> Blog</a>
                                         </span>
-                                        <span class="post-meta-date"><i class="far fa-calendar"></i>{{article.createdAt | format_datetime('medium','none',locale='fr')}}</span>
+                                        {% if article.dateDePublication  is not null %}
+                                            <span class="post-meta-date"><i class="far fa-calendar"></i>{{article.dateDePublication | format_datetime('medium','none',locale='fr')}}  </span> 
+                                        {% endif %}
                                         <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
                                             class="comments-link">Comments</a></span> -->
                                     </div>

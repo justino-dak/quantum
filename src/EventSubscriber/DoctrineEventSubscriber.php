@@ -13,12 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use App\Repository\Newsletter\NewsletterRepository;
+use PhpParser\Node\Stmt\Break_;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DoctrineEventSubscriber implements EventSubscriber
 {
+    const TAGS=['article','specialite','projet','bon_a_savoir','faq'];
     /**
      * @var UrlGeneratorInterface
      */
@@ -96,6 +98,29 @@ class DoctrineEventSubscriber implements EventSubscriber
        
         switch ($action) {
             case 'postUpdate':
+                if ($entity instanceof Article) {
+                    $tags=$entity->getTags();
+
+                    foreach ($tags as $tag) {
+                        if (in_array($tag,self::TAGS)) {
+                            // $newsletter=$this->newslettersRepository->findOneByCategories ('Newsletter');
+                            $newsletter=($this->em->getRepository(Newsletter::class))->findOneBy(['name'=>'Newsletter']);
+                            $users=$newsletter->getCategorie()->getUsers();
+
+                            // ici on envois un email de newsletter destiné aux abnnés dans la queue de Messenger 
+                            if (count($users)> 0) {
+                                foreach ($users as $user) {
+                                    if ($user->getIsValid()) {
+                                        // $this->sendNewsletter->send($user,$newsletter,$entity);
+                                        $this->messageBus->dispatch( new SendNewsletterMessage($user->getId(),$newsletter->getId(),$entity->getId(),(Request::createFromGlobals())->getSchemeAndHttpHost()));
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+            }
                 break;
 
             case 'prePersist':
